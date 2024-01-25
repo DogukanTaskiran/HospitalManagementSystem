@@ -8,7 +8,7 @@ namespace Entities.Models
 {
     public class Department : BaseEntity
     {
-        //public int Id { get; set; }
+        public int DepartmentID { get; set; }
         public string DepartmentName { get; set; }
         public string PhoneNumber { get; set; }
 
@@ -16,7 +16,7 @@ namespace Entities.Models
 
         //relations below
 
-        public virtual List<Doctor> Doctors { get; set; } // One department has many doctors
+        public virtual List<Doctor> Doctor { get; set; } // One department has many doctors
         public virtual Hospital Hospital { get; set; }
 
     }

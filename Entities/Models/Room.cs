@@ -8,7 +8,7 @@ namespace Entities.Models
 {
     public class Room : BaseEntity
     {
-        //public int Id { get; set; }
+        public int RoomID { get; set; }
         public DateTime AdmissionDate { get; set; }
         
         //relations below

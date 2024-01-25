@@ -8,7 +8,7 @@ namespace Entities.Models
 {
     public class Hospital : BaseEntity
     {
-        //public int Id { get; set; }
+        public int HospitalID { get; set; }
         public string HospitalName { get; set; }
         public string HospitalAddress { get; set; }
         public string PhoneNumber  { get; set; }

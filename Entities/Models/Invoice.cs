@@ -8,15 +8,16 @@ namespace Entities.Models
 {
     public class Invoice : BaseEntity
     {
-        //public int Id { get; set; }
+        public int InvoiceID { get; set; }
         public string ServiceDescription { get; set; }
         public decimal InvoicePrice { get; set; }
 
-        public int PatientID { get; set; }
+        
 
         //relations below
 
         public virtual Patient Patient { get; set; }
+        public int PatientID { get; set; }
 
         
     }

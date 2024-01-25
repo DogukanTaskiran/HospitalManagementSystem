@@ -8,7 +8,7 @@ namespace Entities.Models
 {
     public class Prescription : BaseEntity
     {
-        //public int Id { get; set; }
+        public int PrescriptionID { get; set; }
         public DateTime PrescriptionDate { get; set; }
 
         public decimal PrescriptionPrice { get; set; }
