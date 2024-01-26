@@ -33,18 +33,24 @@ namespace Entities.Models
     {
         
         // Configure ApplicationUser and its relationships
+        modelBuilder.Entity<ApplicationUser>().ToTable("User");
+        modelBuilder.Entity<Admin>().ToTable("Admin");
+        modelBuilder.Entity<Doctor>().ToTable("Doctor");
+        modelBuilder.Entity<Patient>().ToTable("Patient");
 
+        
         modelBuilder.Entity<ApplicationUser>()// one to one appuser - admin
             .HasOne(u => u.Admin)
             .WithOne(a => a.ApplicationUser)
             .HasForeignKey<Admin>(a => a.ApplicationUserID)
             .OnDelete(DeleteBehavior.Restrict);
-
+        
         modelBuilder.Entity<ApplicationUser>() // one to one appuser -patient
             .HasOne(u=>u.Patient)
             .WithOne(b =>b.ApplicationUser)
             .HasForeignKey<Patient>(a=>a.ApplicationUserID)
             .OnDelete(DeleteBehavior.Restrict);
+        
         
         modelBuilder.Entity<ApplicationUser>()// one to one appuser - doctor
             .HasOne(u=>u.Doctor)
@@ -82,11 +88,11 @@ namespace Entities.Models
             .WithOne(b=>b.Patient)
             .HasForeignKey(c=>c.PatientID)
             .OnDelete(DeleteBehavior.Restrict);
-        modelBuilder.Entity<Patient>()
-            .HasOne(p => p.Doctor)
-            .WithMany(d => d.Patients)
-            .HasForeignKey(p => p.DoctorID)
-            .OnDelete(DeleteBehavior.NoAction);
+        // modelBuilder.Entity<Patient>()
+        //     .HasOne(p => p.Doctor)
+        //     .WithMany(d => d.Patients)
+        //     .HasForeignKey(p => p.DoctorID)
+        //     .OnDelete(DeleteBehavior.NoAction);
         
         
 
