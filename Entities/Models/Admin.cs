@@ -8,18 +8,11 @@ using System.Threading.Tasks;
 namespace Entities.Models
 {
     
-    public class Admin : ApplicationUser
+    public class Admin : ApplicationUser // base-class 
     {
 
         public int AdminID {get;set;}
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string PhoneNumber { get; set; } 
-        public string Address { get; set; }
-        public string Gender { get; set; }
-
-        public string BloodType {get; set;}
-        
+  
         //one to one relationship with user
 
         public int ApplicationUserID {get; set;}

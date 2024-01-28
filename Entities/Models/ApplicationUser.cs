@@ -1,7 +1,9 @@
 ﻿using HMS.Entities.Enums;
 using HMS.Entities.Interfaces;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,27 +23,21 @@ namespace Entities.Models
         public string PhoneNumber { get; set; } 
         public string Address { get; set; }
         public string Gender { get; set; }
-
         public string BloodType {get; set;}
-
         public int ApplicationUserID {get;set;}
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public DateTime DeletedDate { get; set; }
         public DataStatus Status { get; set; }
 
-        
-
-       
-
-        
         //relations below
 
         public Admin Admin {get;set;}
         public Patient Patient{get;set;}
+        public Doctor Doctor { get; set; }
+        public Nurse Nurse { get;set;}
+        public Receptionist Receptionist { get; set; }
 
-        public Doctor Doctor{get;set;}
-
-
+    
     }
 }

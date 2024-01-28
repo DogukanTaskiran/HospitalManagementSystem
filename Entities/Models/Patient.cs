@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,25 +11,27 @@ namespace Entities.Models
     public class Patient   : ApplicationUser
     {
         
-        
         public int PatientID {get;set;}
-        //relaations ebl below
+        public int DocID { get;set;}
 
-        public int DoctorID { get; set; } // Forgeign key
-        public Doctor Doctor { get; set; } // patient has one doctor
+        public int ApplicationUserID { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
+        // References to related classes
 
+        public Doctor Doctor { get;set;}
 
-        public ApplicationUser ApplicationUser{get;set;}
-        public int ApplicationUserID{get;set;}
+        public Appointment Appointment { get; set; }
+        public List<Invoice> Invoices { get; set; }
+        public List<Prescription> Prescriptions { get; set; }
+        public List<Diagnosis> Diagnoses { get; set; }
+        public List<Report> Reports { get; set; }
+        public List<RadiologicalReport> RadiologicalReports { get; set; }
 
-        
+        public Patient()
+        {
 
-        public Room Room { get; set; } //room ile one to one
-
-        public virtual List<Prescription> Prescriptions { get; set; } //one patient has many prescriptions
-        public virtual List<Visit> Visits { get; set; }//one patient has many visits
-        public virtual List<Invoice> Invoices { get; set; }//one patient has many invoices
+        }
 
     }
 }

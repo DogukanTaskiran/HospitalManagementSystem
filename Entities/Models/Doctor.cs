@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,30 +9,32 @@ namespace Entities.Models
 {
     
     public class Doctor : ApplicationUser
-    {
-        
-        public int DoctorID {get;set;}
-        
-        
-        
+   {
+
+        public int DocID { get; set; }
+        public int PatientID { get; set; }
         public int DepartmentID { get; set; }
-        public virtual Department Department { get; set; } //
+        public int RoomNumber { get; set; }
+
+        public Department Departments { get; set; }  // reference to Department
+        public Appointment Appointments { get; set; }
+
+        public List<Prescription> Prescriptions{ get; set; } 
+        public List<Diagnosis> Diagnoses{ get; set; }
+        public List<Patient> Patients{ get; set; }
+
+        public int ApplicationUserID { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
 
-        public int ApplicationUserID{get;set;}
-        public ApplicationUser ApplicationUser {get; set;}
-
-
-        //relations below
-        
-        
-
-        public virtual  List<Patient> Patients { get; set; }// One doctor has many patients
-        public virtual  List<Visit> Visits { get; set;}// One doctor has many visits
-
-         
-
-
-
+        // constructor with parameters
+        public Doctor(int departmentID, int roomNumber)
+        {
+            DepartmentID = departmentID;
+            RoomNumber = roomNumber;
+        }
+        // default constructor
+        public Doctor() { 
+        } 
     }
 }
