@@ -31,11 +31,9 @@ namespace Hospital.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicationUserID"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BloodType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -44,8 +42,11 @@ namespace Hospital.Migrations
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Gender")
+                    b.Property<string>("Email")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -55,8 +56,11 @@ namespace Hospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
@@ -87,7 +91,7 @@ namespace Hospital.Migrations
                     b.Property<int>("AppointmentTime")
                         .HasColumnType("int");
 
-                    b.Property<int>("DocID")
+                    b.Property<int>("DoctorID")
                         .HasColumnType("int");
 
                     b.Property<int>("PatientID")
@@ -97,6 +101,10 @@ namespace Hospital.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("AppointmentID");
+
+                    b.HasIndex("DoctorID");
+
+                    b.HasIndex("PatientID");
 
                     b.ToTable("appointments");
                 });
@@ -147,7 +155,7 @@ namespace Hospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DocID")
+                    b.Property<int>("DoctorID")
                         .HasColumnType("int");
 
                     b.Property<int>("PatientID")
@@ -155,7 +163,7 @@ namespace Hospital.Migrations
 
                     b.HasKey("DiagnosisID");
 
-                    b.HasIndex("DocID");
+                    b.HasIndex("DoctorID");
 
                     b.HasIndex("PatientID");
 
@@ -212,6 +220,9 @@ namespace Hospital.Migrations
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("InvoiceDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("InvoicePrice")
                         .HasColumnType("int");
 
@@ -249,7 +260,7 @@ namespace Hospital.Migrations
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DocID")
+                    b.Property<int>("DoctorID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -266,7 +277,7 @@ namespace Hospital.Migrations
 
                     b.HasKey("PrescriptionID");
 
-                    b.HasIndex("DocID");
+                    b.HasIndex("DoctorID");
 
                     b.HasIndex("PatientID");
 
@@ -341,20 +352,13 @@ namespace Hospital.Migrations
                     b.Property<int>("DepartmentID")
                         .HasColumnType("int");
 
-                    b.Property<int>("DocID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PatientID")
+                    b.Property<int>("DoctorID")
                         .HasColumnType("int");
 
                     b.Property<int>("RoomNumber")
                         .HasColumnType("int");
 
                     b.HasIndex("DepartmentID");
-
-                    b.HasIndex("DocID")
-                        .IsUnique()
-                        .HasFilter("[DocID] IS NOT NULL");
 
                     b.ToTable("Doctor", (string)null);
                 });
@@ -376,20 +380,8 @@ namespace Hospital.Migrations
                 {
                     b.HasBaseType("Entities.Models.ApplicationUser");
 
-                    b.Property<int>("DocID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DoctorApplicationUserID")
-                        .HasColumnType("int");
-
                     b.Property<int>("PatientID")
                         .HasColumnType("int");
-
-                    b.HasIndex("DoctorApplicationUserID");
-
-                    b.HasIndex("PatientID")
-                        .IsUnique()
-                        .HasFilter("[PatientID] IS NOT NULL");
 
                     b.ToTable("Patient", (string)null);
                 });
@@ -402,6 +394,25 @@ namespace Hospital.Migrations
                         .HasColumnType("int");
 
                     b.ToTable("Receptionist", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.Models.Appointment", b =>
+                {
+                    b.HasOne("Entities.Models.Doctor", "Doctor")
+                        .WithMany("Appointments")
+                        .HasForeignKey("DoctorID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Patient", "Patient")
+                        .WithMany("Appointments")
+                        .HasForeignKey("PatientID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Entities.Models.Department", b =>
@@ -433,7 +444,7 @@ namespace Hospital.Migrations
 
                     b.HasOne("Entities.Models.Doctor", "Doctor")
                         .WithMany("Diagnoses")
-                        .HasForeignKey("DocID")
+                        .HasForeignKey("DoctorID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -465,7 +476,7 @@ namespace Hospital.Migrations
                 {
                     b.HasOne("Entities.Models.Doctor", "Doctor")
                         .WithMany("Prescriptions")
-                        .HasForeignKey("DocID")
+                        .HasForeignKey("DoctorID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -527,15 +538,7 @@ namespace Hospital.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Appointment", "Appointments")
-                        .WithOne("Doctor")
-                        .HasForeignKey("Entities.Models.Doctor", "DocID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("ApplicationUser");
-
-                    b.Navigation("Appointments");
 
                     b.Navigation("Departments");
                 });
@@ -559,19 +562,7 @@ namespace Hospital.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Doctor", null)
-                        .WithMany("Patients")
-                        .HasForeignKey("DoctorApplicationUserID");
-
-                    b.HasOne("Entities.Models.Appointment", "Appointment")
-                        .WithOne("Patient")
-                        .HasForeignKey("Entities.Models.Patient", "PatientID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("ApplicationUser");
-
-                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("Entities.Models.Receptionist", b =>
@@ -587,29 +578,15 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Entities.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Admin")
-                        .IsRequired();
+                    b.Navigation("Admin");
 
-                    b.Navigation("Doctor")
-                        .IsRequired();
+                    b.Navigation("Doctor");
 
-                    b.Navigation("Nurse")
-                        .IsRequired();
+                    b.Navigation("Nurse");
 
-                    b.Navigation("Patient")
-                        .IsRequired();
+                    b.Navigation("Patient");
 
-                    b.Navigation("Receptionist")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Entities.Models.Appointment", b =>
-                {
-                    b.Navigation("Doctor")
-                        .IsRequired();
-
-                    b.Navigation("Patient")
-                        .IsRequired();
+                    b.Navigation("Receptionist");
                 });
 
             modelBuilder.Entity("Entities.Models.Department", b =>
@@ -630,9 +607,9 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Entities.Models.Doctor", b =>
                 {
-                    b.Navigation("Diagnoses");
+                    b.Navigation("Appointments");
 
-                    b.Navigation("Patients");
+                    b.Navigation("Diagnoses");
 
                     b.Navigation("Prescriptions");
                 });
@@ -645,6 +622,8 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Entities.Models.Patient", b =>
                 {
+                    b.Navigation("Appointments");
+
                     b.Navigation("Diagnoses");
 
                     b.Navigation("Invoices");

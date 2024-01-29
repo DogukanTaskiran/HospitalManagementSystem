@@ -1,5 +1,5 @@
-﻿using HMS.Entities.Enums;
-using HMS.Entities.Interfaces;
+﻿using Entities.Enums;
+using Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

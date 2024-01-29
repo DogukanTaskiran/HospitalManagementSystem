@@ -19,11 +19,7 @@ namespace Entities.Models
        public Nurse Nurse { get; set; }
        
        // constructor with parameters
-       public Department(string departmentName, int hospitalID)
-       {
-            DepartmentName = departmentName;
-            HospitalID = hospitalID;
-       }
+
        // default constructor
        public Department() { 
        

@@ -19,12 +19,8 @@ namespace Entities.Models
         public virtual List<Department> Departments { get; set; } // one hospital has many departments
 
         // constructor with parameters
-        public Hospital(string hospitalName, int phoneNum, string address)
-        {
-            HospitalName = hospitalName;
-            PhoneNum = phoneNum;
-            Address = address;
-        }
+
+
         // default constructor
         public Hospital() { 
         }   

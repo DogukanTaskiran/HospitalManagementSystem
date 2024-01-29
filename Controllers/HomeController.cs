@@ -1,8 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital.Controllers;
+
 
 public class HomeController : Controller
 {
@@ -13,6 +15,7 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    // [Authorize]
     public IActionResult Index()
     {
         return View();

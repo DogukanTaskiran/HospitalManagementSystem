@@ -17,9 +17,6 @@ namespace Entities.Models
 
         public Department Department { get; set; }  // Reference to Department class
 
-        public Nurse(int departmentID)
-        {
-            DepartmentID = departmentID;
-        }
+       
     }
 }

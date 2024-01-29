@@ -14,17 +14,15 @@ namespace Entities.Models
         public string ServiceDescription { get; set; }
         public int InvoicePrice { get; set; }
 
+        public DateTime InvoiceDate {get;set;}
+
         public  Patient Patient { get; set; } // reference to class patient
 
         // constructor with parameters
-        public Invoice(int patientID, string serviceDescription, int invoicePrice)
-        {
-            PatientID = patientID;
-            ServiceDescription = serviceDescription;
-            InvoicePrice = invoicePrice;
-        }
+
         // default constructor
         public Invoice() { 
+            InvoiceDate =DateTime.Now;
         }
     }
 }

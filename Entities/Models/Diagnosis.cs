@@ -10,7 +10,7 @@ namespace Entities.Models
     public class Diagnosis
     {
         public int DiagnosisID { get; set; }
-        public int DocID { get; set; }
+        public int DoctorID { get; set; }
         public int PatientID { get; set; }
         public DateTime DiagnosisDate { get; set; }
         public string DiagnosisDescription { get; set; }
@@ -19,17 +19,12 @@ namespace Entities.Models
         public Report Reports{ get; set; }    // reference to class patient
 
         // constructor with parameters
-        public Diagnosis(int docID, int patientID, DateTime diagnosisDate, string diagnosisDescription)
-        {
-            DocID = docID;
-            PatientID = patientID;
-            DiagnosisDate = diagnosisDate;
-            DiagnosisDescription = diagnosisDescription;
-        }
-        // default constructor
-        public Diagnosis()
-        {
 
+        // default constructor
+
+        public Diagnosis(){
+            DiagnosisDate = DateTime.Now;
         }
+
     }
 }

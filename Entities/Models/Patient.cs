@@ -12,26 +12,23 @@ namespace Entities.Models
     {
         
         public int PatientID {get;set;}
-        public int DocID { get;set;}
-
+        
         public int ApplicationUserID { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
         // References to related classes
 
-        public Doctor Doctor { get;set;}
+        // public Doctor Doctor { get;set;}
+        // public int DoctorID { get;set;}
 
-        public Appointment Appointment { get; set; }
+        public List<Appointment> Appointments { get; set; }
         public List<Invoice> Invoices { get; set; }
         public List<Prescription> Prescriptions { get; set; }
         public List<Diagnosis> Diagnoses { get; set; }
         public List<Report> Reports { get; set; }
         public List<RadiologicalReport> RadiologicalReports { get; set; }
 
-        public Patient()
-        {
-
-        }
+        
 
     }
 }

@@ -46,12 +46,12 @@ namespace Entities.Models
         modelBuilder.Entity<Receptionist>().ToTable("Receptionist");
 
 
-            // ONE DOCTOR MANY PATIENT
+            // // ONE DOCTOR MANY PATIENT --silmeyi deniyorum
 
-            modelBuilder.Entity<Doctor>() 
-             .HasMany(a => a.Patients)
-             .WithOne(e => e.Doctor)
-             .HasForeignKey(a => a.DocID);
+            // modelBuilder.Entity<Doctor>() 
+            //  .HasMany(a => a.Patients)
+            //  .WithOne(e => e.Doctor)
+            //  .HasForeignKey(a => a.DoctorID);
 
             // one to one appuser - admin
 
@@ -125,26 +125,23 @@ namespace Entities.Models
             .HasForeignKey(inv => inv.PatientID)
             .OnDelete(DeleteBehavior.Restrict);
 
-            // Ref: Appointment.docID - Doctor.docID                    // ONE APPOINTMENT ONE DOCTOR
+            // Ref: Appointment.docID - Doctor.docID                    // ONE APPOINTMENT ONE DOCTOR // many ile değiştirildi
 
-            modelBuilder.Entity<Appointment>()
-           .HasOne(a => a.Doctor)
-           .WithOne(doc => doc.Appointments)
-           .HasForeignKey<Doctor>(a => a.DocID)
+            modelBuilder.Entity<Doctor>()
+           .HasMany(doc => doc.Appointments)
+           .WithOne(app => app.Doctor)
+           .HasForeignKey(a => a.DoctorID)
            .OnDelete(DeleteBehavior.Restrict);
 
-            // Ref: Appointment.patientID - Patient.patientID           // ONE APPOINTMENT ONE PATIENT
+            // Ref: Appointment.patientID - Patient.patientID           // ONE APPOINTMENT ONE PATIENT // many ile değiştirildi
 
-            modelBuilder.Entity<Appointment>()
-            .HasOne(p => p.Patient)
-            .WithOne(x => x.Appointment)
-            .HasForeignKey<Patient>(x => x.PatientID)
+            modelBuilder.Entity<Patient>() // değiştiriyom
+            .HasMany(p => p.Appointments)
+            .WithOne(x => x.Patient)
+            .HasForeignKey(x => x.PatientID)
             .OnDelete(DeleteBehavior.Restrict);
 
-            /* modelBuilder.Entity<Student>()
-              .HasOne<StudentAddress>(s => s.Address)
-              .WithOne(ad => ad.Student)
-              .HasForeignKey<StudentAddress>(ad => ad.AddressOfStudentId); */
+           
 
             // Ref: Department.departmentID - Nurse.departmentID        // ONE NURSE ONE DEPARTMENT
 
@@ -159,7 +156,7 @@ namespace Entities.Models
             modelBuilder.Entity<Doctor>()
             .HasMany(doc => doc.Prescriptions)
             .WithOne(pr => pr.Doctor)
-            .HasForeignKey(pr => pr.DocID)
+            .HasForeignKey(pr => pr.DoctorID)
             .OnDelete(DeleteBehavior.Restrict);
 
             // Ref: Doctor.docID < Diagnosis.docID                      // ONE DOCTOR MANY DIAGNOSES
@@ -167,7 +164,7 @@ namespace Entities.Models
             modelBuilder.Entity<Doctor>()
             .HasMany(doc => doc.Diagnoses)
             .WithOne(diag => diag.Doctor)
-            .HasForeignKey(diag => diag.DocID)
+            .HasForeignKey(diag => diag.DoctorID)
             .OnDelete(DeleteBehavior.Restrict);
 
             // Ref: Diagnosis.patientID > Patient.patientID             // MANY DIAGNOSES ONE PATIENT
@@ -201,7 +198,6 @@ namespace Entities.Models
             .WithOne(radRep => radRep.Patient)
             .HasForeignKey(radRep => radRep.PatientID)
             .OnDelete(DeleteBehavior.Restrict);
-
 
             // Call the base OnModelCreating method
             base.OnModelCreating(modelBuilder);
