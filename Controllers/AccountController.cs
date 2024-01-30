@@ -40,7 +40,7 @@ public class AccountController : Controller
                 Gender = model.Gender,
                 
             };
-            patient.PatientID = patient.ApplicationUserID;
+            patient.PatientID = patient.ApplicationUserID; // ?
 
             _context.patients.Add(patient);
             _context.SaveChanges();
