@@ -65,7 +65,7 @@ public class AccountController : Controller
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
         }
-        return View(model); // something is wronga
+        return View(model);
     }
 
 
