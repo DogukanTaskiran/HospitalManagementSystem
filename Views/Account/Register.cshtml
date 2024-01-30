@@ -1,5 +1,31 @@
 @model Entities.DTOs.ApplicationUserDTO
 
+@functions {
+    public List<SelectListItem> GetBloodTypeOptions()
+    {
+        return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "A+", Text = "A+" },
+            new SelectListItem { Value = "A-", Text = "A-" },
+            new SelectListItem { Value = "B+", Text = "B+" },
+            new SelectListItem { Value = "B-", Text = "B-" },
+            new SelectListItem { Value = "AB+", Text = "AB+" },
+            new SelectListItem { Value = "AB-", Text = "AB-" },
+            new SelectListItem { Value = "O+", Text = "O+" },
+            new SelectListItem { Value = "O-", Text = "O-" }
+        };
+    }
+
+    public List<SelectListItem> GetGenderOptions()
+    {
+        return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Male", Text = "Male" },
+            new SelectListItem { Value = "Female", Text = "Female" },
+        };
+    }
+}
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -39,15 +65,13 @@
     <div class="form-group">
         <label asp-for="Gender"></label>
         <span asp-validation-for="Gender" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="Gender" class="form-control" />
-        
+        <select asp-for="Gender" asp-items="@GetGenderOptions()" class="form-control"></select>
     </div>
-    
+
     <div class="form-group">
-        <label asp-for="BloodType"></label>
+        <label asp-for="BloodType"> </label>
         <span asp-validation-for="BloodType" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="BloodType" class="form-control" />
-        
+        <select asp-for="BloodType" asp-items="@GetBloodTypeOptions()" class="form-control"></select>
     </div>
 
     <!-- Email, Password, and ConfirmPassword fields remain unchanged -->
