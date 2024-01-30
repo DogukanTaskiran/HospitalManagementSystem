@@ -18,7 +18,7 @@ namespace Entities.Models
             CreatedDate = DateTime.Now;
             Status = DataStatus.Inserted;
         }
-
+        
         public string Name { get; set; }
         public string Surname { get; set; }
 

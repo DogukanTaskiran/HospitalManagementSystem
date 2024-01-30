@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240130100728_initialCreate")]
+    [Migration("20240130212711_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />
@@ -82,6 +82,25 @@ namespace Hospital.Migrations
                     b.ToTable("User", (string)null);
 
                     b.UseTptMappingStrategy();
+
+                    b.HasData(
+                        new
+                        {
+                            ApplicationUserID = -1,
+                            Address = "IYTE Müh F Binası",
+                            BloodType = "A",
+                            CreatedDate = new DateTime(2024, 1, 31, 0, 27, 10, 870, DateTimeKind.Local).AddTicks(2761),
+                            DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@hospitaladmin.com",
+                            Gender = "Erkek",
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kerem",
+                            Password = "123",
+                            PhoneNumber = "5554446677",
+                            Role = "Admin",
+                            Status = 1,
+                            Surname = "mereK"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Appointment", b =>
@@ -211,6 +230,30 @@ namespace Hospital.Migrations
                     b.HasKey("HospitalID");
 
                     b.ToTable("hospitals");
+
+                    b.HasData(
+                        new
+                        {
+                            HospitalID = 1,
+                            Address = "Kemaliye Caddesi , Borno Mahallesi, No:188",
+                            CreatedDate = new DateTime(2024, 1, 31, 0, 27, 10, 870, DateTimeKind.Local).AddTicks(2633),
+                            DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HospitalName = "Medical Park",
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PhoneNum = 123456789,
+                            Status = 1
+                        },
+                        new
+                        {
+                            HospitalID = 2,
+                            Address = "Mahmudiye Caddesi , Yılmaz Mahallesi, No:228",
+                            CreatedDate = new DateTime(2024, 1, 31, 0, 27, 10, 870, DateTimeKind.Local).AddTicks(2636),
+                            DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HospitalName = "Medicana",
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PhoneNum = 323456789,
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Invoice", b =>

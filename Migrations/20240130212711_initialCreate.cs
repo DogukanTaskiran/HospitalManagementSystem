@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Hospital.Migrations
 {
     /// <inheritdoc />
@@ -343,6 +345,20 @@ namespace Hospital.Migrations
                         principalTable: "Patient",
                         principalColumn: "ApplicationUserID",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "ApplicationUserID", "Address", "BloodType", "CreatedDate", "DeletedDate", "Email", "Gender", "ModifiedDate", "Name", "Password", "PhoneNumber", "Role", "Status", "Surname" },
+                values: new object[] { -1, "IYTE Müh F Binası", "A", new DateTime(2024, 1, 31, 0, 27, 10, 870, DateTimeKind.Local).AddTicks(2761), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@hospitaladmin.com", "Erkek", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kerem", "123", "5554446677", "Admin", 1, "mereK" });
+
+            migrationBuilder.InsertData(
+                table: "hospitals",
+                columns: new[] { "HospitalID", "Address", "CreatedDate", "DeletedDate", "HospitalName", "ModifiedDate", "PhoneNum", "Status" },
+                values: new object[,]
+                {
+                    { 1, "Kemaliye Caddesi , Borno Mahallesi, No:188", new DateTime(2024, 1, 31, 0, 27, 10, 870, DateTimeKind.Local).AddTicks(2633), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medical Park", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 123456789, 1 },
+                    { 2, "Mahmudiye Caddesi , Yılmaz Mahallesi, No:228", new DateTime(2024, 1, 31, 0, 27, 10, 870, DateTimeKind.Local).AddTicks(2636), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medicana", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 323456789, 1 }
                 });
 
             migrationBuilder.CreateIndex(
