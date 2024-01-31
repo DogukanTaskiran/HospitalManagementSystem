@@ -12,11 +12,11 @@ namespace Entities.Models
        public int DepartmentID { get; set; }
        public string DepartmentName { get; set; }
        public int HospitalID { get; set; }
-       public int NurseID { get; set; }
+       
        public Hospital Hospital { get; set; }   // Reference to hospital
        public List<Doctor> Doctors{ get; set; }   // Reference to doctor
-
-       public Nurse Nurse { get; set; }
+       public List<Nurse> Nurses { get; set; }
+       
        
        // constructor with parameters
 
