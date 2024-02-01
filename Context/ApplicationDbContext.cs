@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.Models // bura düzeltilcek
 {
     public class ApplicationDbContext : DbContext
     {

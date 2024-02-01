@@ -1,7 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
 using Entities.Models;
 using Entities.DTOs;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Hospital.Controllers;
 
@@ -38,6 +41,7 @@ public class AccountController : Controller
                 PhoneNumber = model.PhoneNumber,
                 BloodType = model.BloodType,
                 Gender = model.Gender,
+                Role ="Patient"
                 
             };
             patient.PatientID = patient.ApplicationUserID; // ?
@@ -59,6 +63,17 @@ public class AccountController : Controller
         if(ModelState.IsValid){
             var user = _context.applicationUsers.SingleOrDefault(u=>u.Email == model.Email && u.Password ==model.Password);
             if(user!=null){
+                
+                var Role = user.Role;
+                var claims = new List<Claim>{
+                    new Claim(ClaimTypes.Name , user.Email),
+                    new Claim(ClaimTypes.Role , user.Role)
+                };
+                var claimsIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
+                HttpContext.SignInAsync( // yukardaki claimlerlebir cookie oluşturma
+                    CookieAuthenticationDefaults.AuthenticationScheme, 
+                    new ClaimsPrincipal(claimsIdentity)
+                    ); // property set edilmedi
                 return RedirectToAction("Index","Home");
             }
             else{
@@ -68,6 +83,14 @@ public class AccountController : Controller
         return View(model);
     }
 
+    public IActionResult Logout(){
+        HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Index","Home");
+    }
+
+    public IActionResult AccessDenied(){
+        return View();
+    }
 
 
 }
