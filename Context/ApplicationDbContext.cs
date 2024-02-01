@@ -47,8 +47,8 @@ namespace Entities.Models // bura düzeltilcek
             modelBuilder.Entity<Receptionist>().ToTable("Receptionist");
 
             modelBuilder.Entity<Hospital>().HasData(
-                new Hospital() {HospitalID=1, HospitalName="Medical Park",PhoneNum=123456789, Address="Kemaliye Caddesi , Borno Mahallesi, No:188" , CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue , ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted},
-                new Hospital() {HospitalID=2, HospitalName="Medicana",PhoneNum=323456789, Address="Mahmudiye Caddesi , Yılmaz Mahallesi, No:228" , CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue , ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted}
+                new Hospital() {HospitalID=1, HospitalName="Medical Park",PhoneNum="123456789", Address="Kemaliye Caddesi , Borno Mahallesi, No:188" , CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue , ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted},
+                new Hospital() {HospitalID=2, HospitalName="Medicana",PhoneNum="323456789", Address="Mahmudiye Caddesi , Yılmaz Mahallesi, No:228" , CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue , ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted}
             );
             modelBuilder.Entity<Department>().HasData(
                 new Department(){HospitalID=1, DepartmentID=1, DepartmentName="Kardiyoloji" ,CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue,ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted },

@@ -1,0 +1,45 @@
+@model DepartmentDTO
+<partial name="_AdminLayout"/>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-center"><h2>@Model.HospitalName</h2>
+            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Department Name</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var department in Model.Departments)
+                        {
+                            <tr>
+                                <td>@department.DepartmentName</td>
+
+                                <td>
+                                    @* bura düzelcek *@
+                                    <form asp-action="DeleteDepartment" method="post">
+                                        <input type="hidden" name="DepartmentID" value="@department.DepartmentID" />
+                                        <button class="btn-primary"type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <a class="btn-primary" asp-controller="Admin"asp-action="AddDepartment" asp-route-id="@Model.HospitalID">
+                    <button class="btn-primary" type="button">Add Department</button>
+                </a>
+                @* <form asp-controller="Admin"asp-action="AddDepartment" method="get">
+                    <input type="hidden" name="hospitalID" value="@Model.HospitalID"/>
+                    <button class="btn-primary" type="submit">Add Department</button>
+                </form> *@
+                
+            </div>
+
+        </div>
+    </div>
+</div>

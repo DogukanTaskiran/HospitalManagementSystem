@@ -11,7 +11,7 @@ namespace Entities.Models
     {
         public int HospitalID { get; set; }
         public string HospitalName { get; set; }
-        public int PhoneNum { get; set; }
+        public string PhoneNum { get; set; }
         public string Address { get; set; }
 
 

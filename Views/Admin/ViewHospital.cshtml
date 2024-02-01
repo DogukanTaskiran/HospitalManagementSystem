@@ -1,0 +1,52 @@
+@model List<Hospital>
+<partial name="_AdminLayout"/>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-center"><h2>Hospitals</h2>
+            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var hospital in Model)
+                        {
+                            <tr>
+                                <td>@hospital.HospitalID</td>
+                                <td>@hospital.HospitalName</td>
+                                <td>@hospital.PhoneNum</td>
+                                <td>@hospital.Address</td>
+                                <td>
+                                    <form asp-controller="Admin"asp-action="DeleteHospital" method="post">
+                                        <input type="hidden" name="HospitalID" value="@hospital.HospitalID" />
+                                        <button class="btn-primary"type="submit">Delete</button>
+                                    </form>
+                                    @* <form asp-controller="Admin"asp-action="ViewDepartment" method="get">
+                                        <input type="hidden" name="hospitalID" value="@hospital.HospitalID"/>
+                                        <button class="btn-primary" type="submit">Departments</button>
+                                    </form> *@
+                                    <a asp-controller="Admin"asp-action="ViewDepartment" method="get" asp-route-id="@hospital.HospitalID">
+                                        <button class="btn-primary" type="button">Departments</button>
+                                    </a>    
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <a class="btn-primary" asp-controller="Admin"asp-action="AddHospital">
+                    <button class="btn-primary" type="button">Add Hospital</button>
+                </a>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
