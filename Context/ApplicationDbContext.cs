@@ -1,5 +1,6 @@
 using Entities.Models;
 using Hospital.Controllers;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 using System;
@@ -37,13 +38,47 @@ namespace Entities.Models // bura düzeltilcek
         protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         
-        // Configure ApplicationUser and its relationships
-        modelBuilder.Entity<ApplicationUser>().ToTable("User");
-        modelBuilder.Entity<Admin>().ToTable("Admin");
-        modelBuilder.Entity<Doctor>().ToTable("Doctor");
-        modelBuilder.Entity<Patient>().ToTable("Patient");
-        modelBuilder.Entity<Nurse>().ToTable("Nurse");
-        modelBuilder.Entity<Receptionist>().ToTable("Receptionist");
+            // Configure ApplicationUser and its relationships
+            modelBuilder.Entity<ApplicationUser>().ToTable("User");
+            modelBuilder.Entity<Admin>().ToTable("Admin");
+            modelBuilder.Entity<Doctor>().ToTable("Doctor");
+            modelBuilder.Entity<Patient>().ToTable("Patient");
+            modelBuilder.Entity<Nurse>().ToTable("Nurse");
+            modelBuilder.Entity<Receptionist>().ToTable("Receptionist");
+
+            modelBuilder.Entity<Hospital>().HasData(
+                new Hospital() {HospitalID=1, HospitalName="Medical Park",PhoneNum=123456789, Address="Kemaliye Caddesi , Borno Mahallesi, No:188" , CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue , ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted},
+                new Hospital() {HospitalID=2, HospitalName="Medicana",PhoneNum=323456789, Address="Mahmudiye Caddesi , Yılmaz Mahallesi, No:228" , CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue , ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted}
+            );
+            modelBuilder.Entity<Department>().HasData(
+                new Department(){HospitalID=1, DepartmentID=1, DepartmentName="Kardiyoloji" ,CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue,ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted },
+                new Department(){HospitalID=1, DepartmentID=2, DepartmentName="Nöroloji" ,CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue,ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted },
+                new Department(){HospitalID=1, DepartmentID=3, DepartmentName="Dahiliye" ,CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue,ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted },
+                new Department(){HospitalID=2, DepartmentID=4, DepartmentName="Göz Hastalıkları" ,CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue,ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted },
+                new Department(){HospitalID=2, DepartmentID=5, DepartmentName="Radyoloji" ,CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue,ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted },
+                new Department(){HospitalID=2, DepartmentID=6, DepartmentName="Nöroloji" ,CreatedDate=DateTime.Now, DeletedDate=DateTime.MinValue,ModifiedDate=DateTime.MinValue, Status=Enums.DataStatus.Inserted }
+            );
+
+            modelBuilder.Entity<ApplicationUser>().HasData( // burada bir sıkıntı var normalde admine ekleme yapılmalı
+                new ApplicationUser(){
+                    ApplicationUserID=-1,
+                    Name="Kerem" ,
+                    Surname = "mereK" ,
+                    Role ="Admin" ,
+                    PhoneNumber="5554446677",
+                    Address="IYTE Müh F Binası",
+                    Gender="Erkek",
+                    BloodType="A",
+                    Email="admin@hospitaladmin.com",
+                    Password="123",
+                    CreatedDate=DateTime.Now,
+                    DeletedDate=DateTime.MinValue,
+                    ModifiedDate=DateTime.MinValue,
+                    Status=Enums.DataStatus.Inserted 
+                    }
+            );
+
+
 
 
             // // ONE DOCTOR MANY PATIENT --silmeyi deniyorum
@@ -143,12 +178,12 @@ namespace Entities.Models // bura düzeltilcek
 
            
 
-            // Ref: Department.departmentID - Nurse.departmentID        // ONE NURSE ONE DEPARTMENT
+            // Ref: Department.departmentID - Nurse.departmentID        // ONE NURSE ONE DEPARTMENT // many ile değiştirildi
 
-            modelBuilder.Entity<Nurse>()
-            .HasOne(n => n.Department)
-            .WithOne(dep => dep.Nurse)
-            .HasForeignKey<Department>(n => n.DepartmentID)
+            modelBuilder.Entity<Department>()
+            .HasMany(n => n.Nurses)
+            .WithOne(dep => dep.Department)
+            .HasForeignKey(n => n.DepartmentID)
             .OnDelete(DeleteBehavior.Restrict);
 
             // Ref: Doctor.docID > Prescription.docID                   // ONE DOCTOR MANY PRESCRIPTIONS
