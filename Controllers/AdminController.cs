@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Hospital.Controllers{
-    //[Authorize(Policy ="AdminPolicy")]
+    [Authorize(Policy ="AdminPolicy")]
     public class AdminController : Controller{
 
         private readonly ApplicationDbContext _context;

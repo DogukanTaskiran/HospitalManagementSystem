@@ -1,4 +1,7 @@
-﻿@inject IHttpContextAccessor HttpContextAccessor // ???
+﻿
+@inject IHttpContextAccessor HttpContextAccessor // ???
+
+
 @{
     
     var isAuthenticated = HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
@@ -34,6 +37,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                         </li>
