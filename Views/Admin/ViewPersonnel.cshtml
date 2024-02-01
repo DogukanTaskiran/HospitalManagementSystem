@@ -1,0 +1,61 @@
+@model PersonnelDTO
+<partial name="_AdminLayout"/>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-center"><h2>Doctors</h2>
+                <div class="row">
+                    @foreach (var doctor in Model.Doctors){
+                        <div class="col-md-3 my-3">
+                            <div class="card" style="width: 9rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">@doctor.Name</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">@doctor.Email</h6>
+                                    <p class="card-text">Örnek text</p>
+
+                                </div>
+                                 <a class="card-link" href="#">
+                                    <button class="btn btn-outline-primary btn-sm" type="button">Profile</button>
+                                </a>
+                                <form asp-controller="Admin" asp-action="DeleteDoctor" method="post">
+                                    <input name="email" value="@doctor.Email" type="hidden" />
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete Doctor</button>
+                                </form><br>
+                            </div>
+
+                        </div>
+
+                    }                    
+                <a asp-controller="Admin"asp-action="AddDoctor" asp-route-id="@Model.DepartmentID">
+                    <button class="btn btn-primary" type="button">Add Doctor</button>
+                </a>
+                </div>
+                <h1>Nurses</h1>
+                <div class="row">
+                    @foreach (var nurse in Model.Nurses){
+                        <div class="col-md-3 my-3">
+                            <div class="card" style="width: 9rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">@nurse.Name</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">@nurse.Email</h6>
+                                    <p class="card-text">Örnek text</p>
+                                    @* <a class="card-link" asp-controller="Admin"asp-action="ViewPersonnel" asp-route-id="@department.DepartmentID">
+                                        <button class="btn btn-outline-primary btn-sm" type="button">Personnel</button>
+                                    </a>
+                                    <a class="card-link" asp-controller="Admin" asp-action="DeleteHospital" asp-route-id="@department.HospitalID" method="post">
+                                        <button class="btn btn-outline-danger btn-sm" type="button">Delete</button>
+                                    </a> *@
+                                </div>
+                            </div>
+
+                        </div>
+
+                    }                    
+                <a asp-controller="Admin"asp-action="AddNurse" asp-route-id="@Model.DepartmentID">
+                    <button class="btn btn-primary" type="button">Add Nurse</button>
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

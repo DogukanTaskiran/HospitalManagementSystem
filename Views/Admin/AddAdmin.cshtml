@@ -1,4 +1,4 @@
-@model Entities.DTOs.DoctorDTO
+@model AdminDTO
 @functions { // burayı controller içinde viewBag ile yapmak da olabilir
     public List<SelectListItem> GetBloodTypeOptions()
     {
@@ -28,19 +28,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="text-center"><h2>Add Doctor</h2>
-                <form asp-controller="Admin" asp-action="AddDoctor" method="post" >
+            <div class="text-center"><h2>Add Admin</h2>
+                <form asp-controller="Admin" asp-action="AddAdmin" method="post" >
                     <div asp-validation-summary="All" class="text-danger"></div>
 
-                    <input type="hidden"asp-for="DepartmentID" />
+                    @* <input type="hidden"asp-for="DepartmentID" /> *@
                     
-                    <div class="form-group">
-                        
-                        <label asp-for="RoomNumber"></label>
-                        <span asp-validation-for="RoomNumber" class="text-danger" style="font-size: xx-small;"></span>
-                        <input asp-for="RoomNumber" type="number" class="form-control" />
-                        
-                    </div>
                     
                     <div class="form-group">
                         
@@ -96,7 +89,7 @@
                         <span asp-validation-for="Password" class="text-danger" style="font-size: xx-small;"></span>
                         <input asp-for="Password" type="password" class="form-control" />
                         
-                    </div>
+                    </div><br>
                     
 
                     <div class="text-center"><button type="submit" class="btn btn-primary">Add</button></div>

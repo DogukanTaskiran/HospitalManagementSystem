@@ -26,16 +26,23 @@ namespace Hospital.Controllers{
             var departments = _context.departments.Where(d => d.HospitalID == hospitalID).ToList();
             return Json(departments);
         }
-        public IActionResult AddDoctor(){
-            ViewBag.Hospitals = _context.hospitals.ToList();
-            
-            ViewBag.Departments = _context.departments.ToList();
 
-            return View(new DoctorDTO());
+        [HttpGet]
+        public IActionResult AddDoctor(int id){
+            // //js için gerekliydi
+            // ViewBag.Hospitals = _context.hospitals.ToList();
+            
+            // ViewBag.Departments = _context.departments.ToList();
+            var doc = new DoctorDTO{
+                DepartmentID = id
+            };
+
+            return View(doc);
         }
 
         [HttpPost]
         public IActionResult AddDoctor(DoctorDTO model){
+            Console.WriteLine("DepartmentID: " + model.DepartmentID);
             if(ModelState.IsValid){
                 if(_context.applicationUsers.Any(u=>u.Email==model.Email)){
                     ModelState.AddModelError(string.Empty, "Email is already registered.");
@@ -50,25 +57,38 @@ namespace Hospital.Controllers{
                     PhoneNumber = model.PhoneNumber,
                     BloodType = model.BloodType,
                     Gender = model.Gender,
-                    DepartmentID = model.SelectedDepartmentID,
+                    DepartmentID = model.DepartmentID,
                     RoomNumber = model.RoomNumber,
                     Role ="Doctor"
                 };
                 _context.doctors.Add(doctor);
                 _context.SaveChanges();
-                return RedirectToAction("ViewDoctor" , "Admin");
+                
+                 return RedirectToAction("ViewPersonnel", new { id = model.DepartmentID});
             }
             return View(model);
         }
 
         [HttpGet]
         public IActionResult ViewDoctor(){
-            var doctorsList = _context.doctors.ToList(); //dto eklenebilir
+            var doctorsList = _context.doctors.ToList();//dto eklenebilir
+            foreach (var doctor in doctorsList)
+            {
+                    Console.WriteLine($"Doctor Name: {doctor.Name}, ApplicationUserID: {doctor.ApplicationUserID}");
+            }
             return View(doctorsList);
 
         }
-        public IActionResult DeleteDoctor(){
-            return View();
+        [HttpPost]
+        public IActionResult DeleteDoctor(string email){
+            System.Console.WriteLine("idAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + email);
+            var doctor = _context.doctors.FirstOrDefault(d=>d.Email==email);
+            
+            doctor.DeletedDate = DateTime.Now;
+            doctor.Status=Entities.Enums.DataStatus.Deleted;
+            _context.SaveChanges();
+
+             return RedirectToAction("ViewPersonnel", new { id = doctor.DepartmentID});
         }
         public IActionResult UpdateDoctor(){
             return View();
@@ -101,7 +121,7 @@ namespace Hospital.Controllers{
 
 
         public IActionResult ViewHospital(){
-            var hospitalList = _context.hospitals.ToList(); //dto eklenebilir
+            var hospitalList = _context.hospitals.Where(u=>u.Status != Entities.Enums.DataStatus.Deleted).ToList(); //dto eklenebilir
             return View(hospitalList); 
         }
 
@@ -109,8 +129,15 @@ namespace Hospital.Controllers{
             return View();
         }
 
-        public IActionResult DeleteHospital(){
-            return View();
+        public IActionResult DeleteHospital(int id){
+            var hospital = _context.hospitals.FirstOrDefault(u=>u.HospitalID==id);
+            System.Console.WriteLine("idAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + id);
+            hospital.DeletedDate = DateTime.Now;
+            hospital.Status=Entities.Enums.DataStatus.Deleted;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ViewHospital", "Admin");
         }
 
 
@@ -120,14 +147,16 @@ namespace Hospital.Controllers{
         [HttpGet]
         public IActionResult ViewDepartment(int id){
 
-            var departmentList = _context.departments.Where(u => u.HospitalID == id).ToList();
+            var departmentList = _context.departments.Where(u => u.HospitalID == id && u.Status != Entities.Enums.DataStatus.Deleted).ToList();
             var hospitalName = _context.hospitals.FirstOrDefault(h => h.HospitalID == id)?.HospitalName;
+            
 
             var departmentDTO = new DepartmentDTO
             {
                 Departments = departmentList,
                 HospitalName = hospitalName,
-                HospitalID = id
+                HospitalID = id,
+                
             };
 
             return View(departmentDTO);
@@ -167,11 +196,107 @@ namespace Hospital.Controllers{
 
             return View(model);
         }
+        public IActionResult DeleteDepartment(int id){
+            var department = _context.departments.FirstOrDefault(d=>d.DepartmentID ==id);
+            department.DeletedDate = DateTime.Now;
+            department.Status=Entities.Enums.DataStatus.Deleted;
+            _context.SaveChanges();
+            return RedirectToAction("ViewDepartment" ,new { id = department.HospitalID } );
+        }
+
+        [HttpGet("Admin/ViewPersonnel/{id}")]
+        public IActionResult ViewPersonnel(int id){
+            var doctors = _context.doctors.Where(d=>d.DepartmentID ==id && d.Status!=Entities.Enums.DataStatus.Deleted).ToList();
+            var nurses = _context.nurses.Where(d=>d.DepartmentID ==id && d.Status!=Entities.Enums.DataStatus.Deleted).ToList();
+
+            var personnel = new PersonnelDTO{
+                DepartmentID = id,
+                Nurses = nurses,
+                Doctors = doctors
+            };
+
+            return View(personnel);
+        }
 
         //nurse crud
+        [HttpGet]
+        public IActionResult AddNurse(int id){
+            var model = new NurseDTO{
+                DepartmentID = id
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult AddNurse(NurseDTO model){
+            Console.WriteLine("DepartmentID: " + model.DepartmentID);
+            if(ModelState.IsValid){
+                if(_context.applicationUsers.Any(u=>u.Email==model.Email)){
+                    ModelState.AddModelError(string.Empty, "Email is already registered.");
+                    return View(model);                    
+                }
+                var nurse =  new Nurse{
+                    Email = model.Email,
+                    Password = model.Password,
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    Address = model.Address,
+                    PhoneNumber = model.PhoneNumber,
+                    BloodType = model.BloodType,
+                    Gender = model.Gender,
+                    DepartmentID = model.DepartmentID,
+                    Role ="Nurse"
+                };
+                _context.nurses.Add(nurse);
+                _context.SaveChanges();
+                 return RedirectToAction("ViewPersonnel", new { id = model.DepartmentID});
+            }
+            return View(model);
+        }
 
         //receptionist crud
 
+        public IActionResult ViewAdmin(){
+            var admins = _context.admins.Where(u=>u.Role=="Admin" && u.Status!=Entities.Enums.DataStatus.Deleted).ToList();
+            return View(admins);
+        }
+        [HttpGet]
+        public IActionResult AddAdmin(){
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddAdmin(AdminDTO model){
+            Console.WriteLine("Admin Name: " + model.Name);
+            if(ModelState.IsValid){
+                if(_context.applicationUsers.Any(u=>u.Email==model.Email)){
+                    ModelState.AddModelError(string.Empty, "Email is already registered.");
+                    return View(model);                    
+                }
+                var admin =  new Admin{
+                    Email = model.Email,
+                    Password = model.Password,
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    Address = model.Address,
+                    PhoneNumber = model.PhoneNumber,
+                    BloodType = model.BloodType,
+                    Gender = model.Gender,
+                    Role ="Admin"
+                };
+                _context.admins.Add(admin);
+                _context.SaveChanges();
+                
+                 return RedirectToAction("ViewAdmin", "Admin");
+            }
+            return View(model);
+
+        }
+        public IActionResult DeleteAdmin(string email){
+            var admin = _context.admins.FirstOrDefault(d=>d.Email == email);
+            admin.DeletedDate = DateTime.Now;
+            admin.Status= Entities.Enums.DataStatus.Deleted;
+            _context.SaveChanges();
+            return RedirectToAction("ViewAdmin", "Admin");
+        }
 
     }
 }

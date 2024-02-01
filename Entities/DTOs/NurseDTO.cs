@@ -1,12 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 namespace Entities.DTOs{
 
-    public class DoctorDTO
+    public class NurseDTO
     {
         public int DepartmentID { get; set; }
-
-		[Required(ErrorMessage = "Room Number is required")]
-		public int RoomNumber { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
 		public string Name { get; set; }

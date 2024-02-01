@@ -13,6 +13,7 @@
                             <th>Surname</th>
                             <th>Email</th>
                             <th>RoomNumber</th>
+                            <th>id</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,6 +24,7 @@
                                 <td>@doctor.Surname</td>
                                 <th>@doctor.Email</th>
                                 <td>@doctor.RoomNumber</td>
+                                <td>@doctor.ApplicationUserID</td>
                                 <td>
                                     <form asp-action="DeleteDoctor" method="post">
                                         <input type="hidden" name="DoctorID" value="@doctor.DoctorID" />
