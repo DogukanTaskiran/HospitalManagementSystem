@@ -63,7 +63,6 @@ public class AccountController : Controller
         if(ModelState.IsValid){
             var user = _context.applicationUsers.SingleOrDefault(u=>u.Email == model.Email && u.Password ==model.Password);
             if(user!=null){
-                
                 var Role = user.Role;
                 var claims = new List<Claim>{
                     new Claim(ClaimTypes.Name , user.Email),
