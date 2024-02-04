@@ -48,6 +48,30 @@
         <input asp-for="Surname" class="form-control" />
         
     </div>
+
+    <div class="form-group">
+        <label asp-for="Gender"></label>
+        <span asp-validation-for="Gender" class="text-danger" style="font-size: xx-small;"></span>
+        <select asp-for="Gender" asp-items="@GetGenderOptions()" class="form-control"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Age"></label>
+        <span asp-validation-for="Age" class="text-danger" style="font-size: xx-small;"></span>
+        <input asp-for="Age" class="form-control"></input>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Weight"></label>
+        <span asp-validation-for="Weight" class="text-danger" style="font-size: xx-small;"></span>
+        <input asp-for="Weight" class="form-control"></input>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Height"></label>
+        <span asp-validation-for="Height" class="text-danger" style="font-size: xx-small;"></span>
+        <input asp-for="Height" class="form-control"></input>
+    </div>
     
     <div class="form-group">
         <label asp-for="PhoneNumber"></label>
@@ -62,12 +86,6 @@
         <input asp-for="Address" class="form-control" />
     </div>
     
-    <div class="form-group">
-        <label asp-for="Gender"></label>
-        <span asp-validation-for="Gender" class="text-danger" style="font-size: xx-small;"></span>
-        <select asp-for="Gender" asp-items="@GetGenderOptions()" class="form-control"></select>
-    </div>
-
     <div class="form-group">
         <label asp-for="BloodType"> </label>
         <span asp-validation-for="BloodType" class="text-danger" style="font-size: xx-small;"></span>

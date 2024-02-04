@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -39,7 +41,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddHttpContextAccessor(); // burda sıkıntı olabilir dokümantasyonda kullanmak performansta sıkıntı yaratabilir diyor
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+    // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

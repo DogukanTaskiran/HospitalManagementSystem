@@ -31,11 +31,14 @@ public class AccountController : Controller
                 ModelState.AddModelError(string.Empty, "Email is already registered.");
                 return View(model);
             } 
-            var patient = new Patient
+            var patient = new Patient      
             {
                 Email = model.Email,
                 Password = model.Password,
                 Name = model.Name,
+                Age = model.Age,
+                Weight = model.Weight,
+                Height = model.Height,
                 Surname = model.Surname,
                 Address = model.Address,
                 PhoneNumber = model.PhoneNumber,
@@ -63,7 +66,6 @@ public class AccountController : Controller
         if(ModelState.IsValid){
             var user = _context.applicationUsers.SingleOrDefault(u=>u.Email == model.Email && u.Password ==model.Password);
             if(user!=null){
-                
                 var Role = user.Role;
                 var claims = new List<Claim>{
                     new Claim(ClaimTypes.Name , user.Email),

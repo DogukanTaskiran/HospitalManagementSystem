@@ -60,14 +60,18 @@ namespace Entities.Models // bura düzeltilcek
             );
 
             modelBuilder.Entity<ApplicationUser>().HasData( // burada bir sıkıntı var normalde admine ekleme yapılmalı
-                new ApplicationUser(){
-                    ApplicationUserID=-1,
+                new ApplicationUser()
+                {                                           // age, weight, height null geliyor
+                    ApplicationUserID =-1,
                     Name="Kerem" ,
                     Surname = "mereK" ,
                     Role ="Admin" ,
                     PhoneNumber="5554446677",
                     Address="IYTE Müh F Binası",
                     Gender="Erkek",
+                    Age=22,
+                    Weight=70,
+                    Height=170,
                     BloodType="A",
                     Email="admin@hospitaladmin.com",
                     Password="123",
