@@ -12,7 +12,16 @@ namespace Entities.DTOs{
 		[Required(ErrorMessage = "Phone number is required")]
 		public string PhoneNumber { get; set; }
 
-		[Required(ErrorMessage = "Address is required")]
+        [Required(ErrorMessage = "Age number is required")]
+        public int Age { get; set; }
+
+        [Required(ErrorMessage = "Height number is required")]
+        public int Height { get; set; }
+
+        [Required(ErrorMessage = "Weight number is required")]
+        public int Weight { get; set; }
+
+        [Required(ErrorMessage = "Address is required")]
 		public string Address { get; set; }
 
 		[Required(ErrorMessage = "Gender is required")]

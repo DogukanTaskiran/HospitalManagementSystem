@@ -42,7 +42,7 @@ namespace Hospital.Controllers
             var userEmail = User.FindFirstValue(ClaimTypes.Name);
             // var Patient = _context.patients.ToList();
             ApplicationUser patient = _context.patients
-
+            .Include(x => x.Appointments)
             .SingleOrDefault(p => p.ApplicationUser.Email == userEmail);
 
             if (patient == null)
@@ -52,7 +52,5 @@ namespace Hospital.Controllers
 
             return View(patient);
         }
-
-
     }
 }

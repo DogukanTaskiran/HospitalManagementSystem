@@ -10,18 +10,27 @@
         <th>Surname</th>
         <td>@Model.Surname</td>
     </tr>
-    <tr>
-        <th>Age</th>
-        <td>Model.Age </td>
-    </tr>
-    <tr>
-        <th>Weight</th>
-        <td>Model.Weight </td>
-    </tr>
-    <tr>
-        <th>Height</th>
-        <td>Model.Height </td>
-    </tr>
+    @if (Model.Age != null)
+    {
+        <tr>
+            <th>Age</th>
+            <td>@Model.Age </td>
+        </tr>
+    }
+    @if (Model.Weight != null)
+    {
+        <tr>
+            <th>Weight</th>
+            <td>@Model.Weight </td>
+        </tr>
+    }
+    @if(Model.Height != null)
+    {
+        <tr>
+            <th>Height</th>
+            <td>@Model.Height </td>
+        </tr>
+    }
     <tr>
         <th>Gender</th>
         <td>@Model.Gender</td>

@@ -31,11 +31,14 @@ public class AccountController : Controller
                 ModelState.AddModelError(string.Empty, "Email is already registered.");
                 return View(model);
             } 
-            var patient = new Patient
+            var patient = new Patient      
             {
                 Email = model.Email,
                 Password = model.Password,
                 Name = model.Name,
+                Age = model.Age,
+                Weight = model.Weight,
+                Height = model.Height,
                 Surname = model.Surname,
                 Address = model.Address,
                 PhoneNumber = model.PhoneNumber,
