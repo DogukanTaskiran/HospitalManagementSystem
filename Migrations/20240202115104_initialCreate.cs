@@ -87,6 +87,7 @@ namespace Hospital.Migrations
                 {
                     ApplicationUserID = table.Column<int>(type: "int", nullable: false),
                     AdminID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -105,6 +106,7 @@ namespace Hospital.Migrations
                 {
                     ApplicationUserID = table.Column<int>(type: "int", nullable: false),
                     PatientID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -122,7 +124,8 @@ namespace Hospital.Migrations
                 columns: table => new
                 {
                     ApplicationUserID = table.Column<int>(type: "int", nullable: false),
-                    RecID = table.Column<int>(type: "int", nullable: false)
+                    ReceptionistID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -140,7 +143,8 @@ namespace Hospital.Migrations
                 columns: table => new
                 {
                     ApplicationUserID = table.Column<int>(type: "int", nullable: false),
-                    DoctorID = table.Column<int>(type: "int", nullable: false),
+                    DoctorID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DepartmentID = table.Column<int>(type: "int", nullable: false),
                     RoomNumber = table.Column<int>(type: "int", nullable: false)
                 },
@@ -166,7 +170,8 @@ namespace Hospital.Migrations
                 columns: table => new
                 {
                     ApplicationUserID = table.Column<int>(type: "int", nullable: false),
-                    NurseID = table.Column<int>(type: "int", nullable: false),
+                    NurseID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DepartmentID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -350,15 +355,15 @@ namespace Hospital.Migrations
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "ApplicationUserID", "Address", "BloodType", "CreatedDate", "DeletedDate", "Email", "Gender", "ModifiedDate", "Name", "Password", "PhoneNumber", "Role", "Status", "Surname" },
-                values: new object[] { -1, "IYTE Müh F Binası", "A", new DateTime(2024, 2, 1, 17, 6, 40, 313, DateTimeKind.Local).AddTicks(1284), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@hospitaladmin.com", "Erkek", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kerem", "123", "5554446677", "Admin", 1, "mereK" });
+                values: new object[] { -1, "IYTE Müh F Binası", "A", new DateTime(2024, 2, 2, 14, 51, 3, 798, DateTimeKind.Local).AddTicks(1313), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@hospitaladmin.com", "Erkek", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kerem", "123", "5554446677", "Admin", 1, "mereK" });
 
             migrationBuilder.InsertData(
                 table: "hospitals",
                 columns: new[] { "HospitalID", "Address", "CreatedDate", "DeletedDate", "HospitalName", "ModifiedDate", "PhoneNum", "Status" },
                 values: new object[,]
                 {
-                    { 1, "Kemaliye Caddesi , Borno Mahallesi, No:188", new DateTime(2024, 2, 1, 17, 6, 40, 313, DateTimeKind.Local).AddTicks(1125), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medical Park", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "123456789", 1 },
-                    { 2, "Mahmudiye Caddesi , Yılmaz Mahallesi, No:228", new DateTime(2024, 2, 1, 17, 6, 40, 313, DateTimeKind.Local).AddTicks(1129), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medicana", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "323456789", 1 }
+                    { 1, "Kemaliye Caddesi , Borno Mahallesi, No:188", new DateTime(2024, 2, 2, 14, 51, 3, 798, DateTimeKind.Local).AddTicks(1092), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medical Park", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "123456789", 1 },
+                    { 2, "Mahmudiye Caddesi , Yılmaz Mahallesi, No:228", new DateTime(2024, 2, 2, 14, 51, 3, 798, DateTimeKind.Local).AddTicks(1095), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medicana", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "323456789", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -366,12 +371,12 @@ namespace Hospital.Migrations
                 columns: new[] { "DepartmentID", "CreatedDate", "DeletedDate", "DepartmentName", "HospitalID", "ModifiedDate", "Status" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 2, 1, 17, 6, 40, 313, DateTimeKind.Local).AddTicks(1244), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kardiyoloji", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 2, new DateTime(2024, 2, 1, 17, 6, 40, 313, DateTimeKind.Local).AddTicks(1247), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nöroloji", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 3, new DateTime(2024, 2, 1, 17, 6, 40, 313, DateTimeKind.Local).AddTicks(1249), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dahiliye", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 4, new DateTime(2024, 2, 1, 17, 6, 40, 313, DateTimeKind.Local).AddTicks(1251), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Göz Hastalıkları", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 5, new DateTime(2024, 2, 1, 17, 6, 40, 313, DateTimeKind.Local).AddTicks(1252), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Radyoloji", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 6, new DateTime(2024, 2, 1, 17, 6, 40, 313, DateTimeKind.Local).AddTicks(1254), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nöroloji", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 }
+                    { 1, new DateTime(2024, 2, 2, 14, 51, 3, 798, DateTimeKind.Local).AddTicks(1222), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kardiyoloji", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 2, new DateTime(2024, 2, 2, 14, 51, 3, 798, DateTimeKind.Local).AddTicks(1225), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nöroloji", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 3, new DateTime(2024, 2, 2, 14, 51, 3, 798, DateTimeKind.Local).AddTicks(1226), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dahiliye", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 4, new DateTime(2024, 2, 2, 14, 51, 3, 798, DateTimeKind.Local).AddTicks(1228), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Göz Hastalıkları", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 5, new DateTime(2024, 2, 2, 14, 51, 3, 798, DateTimeKind.Local).AddTicks(1230), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Radyoloji", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 6, new DateTime(2024, 2, 2, 14, 51, 3, 798, DateTimeKind.Local).AddTicks(1282), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nöroloji", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 }
                 });
 
             migrationBuilder.CreateIndex(

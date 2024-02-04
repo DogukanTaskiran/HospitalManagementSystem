@@ -78,6 +78,8 @@ namespace Entities.Models // bura düzeltilcek
                     }
             );
 
+           
+
 
 
 

@@ -3,7 +3,6 @@ using Entities.Models;
 using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Hospital.Controllers{
     [Authorize(Policy ="AdminPolicy")]
@@ -71,7 +70,9 @@ namespace Hospital.Controllers{
 
         [HttpGet]
         public IActionResult ViewDoctor(){
+
             var doctorsList = _context.doctors.ToList();//dto eklenebilir
+            
             foreach (var doctor in doctorsList)
             {
                     Console.WriteLine($"Doctor Name: {doctor.Name}, ApplicationUserID: {doctor.ApplicationUserID}");

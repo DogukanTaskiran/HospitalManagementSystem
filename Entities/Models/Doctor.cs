@@ -4,13 +4,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace Entities.Models
 {
     
     public class Doctor : ApplicationUser
    {
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DoctorID { get; set; }
         // public int PatientID { get; set; }
         public int DepartmentID { get; set; }
