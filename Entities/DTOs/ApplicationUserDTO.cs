@@ -14,7 +14,7 @@ namespace Entities.DTOs{
 
         [Required(ErrorMessage = "Phone number is required")]
         [MaxLength(15, ErrorMessage = "Phone number cannot be longer than 15 characters")]
-		public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Age is required")]
         [Range(0, 120, ErrorMessage = "Invalid age")]

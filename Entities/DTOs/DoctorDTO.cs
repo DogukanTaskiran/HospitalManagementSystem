@@ -6,19 +6,25 @@ namespace Entities.DTOs{
         public int DepartmentID { get; set; }
 
 		[Required(ErrorMessage = "Room Number is required")]
-		public int RoomNumber { get; set; }
+        [Range(0, 10000, ErrorMessage = "Invalid Room Number")]
+        public int RoomNumber { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
-		public string Name { get; set; }
+        [MaxLength(100, ErrorMessage = "Name cannot be longer than 100 characters")]
+        public string Name { get; set; }
 
-		[Required(ErrorMessage = "Surname is required")]
-		public string Surname { get; set; }
+        [Required(ErrorMessage = "Surname is required")]
+        [MaxLength(100, ErrorMessage = "Surname cannot be longer than 100 characters")]
+        public string Surname { get; set; }
 
-		[Required(ErrorMessage = "Phone number is required")]
-		public string PhoneNumber { get; set; }
 
-		[Required(ErrorMessage = "Address is required")]
-		public string Address { get; set; }
+        [Required(ErrorMessage = "Phone number is required")]
+        [MaxLength(15, ErrorMessage = "Phone number cannot be longer than 15 characters")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Address is required")]
+        [MaxLength(200, ErrorMessage = "Address cannot be longer than 200 characters")]
+        public string Address { get; set; }
 
 		[Required(ErrorMessage = "Gender is required")]
 		public string Gender { get; set; }
@@ -26,13 +32,16 @@ namespace Entities.DTOs{
 		[Required(ErrorMessage = "Blood type is required")]
 		public string BloodType { get; set; }
 
-		[Required(ErrorMessage = "Email is required")]
-		[EmailAddress(ErrorMessage = "Invalid email address")]
-		public string Email { get; set; }
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        [MaxLength(100, ErrorMessage = "Email cannot be longer than 100 characters")]
+        public string Email { get; set; }
 
-		[Required(ErrorMessage = "Password is required")]
-		[DataType(DataType.Password)]
-		public string Password { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        //[RegularExpression(@"^(?=.*[a-zðüþýöç])(?=.*[A-ZÐÜÞÝÖÇ])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$", 
+        //ErrorMessage = "Password must have at least 1 lowercase letter, 1 uppercase letter, 1 digit, 1 special character and 8 characters in total.")]
+        public string Password { get; set; }
     }
-
 }
