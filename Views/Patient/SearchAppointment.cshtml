@@ -1,0 +1,141 @@
+@model AppointmentDTO
+
+<form asp-action="SearchAppointment" asp-controller="Patient" method="post">
+    <div class="form-group">
+        <label for="hospitalDropdown">Hospital</label>
+        <select id="hospitalDropdown" name="hospitalId" class="form-control">
+            <option value="">Select Hospital</option>
+            @foreach (var hospital in Model.Hospitals)
+            {
+                <option value="@hospital.HospitalID">@hospital.HospitalName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="departmentDropdown">Department</label>
+        <select id="departmentDropdown" name="departmentId" class="form-control">
+            <option value="">Select Department</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="doctorDropdown">Doctor</label>
+        <select id="doctorDropdown" name="doctorId" class="form-control">
+            <option value="">Select Doctor</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="dateInput">Date</label>
+        <input type="date" id="dateInput" name="appointmentDate" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+
+</form>
+@if (Model.availableAppointments != null && Model.availableAppointments.Any())
+{
+    <h2>Appointments</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model.availableAppointments)
+            {
+                <tr>
+                    <td>@appointment.AppointmentDate.ToShortDateString()</td>
+                    <td>@appointment.AppointmentTime</td>
+                    <td>@(appointment.Status)</td>
+                    <td>
+                        <form asp-action="AddAppointment" asp-controller="Patient" method="post">
+                            <input type="hidden" name="doctorId" value="@appointment.DoctorID">
+                            <input type="hidden" name="appointmentDate" value="@appointment.AppointmentDate">
+                            <input type="hidden" name="appointmentTime" value="@appointment.AppointmentTime">
+                            <button type="submit" class="btn btn-primary">Take Appointment</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No appointments available.</p>
+}
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Function to load departments based on selected hospital
+            $('#hospitalDropdown').change(function () {
+                var hospitalId = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetDepartments", "Patient")',
+                    type: 'GET',
+                    data: { hospitalId: hospitalId },
+                    success: function (data) {
+                        console.log(data)
+                        var options = '<option value="">Select Department</option>';
+                        $.each(data, function (index, department) {
+                            options += '<option value="' + department.departmentID + '">' + department.departmentName + '</option>';
+                        });
+                        $('#departmentDropdown').html(options);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+
+            // Function to load doctors based on selected department
+            $('#departmentDropdown').change(function () {
+                var departmentId = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetDoctors", "Patient")',
+                    type: 'GET',
+                    data: { departmentId: departmentId },
+                    success: function (data) {
+                        console.log(data)
+                        var options = '<option value="">Select Doctor</option>';
+                        $.each(data, function (index, doctor) {
+                            options += '<option value="' + doctor.doctorID + '">' + doctor.name + ' ' + doctor.surname + '</option>';
+                        });
+                        $('#doctorDropdown').html(options);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+        function takeAppointment(doctorId, appointmentDate, appointmentTime) {
+            // Send an AJAX request to take the appointment
+            $.ajax({
+                url: '@Url.Action("AddAppointment", "Patient")',
+                type: 'POST',
+                data: { doctorId: doctorId, appointmentDate: appointmentDate, appointmentTime: appointmentTime },
+                success: function (data) {
+                    // Handle success if needed
+                    alert('Appointment taken successfully!');
+                    // Optionally, you can do something with the data returned from the server
+                    console.log('Data from server:', data);
+                },
+                error: function (xhr, status, error) {
+                    // Handle error if needed
+                    console.error(error);
+                }
+            });
+        }
+
+
+    </script>
+}

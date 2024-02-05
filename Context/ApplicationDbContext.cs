@@ -69,16 +69,16 @@ namespace Entities.Models // bura düzeltilcek
                     PhoneNumber="5554446677",
                     Address="IYTE Müh F Binası",
                     Gender="Erkek",
-                    Age=22,
-                    Weight=70,
-                    Height=170,
                     BloodType="A",
                     Email="admin@hospitaladmin.com",
                     Password="123",
                     CreatedDate=DateTime.Now,
                     DeletedDate=DateTime.MinValue,
                     ModifiedDate=DateTime.MinValue,
-                    Status=Enums.DataStatus.Inserted 
+                    Status=Enums.DataStatus.Inserted,
+                    Age=22,
+                    Weight=70,
+                    Height=170
                     }
             );
 

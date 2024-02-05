@@ -18,9 +18,9 @@ namespace Entities.Models
 
         
         public Doctor Doctor { get; set; }
-        public int DoctorID { get; set; }          // reference to doctor 
+        public int? DoctorID { get; set; }          // reference to doctor 
         public Patient Patient { get; set; } 
-        public int PatientID { get; set; }       // reference to patient
+        public int? PatientID { get; set; }       // reference to patient
 
         // constructor with parameters
 

@@ -68,6 +68,7 @@ public class AccountController : Controller
             if(user!=null){
                 var Role = user.Role;
                 var claims = new List<Claim>{
+                    new Claim(ClaimTypes.Sid, user.ApplicationUserID.ToString()),
                     new Claim(ClaimTypes.Name , user.Email),
                     new Claim(ClaimTypes.Role , user.Role)
                 };
