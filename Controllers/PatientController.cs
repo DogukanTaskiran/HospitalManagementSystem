@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace Hospital.Controllers
 {
-    [Authorize(Policy ="PatientPolicy")]
+    [Authorize(Policy = "PatientPolicy")]
     public class PatientController : Controller
     {
 
@@ -97,20 +97,26 @@ namespace Hospital.Controllers
             Console.WriteLine("Booked Appointments:");
             Console.WriteLine($"ApplicationUserID: {appid}");
 
-            var bookedAppointments = _context.appointments.Where(a=>a.DoctorID == appid && a.AppointmentDate == appointmentDate)
-            .ToList(); 
+            var bookedAppointments = _context.appointments.Where(a => a.DoctorID == appid && a.AppointmentDate == appointmentDate)
+            .ToList();
             Console.WriteLine($"After querying appointments. Found {bookedAppointments.Count} appointments.");
 
             //modification here
-            var availableTimeSlots = allTimeSlots.ToList();
+            //var availableTimeSlots = allTimeSlots.ToList();
+
+
+            // // Exclude the booked appointments from the list of all time slots to get available time slots
+            // Extract the time slots of the booked appointments
+            var bookedTimeSlots = bookedAppointments.Select(a => a.AppointmentTime).ToList();
+
+            // Exclude the booked time slots from the list of all time slots to get available time slots
+            var availableTimeSlots = allTimeSlots.Except(bookedTimeSlots).ToList();
 
             Console.WriteLine("\nAvailable Time Slots:");
             foreach (var timeSlot in availableTimeSlots)
             {
                 Console.WriteLine($"Hour: {timeSlot.Hour}, Minute: {timeSlot.Minute}");
             }
-            // // Exclude the booked appointments from the list of all time slots to get available time slots
-            
 
             var availableAppointments = availableTimeSlots.Select(timeSlot => new Appointment
             {
@@ -121,7 +127,7 @@ namespace Hospital.Controllers
             }).ToList();
 
 
-            
+
             var dto = new AppointmentDTO
             {
                 Hospitals = _context.hospitals.ToList(),
@@ -143,12 +149,12 @@ namespace Hospital.Controllers
             .Include(x => x.Appointments)
             .SingleOrDefault(p => p.ApplicationUser.Email == userEmail);
 
-             if (patient == null)
-                {
-               return NotFound();
-                }
+            if (patient == null)
+            {
+                return NotFound();
+            }
 
-             return View(patient);
+            return View(patient);
         }
 
         [HttpPost]
@@ -243,6 +249,6 @@ namespace Hospital.Controllers
         //     return View();
         // }
 
-       
+
     }
 }
