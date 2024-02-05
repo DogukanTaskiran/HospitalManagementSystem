@@ -5,12 +5,12 @@ namespace Entities.DTOs{
 	{
 		[Required(ErrorMessage = "Name is required")]
         //[RegularExpression(@"^[a-zA-ZğüşıöçĞÜŞİÖÇ -']+$", ErrorMessage = "Invalid character. Use only letters, spaces, dashes and single quotes.")]   // gerek de yokmuş zaten kendiliğinden her şeyi ekleyebiliyoruz
-        [MaxLength(100, ErrorMessage = "Name cannot be longer than 300 characters")]
+        [MaxLength(100, ErrorMessage = "Name cannot be longer than 100 characters")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Surname is required")]
         //[RegularExpression(@"^[a-zA-ZğüşıöçĞÜŞİÖÇ -']+$", ErrorMessage = "Invalid character. Use only letters, spaces, dashes and single quotes.")]     // gerek de yokmuş zaten kendiliğinden her şeyi ekleyebiliyoruz
-        [MaxLength(100, ErrorMessage = "Surname cannot be longer than 300 characters")]
+        [MaxLength(100, ErrorMessage = "Surname cannot be longer than 100 characters")]
         public string Surname { get; set; }
 
 
