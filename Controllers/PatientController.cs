@@ -11,6 +11,7 @@ using System.Security.Claims;
 
 namespace Hospital.Controllers
 {
+    [Authorize(Policy ="PatientPolicy")]
     public class PatientController : Controller
     {
 
@@ -134,6 +135,21 @@ namespace Hospital.Controllers
 
 
         }
+        public IActionResult Profile()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            var Patient = _context.patients.ToList();
+            ApplicationUser patient = _context.patients
+            .Include(x => x.Appointments)
+            .SingleOrDefault(p => p.ApplicationUser.Email == userEmail);
+
+             if (patient == null)
+                {
+               return NotFound();
+                }
+
+             return View(patient);
+        }
 
         [HttpPost]
         public IActionResult AddAppointment(int doctorId, DateTime appointmentDate, DateTime appointmentTime)
@@ -227,20 +243,6 @@ namespace Hospital.Controllers
         //     return View();
         // }
 
-        // public IActionResult Profile()
-        // {
-        //     var userEmail = User.FindFirstValue(ClaimTypes.Name);
-        //     // var Patient = _context.patients.ToList();
-        //     ApplicationUser patient = _context.patients
-        //     .Include(x => x.Appointments)
-        //     .SingleOrDefault(p => p.ApplicationUser.Email == userEmail);
-
-        //     if (patient == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(patient);
-        // }
+       
     }
 }

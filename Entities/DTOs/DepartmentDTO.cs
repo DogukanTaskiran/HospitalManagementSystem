@@ -10,6 +10,7 @@ namespace Entities.DTOs{
         public int DepartmentID {get; set;}
 
         [Required(ErrorMessage = "Department Name is required")]
+        [MaxLength(100, ErrorMessage = "Department name cannot be longer than 100 characters")]
         public string DepartmentName {get;set;}
     }
 }
