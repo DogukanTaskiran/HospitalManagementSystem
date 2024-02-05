@@ -40,7 +40,7 @@ namespace Hospital.Controllers
         [HttpGet]
         public IActionResult GetDoctors(int departmentId)
         {
-            Console.WriteLine("Received departmentId: " + departmentId); 
+            Console.WriteLine("Received departmentId: " + departmentId);
             var doctors = _context.doctors
                 .Where(d => d.DepartmentID == departmentId)
                 .Select(d => new
@@ -51,7 +51,7 @@ namespace Hospital.Controllers
                 })
                 .ToList(); ;
 
-            Console.WriteLine("Number of doctors retrieved: " + doctors.Count); 
+            Console.WriteLine("Number of doctors retrieved: " + doctors.Count);
             return Json(doctors);
         }
 
@@ -75,36 +75,58 @@ namespace Hospital.Controllers
         public IActionResult SearchAppointment(int hospitalId, int departmentId, int doctorId, DateTime appointmentDate)
         {
 
-            var appointments = _context.appointments
-                .Where(a => a.DoctorID == doctorId && a.AppointmentDate.Date == appointmentDate.Date)
-                .ToList();
-                
-            Console.WriteLine("Number of appointments retrieved: " + appointments.Count);
-
-            if (appointments.Count == 0)
+            System.Console.WriteLine("DATEEEEEEEEEEEEEEEEEEEEE:" + appointmentDate);
+            System.Console.WriteLine("DOCTORIDDDDD:" + doctorId);
+            var startTime = appointmentDate.Date.AddHours(9);
+            var endTime = appointmentDate.Date.AddHours(17);
+            var allTimeSlots = new List<DateTime>();
+            var currentTime = startTime;
+            while (currentTime < endTime)
             {
-                appointments = new List<Appointment>();
-                for (int i = 0; i < 9; i++)
-                {
-                    var appointment = new Appointment
-                    {
-                        AppointmentDate = appointmentDate,
-                        AppointmentTime = i,
-                        DoctorID = doctorId,
-                        Status = false,
-
-                    };
-                    appointments.Add(appointment);
-                }
-
-
+                allTimeSlots.Add(currentTime);
+                currentTime = currentTime.AddMinutes(30); // 30-minute intervals
             }
+
+            var appid = _context.appointments
+               .Include(p => p.Doctor).ThenInclude(a => a.ApplicationUser)
+               .Where(a => a.Doctor.DoctorID == doctorId)
+               .Select(a => a.Doctor.ApplicationUserID)
+               .FirstOrDefault();
+
+            Console.WriteLine("Booked Appointments:");
+            Console.WriteLine($"ApplicationUserID: {appid}");
+
+            var bookedAppointments = _context.appointments.Where(a=>a.DoctorID == appid && a.AppointmentDate == appointmentDate)
+            .ToList(); 
+            Console.WriteLine($"After querying appointments. Found {bookedAppointments.Count} appointments.");
+
+            //modification here
+            var availableTimeSlots = allTimeSlots.ToList();
+
+            Console.WriteLine("\nAvailable Time Slots:");
+            foreach (var timeSlot in availableTimeSlots)
+            {
+                Console.WriteLine($"Hour: {timeSlot.Hour}, Minute: {timeSlot.Minute}");
+            }
+            // // Exclude the booked appointments from the list of all time slots to get available time slots
+            
+
+            var availableAppointments = availableTimeSlots.Select(timeSlot => new Appointment
+            {
+                AppointmentDate = appointmentDate,
+                AppointmentTime = timeSlot,
+                DoctorID = doctorId,
+                Status = false
+            }).ToList();
+
+
+            
             var dto = new AppointmentDTO
             {
                 Hospitals = _context.hospitals.ToList(),
                 Departments = _context.departments.ToList(),
                 Doctors = _context.doctors.ToList(),
-                availableAppointments = appointments
+                availableAppointments = availableAppointments
             };
 
             return View(dto);
@@ -114,7 +136,7 @@ namespace Hospital.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAppointment(int doctorId, DateTime appointmentDate, int appointmentTime)
+        public IActionResult AddAppointment(int doctorId, DateTime appointmentDate, DateTime appointmentTime)
         {
             try
             {
@@ -122,23 +144,30 @@ namespace Hospital.Controllers
                 System.Console.WriteLine("AAAPDTAE" + appointmentDate.Month);
                 System.Console.WriteLine("timeeee" + appointmentTime);
 
+
                 var userEmail = User.FindFirstValue(ClaimTypes.Name);
-                var patient = _context.patients.FirstOrDefault(p => p.Email == userEmail);
+                var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
                 System.Console.WriteLine("PatientAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ID" + patient.PatientID);
+                System.Console.WriteLine("apppppp iddd" + patient.ApplicationUser.ApplicationUserID);
                 if (patient == null)
                 {
 
                     return NotFound("Patient not found.");
                 }
 
+                var eagerdoctor = _context.doctors.Include(d => d.ApplicationUser).FirstOrDefault(d => d.DoctorID == doctorId);
+                System.Console.WriteLine(" DOOOOOOOC DOOOOC :" + eagerdoctor.DoctorID);
+                System.Console.WriteLine(" app app doc doc doc doc doc " + eagerdoctor.ApplicationUser.ApplicationUserID);
 
                 var appointment = new Appointment
                 {
                     AppointmentDate = appointmentDate,
                     AppointmentTime = appointmentTime,
-                    Status = false, 
-                    DoctorID = doctorId,
-                    PatientID = patient.PatientID, 
+                    Status = true,
+                    DoctorID = eagerdoctor.ApplicationUser.ApplicationUserID,
+                    PatientID = patient.ApplicationUser.ApplicationUserID
                 };
 
 
@@ -154,6 +183,7 @@ namespace Hospital.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
 
 
 
