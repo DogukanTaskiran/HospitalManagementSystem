@@ -5,6 +5,7 @@ using Entities.Models;
 using Entities.DTOs;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital.Controllers;
 
@@ -96,4 +97,21 @@ public class AccountController : Controller
     }
 
 
+    [Authorize(Roles = "Patient")]
+    [HttpGet]
+    public ActionResult ChangePassword()
+    {
+        return View();
+    }
+
+    [Authorize(Roles = "Patient")]
+    [HttpPost]
+    public IActionResult ChangePassword(Patient model)
+    {
+        var email = User.FindFirstValue(ClaimTypes.Name);
+        var patient = _context.patients.FirstOrDefault(x => x.Email == email);
+        patient.Password = model.Password;
+        _context.SaveChanges();
+        return RedirectToAction("Profile","Patient");
+    }
 }
