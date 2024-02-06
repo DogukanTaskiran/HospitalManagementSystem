@@ -141,6 +141,31 @@ namespace Hospital.Controllers
 
 
         }
+
+        // update patient details part
+        [Authorize(Roles = "Patient")]
+        [HttpGet]
+        public ActionResult UpdateDetails()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Patient")]
+        [HttpPost]
+        public ActionResult UpdateDetails(Patient model)
+        {
+               var email = User.FindFirstValue(ClaimTypes.Name);
+               Console.WriteLine(email + "            <<<<<<<<<<<<<<<<<<<<<<<--------------------------------------------- FOR DEBUG");
+               var patient = _context.patients.FirstOrDefault(c => c.Email == email);
+
+               patient.Age = model.Age;
+               patient.Height = model.Height;
+               patient.Weight = model.Weight;
+               patient.Address = model.Address;
+               patient.PhoneNumber = model.PhoneNumber;
+               _context.SaveChanges();
+            return RedirectToAction("Profile","Patient");
+        }
         public IActionResult Profile()
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Name);
