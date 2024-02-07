@@ -39,51 +39,7 @@ namespace Hospital.Controllers
             return View(appointments);
         }
 
-        public IActionResult ViewDiagnoses()
-        {
-            var userEmail = User.FindFirstValue(ClaimTypes.Name);
-            var patient = _context.patients
-                .Include(p => p.ApplicationUser)
-                .FirstOrDefault(p => p.Email == userEmail);
-            var diagnoses = _context.diagnoses.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
-        
-            return View(diagnoses);
-        }
-
-        public IActionResult ViewReports()
-        {
-            var userEmail = User.FindFirstValue(ClaimTypes.Name);
-            var patient = _context.patients
-                .Include(p => p.ApplicationUser)
-                .FirstOrDefault(p => p.Email == userEmail);
-            var reports = _context.reports.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
-
-            return View(reports);
-        }
-
-        public IActionResult ViewPrescriptions()
-        {
-            var userEmail = User.FindFirstValue(ClaimTypes.Name);
-            var patient = _context.patients
-                .Include(p => p.ApplicationUser)
-                .FirstOrDefault(p => p.Email == userEmail);
-            var prescriptions = _context.prescriptions.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
-
-            return View(prescriptions);
-        }
-
-        public IActionResult ViewInvoices()
-        {
-            var userEmail = User.FindFirstValue(ClaimTypes.Name);
-            var patient = _context.patients
-                .Include(p => p.ApplicationUser)
-                .FirstOrDefault(p => p.Email == userEmail);
-            var invoices = _context.invoices.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
-
-            return View(invoices);
-        }
-
-
+    
 
 
 
@@ -361,28 +317,6 @@ namespace Hospital.Controllers
             }
             return View(prescriptions);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -6,6 +6,7 @@ using Entities.DTOs;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Entities.DTOs;
 
 namespace Hospital.Controllers;
 
@@ -106,13 +107,24 @@ public class AccountController : Controller
 
     [Authorize(Roles = "Patient")]
     [HttpPost]
-    public IActionResult ChangePassword(Patient model)
+    public IActionResult ChangePassword(ChangePasswordDTO model)
     {
-        var email = User.FindFirstValue(ClaimTypes.Name);
-        var patient = _context.patients.FirstOrDefault(x => x.Email == email);
-        patient.Password = model.Password;
-        _context.SaveChanges();
-        return RedirectToAction("Profile", "Patient");
+        if (ModelState.IsValid)
+        {
+            var email = User.FindFirstValue(ClaimTypes.Name);
+            var patient = _context.patients.FirstOrDefault(x => x.Email == email);
+
+            if (patient != null && (patient.Password == model.Password))
+            {
+                patient.Password = model.NewPassword;
+                _context.SaveChanges();
+                return RedirectToAction("Profile", "Patient");
+            }
+
+            ModelState.AddModelError("CurrentPassword", "Current password is incorrect");
+        }
+
+        return View(model);
     }
 
 }
