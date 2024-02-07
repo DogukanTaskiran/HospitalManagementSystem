@@ -23,10 +23,34 @@ namespace Hospital.Controllers
         }
         public IActionResult Index()
         {
-
             return View();
         }
+        public IActionResult ViewAppointment()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            System.Console.WriteLine("USEREMAİLEMAİLEMAİLEMAİİL" + userEmail);
+            var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            System.Console.WriteLine("USEREMAİLEMAİLEMAİLEMAİİL" + patient.PatientID);
+            var appointments = _context.appointments.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID && p.Status != Entities.Enums.DataStatus.Deleted).ToList();//patientin application user id'si appointmenttaki patient
+            foreach (var app in appointments)
+            {
+                System.Console.WriteLine("AppointmentList LOg : " + app.AppointmentTime);
+            }
 
+            return View(appointments);
+        }
+        [HttpPost]
+        public IActionResult DeleteAppointment(int id){
+            System.Console.WriteLine("DELETE İÇİN GELEN ID ---->" + id);
+            var appointments = _context.appointments.FirstOrDefault(d=>d.AppointmentID==id);
+            appointments.DeletedDate = DateTime.Now;
+            appointments.Status = Entities.Enums.DataStatus.Deleted;
+            _context.SaveChanges();
+            return RedirectToAction("ViewAppointment" , "Patient");
+
+        }
 
         [HttpGet]
         public IActionResult GetDepartments(int hospitalId)
@@ -123,7 +147,7 @@ namespace Hospital.Controllers
                 AppointmentDate = appointmentDate,
                 AppointmentTime = timeSlot,
                 DoctorID = doctorId,
-                Status = false
+                AppStatus = false
             }).ToList();
 
 
@@ -187,7 +211,7 @@ namespace Hospital.Controllers
                 {
                     AppointmentDate = appointmentDate,
                     AppointmentTime = appointmentTime,
-                    Status = true,
+                    AppStatus = true,
                     DoctorID = eagerdoctor.ApplicationUser.ApplicationUserID,
                     PatientID = patient.ApplicationUser.ApplicationUserID
                 };
