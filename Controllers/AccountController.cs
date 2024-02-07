@@ -112,6 +112,7 @@ public class AccountController : Controller
         var patient = _context.patients.FirstOrDefault(x => x.Email == email);
         patient.Password = model.Password;
         _context.SaveChanges();
-        return RedirectToAction("Profile","Patient");
+        return RedirectToAction("Profile", "Patient");
     }
+
 }

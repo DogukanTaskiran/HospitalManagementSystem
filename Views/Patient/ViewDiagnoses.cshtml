@@ -1,0 +1,31 @@
+﻿@model List<Diagnosis>
+<h2>List of My Diagnoses</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Diagnosis ID</th>
+                <th>Diagnosis Name</th>
+                <th>Doctor Name</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var diagnosis in Model)
+            {
+                <tr>
+                    <td>@diagnosis.DiagnosisID</td>
+                    <td>@diagnosis.DiagnosisDescription</td>
+                    <td>@diagnosis.Doctor.Name</td>
+                    <td>@diagnosis.DiagnosisDate.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No diagnosis found.</p>
+}

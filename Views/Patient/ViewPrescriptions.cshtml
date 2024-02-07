@@ -1,0 +1,32 @@
+﻿@model List<Prescription>
+<h2>List of My Prescriptions</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Prescription ID</th>
+                <th>Prescription Date</th>
+                <th>Doctor Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prescription in Model)
+            {
+                <tr>
+                    <td>@prescription.PrescriptionID</td>
+                    <td>@prescription.PrescriptionDate</td>
+                    <td>@prescription.Doctor.Name</td>
+                    <td>@prescription.Status</td>
+                    <td>@prescription.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No prescriptions found.</p>
+}

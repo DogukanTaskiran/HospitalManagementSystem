@@ -21,10 +21,7 @@ namespace Hospital.Controllers
         {
             _context = applicationDbContext;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+
         public IActionResult ViewAppointment()
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Name);
@@ -41,6 +38,56 @@ namespace Hospital.Controllers
 
             return View(appointments);
         }
+
+        public IActionResult ViewDiagnoses()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            var diagnoses = _context.diagnoses.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
+        
+            return View(diagnoses);
+        }
+
+        public IActionResult ViewReports()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            var reports = _context.reports.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
+
+            return View(reports);
+        }
+
+        public IActionResult ViewPrescriptions()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            var prescriptions = _context.prescriptions.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
+
+            return View(prescriptions);
+        }
+
+        public IActionResult ViewInvoices()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            var invoices = _context.invoices.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
+
+            return View(invoices);
+        }
+
+
+
+
+
+
         [HttpPost]
         public IActionResult DeleteAppointment(int id){
             System.Console.WriteLine("DELETE İÇİN GELEN ID ---->" + id);
@@ -166,7 +213,6 @@ namespace Hospital.Controllers
 
         }
 
-        // update patient details part
         [Authorize(Roles = "Patient")]
         [HttpGet]
         public ActionResult UpdateDetails()
@@ -195,7 +241,6 @@ namespace Hospital.Controllers
             var userEmail = User.FindFirstValue(ClaimTypes.Name);
             var Patient = _context.patients.ToList();
             ApplicationUser patient = _context.patients
-            .Include(x => x.Appointments)
             .SingleOrDefault(p => p.ApplicationUser.Email == userEmail);
 
             if (patient == null)

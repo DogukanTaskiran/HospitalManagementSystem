@@ -1,0 +1,31 @@
+﻿@model List<Report>
+<h2>List of My Reports</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Report ID</th>
+                <th>Report Name</th>
+                <th>Doctor Name</th>
+                <th>DiagnosisDescription</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reportX in Model)
+            {
+                <tr>
+                    <td>@reportX.ReportID</td>
+                    <td>@reportX.ReportDescription</td>
+                    <td>@reportX.Diagnosis.Doctor.Name</td>
+                    <td>@reportX.Diagnosis.DiagnosisDescription</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No reports found.</p>
+}
