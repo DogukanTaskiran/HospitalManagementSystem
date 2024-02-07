@@ -1,65 +1,102 @@
 ﻿@model Entities.Models.Patient
 
-<h1 style="margin-top: 30px;">● Patient Details</h1>
-<table class="container p-2 my-4 border">
-    <tr>
-        <th>Name</th>
-        <td>@Model.Name</td>
-    </tr>
-    <tr>
-        <th>Surname</th>
-        <td>@Model.Surname</td>
-    </tr>
-    @if (Model.Age != null)
-    {
-        <tr>
-            <th>Age</th>
-            <td>@Model.Age </td>
-        </tr>
-    }
-    @if (Model.Weight != null)
-    {
-        <tr>
-            <th>Weight</th>
-            <td>@Model.Weight </td>
-        </tr>
-    }
-    @if(Model.Height != null)
-    {
-        <tr>
-            <th>Height</th>
-            <td>@Model.Height </td>
-        </tr>
-    }
-    <tr>
-        <th>Gender</th>
-        <td>@Model.Gender</td>
-    </tr>
-    <tr>
-        <th>Blood Type</th>
-        <td>@Model.BloodType</td>
-    </tr>
+<h1 style="margin-top: 30px;">My Profile</h1>
 
-</table>
-<hr>
-<h2 style="margin-top: 30px;">● Contact Information</h2>
-<table class="container p-2 my-4 border">
-    <thead>
-        <tr>
-            <th>Phone Number</th>
-            <td>@Model.PhoneNumber</td>
-        </tr>
-        <tr>
-            <th>Address</th>
-            <td>@Model.Address</td>
-        </tr>
-        <tr>
-            <th>E-mail</th>
-            <td>@Model.Email</td>
-        </tr>
-    </thead>
-</table>
-<hr>
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" onclick="showDetails()">My Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#" onclick="showContactInfo()">My Contact Information</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div id="detailsContent">
+            <table class="container p-2 my-4 border">
+                <tr>
+                        <th>Name</th>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <th>Surname</th>
+                        <td>@Model.Surname</td>
+                    </tr>
+                    @if (Model.Age != null)
+                    {
+                        <tr>
+                            <th>Age</th>
+                            <td>@Model.Age </td>
+                        </tr>
+                    }
+                    @if (Model.Weight != null)
+                    {
+                        <tr>
+                            <th>Weight</th>
+                            <td>@Model.Weight </td>
+                        </tr>
+                    }
+                    @if (Model.Height != null)
+                    {
+                        <tr>
+                            <th>Height</th>
+                            <td>@Model.Height </td>
+                        </tr>
+                    }
+                    <tr>
+                        <th>Gender</th>
+                        <td>@Model.Gender</td>
+                    </tr>
+                    <tr>
+                        <th>Blood Type</th>
+                        <td>@Model.BloodType</td>
+                    </tr>
+
+                </table>
+        </div>
+        <div id="contactInfoContent" style="display: none;">
+            <table class="container p-2 my-4 border">
+                <thead>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td>@Model.PhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>@Model.Address</td>
+                    </tr>
+                    <tr>
+                        <th>E-mail</th>
+                        <td>@Model.Email</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <a asp-controller="Patient" asp-action="UpdateDetails" class="btn btn-primary">Update my details</a>
+        <a asp-controller="Account" asp-action="ChangePassword" class="btn btn-primary">Change my password</a>
+
+    </div>
+</div>
+
+<script>
+    function showDetails() {
+        document.getElementById('detailsContent').style.display = 'block';
+        document.getElementById('contactInfoContent').style.display = 'none';
+    }
+
+    function showContactInfo() {
+        document.getElementById('detailsContent').style.display = 'none';
+        document.getElementById('contactInfoContent').style.display = 'block';
+    }
+</script>
+
+
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+
 <h2 style="margin-top: 30px;">● Appointments</h2>
 <table class="container p-2 my-4 border">
     <thead>
