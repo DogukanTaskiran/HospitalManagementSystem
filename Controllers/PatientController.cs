@@ -89,13 +89,14 @@ namespace Hospital.Controllers
 
 
         [HttpPost]
-        public IActionResult DeleteAppointment(int id){
+        public IActionResult DeleteAppointment(int id)
+        {
             System.Console.WriteLine("DELETE İÇİN GELEN ID ---->" + id);
-            var appointments = _context.appointments.FirstOrDefault(d=>d.AppointmentID==id);
+            var appointments = _context.appointments.FirstOrDefault(d => d.AppointmentID == id);
             appointments.DeletedDate = DateTime.Now;
             appointments.Status = Entities.Enums.DataStatus.Deleted;
             _context.SaveChanges();
-            return RedirectToAction("ViewAppointment" , "Patient");
+            return RedirectToAction("ViewAppointment", "Patient");
 
         }
 
@@ -224,17 +225,17 @@ namespace Hospital.Controllers
         [HttpPost]
         public ActionResult UpdateDetails(Patient model)
         {
-               var email = User.FindFirstValue(ClaimTypes.Name);
-               Console.WriteLine(email + "            <<<<<<<<<<<<<<<<<<<<<<<--------------------------------------------- FOR DEBUG");
-               var patient = _context.patients.FirstOrDefault(c => c.Email == email);
+            var email = User.FindFirstValue(ClaimTypes.Name);
+            Console.WriteLine(email + "            <<<<<<<<<<<<<<<<<<<<<<<--------------------------------------------- FOR DEBUG");
+            var patient = _context.patients.FirstOrDefault(c => c.Email == email);
 
-               patient.Age = model.Age;
-               patient.Height = model.Height;
-               patient.Weight = model.Weight;
-               patient.Address = model.Address;
-               patient.PhoneNumber = model.PhoneNumber;
-               _context.SaveChanges();
-            return RedirectToAction("Profile","Patient");
+            patient.Age = model.Age;
+            patient.Height = model.Height;
+            patient.Weight = model.Weight;
+            patient.Address = model.Address;
+            patient.PhoneNumber = model.PhoneNumber;
+            _context.SaveChanges();
+            return RedirectToAction("Profile", "Patient");
         }
         public IActionResult Profile()
         {
@@ -300,7 +301,66 @@ namespace Hospital.Controllers
             }
         }
 
-
+        public IActionResult ViewDiagnosis()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            System.Console.WriteLine("DEBUG ViewDiagnosis Patient" + userEmail);
+            var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            System.Console.WriteLine("DEBUG ViewDiagnosis Patient" + patient.ApplicationUserID);
+            var diagnoses = _context.diagnoses.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
+            foreach (var diag in diagnoses)
+            {
+                System.Console.WriteLine("DEBUG: Diagnoses List LOg : " + diag.DiagnosisDate);
+            }
+            return View(diagnoses);
+        }
+        public IActionResult ViewReport()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            System.Console.WriteLine("DEBUG ViewReport Patient" + userEmail);
+            var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            System.Console.WriteLine("DEBUG ViewReport Patient" + patient.ApplicationUserID);
+            var reports = _context.reports.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
+            foreach (var rep in reports)
+            {
+                System.Console.WriteLine("DEBUG: Diagnoses List LOg : " + rep.filename);
+            }
+            return View(reports);
+        }
+        public IActionResult ViewRadiologicalReport()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            System.Console.WriteLine("DEBUG ViewRR Patient" + userEmail);
+            var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            System.Console.WriteLine("DEBUG ViewRR Patient" + patient.ApplicationUserID);
+            var rr = _context.radiologicalReports.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
+            foreach (var r in rr)
+            {
+                System.Console.WriteLine("DEBUG: RR List LOg : " + r.filename);
+            }
+            return View(rr);
+        }
+        public IActionResult ViewPrescription()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            System.Console.WriteLine("DEBUG ViewPrescription Patient" + userEmail);
+            var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            System.Console.WriteLine("DEBUG ViewPrescription Patient" + patient.ApplicationUserID);
+            var prescriptions = _context.prescriptions.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
+            foreach (var pres in prescriptions)
+            {
+                System.Console.WriteLine("DEBUG: RR List LOg : " + pres.filename);
+            }
+            return View(prescriptions);
+        }
 
 
 

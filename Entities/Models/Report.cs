@@ -11,19 +11,16 @@ namespace Entities.Models
     {
         public int ReportID { get; set; }
         public int PatientID { get; set; }
-        public int DiagnosisID { get; set; }
         public string ReportDescription { get; set; }
 
-        public Patient Patient { get; set; }        // Reference to class Patient  
-        public Diagnosis Diagnosis { get; set; }     // Reference to class Diagnosis 
+        public string filename {get;set;}
 
-        // Constructor with parameters
-        public Report(int patientID, int diagnosisID, string reportDescription)
-        {
-            PatientID = patientID;
-            DiagnosisID = diagnosisID;
-            ReportDescription = reportDescription;
-        }
+        public string filepath {get;set;}
+
+        public Patient Patient { get; set; }        // Reference to class Patient  
+            // Reference to class Diagnosis 
+
+
         // Default Constructor 
         public Report()
         {

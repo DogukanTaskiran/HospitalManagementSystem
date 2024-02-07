@@ -16,7 +16,7 @@ namespace Entities.Models
         public string DiagnosisDescription { get; set; }
         public Doctor Doctor { get; set; }      // reference to class doctor
         public Patient Patient { get; set; }    // reference to class patient
-        public Report Reports{ get; set; }    // reference to class patient
+        
 
         // constructor with parameters
 

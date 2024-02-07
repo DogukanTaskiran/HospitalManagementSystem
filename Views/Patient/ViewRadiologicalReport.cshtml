@@ -1,0 +1,25 @@
+@model List<RadiologicalReport>
+<h1>Radiological Report</h1>
+<a class="btn btn-primary"asp-action="Index" asp-controller="Patient">Back</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>RadiologicalReportID</th>
+            <th>Description</th>
+            <th>Name</th>
+            <th>Path</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rr in @Model)
+        {
+            <tr>
+                <td>@rr.RadiologicalReportID</td>
+                <td>@rr.RrDescription</td>
+                <td>@rr.filename</td>
+                <td>@rr.filepath</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

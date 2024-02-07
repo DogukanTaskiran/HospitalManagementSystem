@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240206133719_initialCreate")]
+    [Migration("20240207173815_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />
@@ -99,7 +99,7 @@ namespace Hospital.Migrations
                             Address = "IYTE Müh F Binası",
                             Age = 22,
                             BloodType = "A",
-                            CreatedDate = new DateTime(2024, 2, 6, 16, 37, 18, 432, DateTimeKind.Local).AddTicks(8407),
+                            CreatedDate = new DateTime(2024, 2, 7, 20, 38, 14, 817, DateTimeKind.Local).AddTicks(7487),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@hospitaladmin.com",
                             Gender = "Erkek",
@@ -196,7 +196,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 1,
-                            CreatedDate = new DateTime(2024, 2, 6, 16, 37, 18, 432, DateTimeKind.Local).AddTicks(8370),
+                            CreatedDate = new DateTime(2024, 2, 7, 20, 38, 14, 817, DateTimeKind.Local).AddTicks(7451),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Kardiyoloji",
                             HospitalID = 1,
@@ -206,7 +206,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 2,
-                            CreatedDate = new DateTime(2024, 2, 6, 16, 37, 18, 432, DateTimeKind.Local).AddTicks(8372),
+                            CreatedDate = new DateTime(2024, 2, 7, 20, 38, 14, 817, DateTimeKind.Local).AddTicks(7454),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Nöroloji",
                             HospitalID = 1,
@@ -216,7 +216,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 3,
-                            CreatedDate = new DateTime(2024, 2, 6, 16, 37, 18, 432, DateTimeKind.Local).AddTicks(8374),
+                            CreatedDate = new DateTime(2024, 2, 7, 20, 38, 14, 817, DateTimeKind.Local).AddTicks(7455),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Dahiliye",
                             HospitalID = 1,
@@ -226,7 +226,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 4,
-                            CreatedDate = new DateTime(2024, 2, 6, 16, 37, 18, 432, DateTimeKind.Local).AddTicks(8376),
+                            CreatedDate = new DateTime(2024, 2, 7, 20, 38, 14, 817, DateTimeKind.Local).AddTicks(7457),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Göz Hastalıkları",
                             HospitalID = 2,
@@ -236,7 +236,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 5,
-                            CreatedDate = new DateTime(2024, 2, 6, 16, 37, 18, 432, DateTimeKind.Local).AddTicks(8377),
+                            CreatedDate = new DateTime(2024, 2, 7, 20, 38, 14, 817, DateTimeKind.Local).AddTicks(7458),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Radyoloji",
                             HospitalID = 2,
@@ -246,7 +246,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 6,
-                            CreatedDate = new DateTime(2024, 2, 6, 16, 37, 18, 432, DateTimeKind.Local).AddTicks(8379),
+                            CreatedDate = new DateTime(2024, 2, 7, 20, 38, 14, 817, DateTimeKind.Local).AddTicks(7460),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Nöroloji",
                             HospitalID = 2,
@@ -258,7 +258,10 @@ namespace Hospital.Migrations
             modelBuilder.Entity("Entities.Models.Diagnosis", b =>
                 {
                     b.Property<int>("DiagnosisID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiagnosisID"));
 
                     b.Property<DateTime>("DiagnosisDate")
                         .HasColumnType("datetime2");
@@ -323,7 +326,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 1,
                             Address = "Kemaliye Caddesi , Borno Mahallesi, No:188",
-                            CreatedDate = new DateTime(2024, 2, 6, 16, 37, 18, 432, DateTimeKind.Local).AddTicks(8245),
+                            CreatedDate = new DateTime(2024, 2, 7, 20, 38, 14, 817, DateTimeKind.Local).AddTicks(7271),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "Medical Park",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -334,7 +337,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 2,
                             Address = "Mahmudiye Caddesi , Yılmaz Mahallesi, No:228",
-                            CreatedDate = new DateTime(2024, 2, 6, 16, 37, 18, 432, DateTimeKind.Local).AddTicks(8248),
+                            CreatedDate = new DateTime(2024, 2, 7, 20, 38, 14, 817, DateTimeKind.Local).AddTicks(7275),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "Medicana",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -412,6 +415,14 @@ namespace Hospital.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<string>("filename")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("filepath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("PrescriptionID");
 
                     b.HasIndex("DoctorID");
@@ -436,7 +447,11 @@ namespace Hospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RrImage")
+                    b.Property<string>("filename")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("filepath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -455,13 +470,18 @@ namespace Hospital.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReportID"));
 
-                    b.Property<int>("DiagnosisID")
-                        .HasColumnType("int");
-
                     b.Property<int>("PatientID")
                         .HasColumnType("int");
 
                     b.Property<string>("ReportDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("filename")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("filepath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -580,12 +600,6 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Entities.Models.Diagnosis", b =>
                 {
-                    b.HasOne("Entities.Models.Report", "Reports")
-                        .WithOne("Diagnosis")
-                        .HasForeignKey("Entities.Models.Diagnosis", "DiagnosisID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Entities.Models.Doctor", "Doctor")
                         .WithMany("Diagnoses")
                         .HasForeignKey("DoctorID")
@@ -601,8 +615,6 @@ namespace Hospital.Migrations
                     b.Navigation("Doctor");
 
                     b.Navigation("Patient");
-
-                    b.Navigation("Reports");
                 });
 
             modelBuilder.Entity("Entities.Models.Invoice", b =>
@@ -751,12 +763,6 @@ namespace Hospital.Migrations
             modelBuilder.Entity("Entities.Models.Hospital", b =>
                 {
                     b.Navigation("Departments");
-                });
-
-            modelBuilder.Entity("Entities.Models.Report", b =>
-                {
-                    b.Navigation("Diagnosis")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Models.Doctor", b =>

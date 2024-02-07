@@ -1,0 +1,25 @@
+@model List<Prescription>
+<h1>Prescriptions</h1>
+<a class="btn btn-primary"asp-action="Index" asp-controller="Patient">Back</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>PrescriptionID</th>
+            <th>Name</th>
+            <th>Path</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pres in @Model)
+        {
+            <tr>
+                <td>@pres.PrescriptionID</td>
+                <td>@pres.filename</td>
+                <td>@pres.filepath</td>
+                <td>@pres.PrescriptionDate</td>
+            </tr>
+        }
+    </tbody>
+</table>

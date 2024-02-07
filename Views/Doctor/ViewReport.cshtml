@@ -1,0 +1,45 @@
+@model ReportDTO
+<h1 class="text-center">Reports</h1>
+
+<div style="width: 400px;">
+    <form asp-action="AddReport" asp-controller="Doctor" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="PatientID" value="@Model.PatientID" />
+    <div class="form-group">
+        <label asp-for="ReportDescription">Report Description:</label>
+        <textarea asp-for="ReportDescription" class="form-control"></textarea>
+        <span asp-validation-for="ReportDescription" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ReportFile">Upload Report:</label>
+        <input asp-for="ReportFile" type="file" class="form-control-file" />
+        <span asp-validation-for="ReportFile" class="text-danger"></span>
+    </div><br>
+<button type="submit" class="btn btn-primary">Add Report</button>
+</form>
+</div>
+
+
+<br>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ReportID</th>
+            <th>Name</th>
+            <th>Path</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var rep in @Model.Reports){
+            <tr>
+                <td>@rep.ReportID</td>
+                <td>@rep.filename</td>
+                <td>@rep.filepath</td>
+                <td>@rep.ReportDescription</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
