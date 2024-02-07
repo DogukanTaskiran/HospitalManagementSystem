@@ -1,0 +1,23 @@
+@model List<Report>
+<h1>Reports</h1>
+<a class="btn btn-primary"asp-action="Index" asp-controller="Patient">Back</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ReportID</th>
+            <th>Name</th>
+            <th>Path</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var rep in @Model){
+            <tr>
+                <td>@rep.ReportID</td>
+                <td>@rep.filename</td>
+                <td>@rep.filepath</td>
+                <td>@rep.ReportDescription</td>
+            </tr>
+        }
+    </tbody>
+</table>

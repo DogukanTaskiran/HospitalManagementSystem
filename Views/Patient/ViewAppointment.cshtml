@@ -1,4 +1,5 @@
 @model List<Appointment>
+<a class="btn btn-primary"asp-action="Index" asp-controller="Patient">Back</a>
 <a asp-action="SearchAppointment" asp-controller="Patient" class="btn btn-primary">Search Appointment</a>
 <h2>Upcoming Appointments</h2>
 @foreach(var appoint in Model){ // geçici olarak bu şekilde kalabilir bu sayfa iki foreach mantıklı olmayabilirden ötürü

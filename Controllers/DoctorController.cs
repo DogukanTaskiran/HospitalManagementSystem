@@ -37,7 +37,7 @@ namespace Hospital.Controllers
                 .Where(a => a.DoctorID == doctor.ApplicationUser.ApplicationUserID) // 
                 .Include(a => a.Patient) // Patient gelmesi lazım
                 .Select(a => a.Patient) // navigation objelere bak
-                .Distinct() 
+                .Distinct()
                 .ToList();
 
 
@@ -49,21 +49,204 @@ namespace Hospital.Controllers
         }
 
         [HttpGet] //("Doctor/ViewDiagnosis/{id}")
-        public IActionResult ViewDiagnosis(int id){
+        public IActionResult ViewDiagnosis(int id)
+        {
             System.Console.WriteLine("VIEW DIAGNOSIS DEBUG : " + id);
 
-            var diagnosis = _context.diagnoses.Where(d=>d.PatientID==id).ToList();
+            var diagnosis = _context.diagnoses.Where(d => d.PatientID == id).ToList();
+            int patientId = id;
 
-            return View(diagnosis);
+            var DTO = new DiagnosisDTO
+            {
+                Diagnoses = diagnosis,
+                PatientID = id
+            };
+
+            return View(DTO);
         }
 
         [HttpGet]
-        public IActionResult AddDiagnosis(){
-
-            return View();
+        public IActionResult AddDiagnosis(int id)
+        {
+            var model = new DiagnosisDTO
+            {
+                PatientID = id
+            };
+            return View(model);
         }
 
+        [HttpPost]
+        public IActionResult AddDiagnosis(DiagnosisDTO model)
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            System.Console.WriteLine("USEREMAİLEMAİLEMAİLEMAİİL ADD DİAGNOSIS POST " + userEmail);
+            var doctor = _context.doctors
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            System.Console.WriteLine("USEREMAİLEMAİLEMAİLEMAİİL ADD DİAGNOSIS POST " + doctor.ApplicationUser.ApplicationUserID);
 
+            Console.WriteLine("PatientID AddDiagnosis POST Request: " + model.PatientID);
+            if (ModelState.IsValid)
+            {
+
+                var diagnosis = new Diagnosis
+                {
+                    PatientID = model.PatientID,
+                    DoctorID = doctor.ApplicationUser.ApplicationUserID,
+                    DiagnosisDescription = model.DiagnosisDescription,
+                    DiagnosisDate = model.DiagnosisDate
+                };
+                _context.diagnoses.Add(diagnosis);
+                _context.SaveChanges();
+                return RedirectToAction("ViewDiagnosis", "Doctor", new { id = model.PatientID });
+            }
+            return View(model);
+        }
+
+        public IActionResult ViewReport(int id)
+        {
+            System.Console.WriteLine("VIEW REPORT DEBUG ID:" + id);
+            var reports = _context.reports.Where(r => r.PatientID == id).ToList();
+
+            var DTO = new ReportDTO
+            {
+                Reports = reports,
+                PatientID = id
+            };
+
+            return View(DTO);
+        }
+
+        [HttpPost]
+        public IActionResult AddReport(ReportDTO model)
+        {
+            System.Console.WriteLine("ADD REPORT DEBUG PATIENT ID : " + model.PatientID);
+            System.Console.WriteLine("ADD REPORT DEBUG DESC : " + model.ReportDescription);
+            System.Console.WriteLine("ADD REPORT DEBUG FileName: " + model.ReportFile.FileName);
+            if (ModelState.IsValid)
+            {
+                // Save the report to the database
+                var report = new Report
+                {
+                    ReportDescription = model.ReportDescription,
+                    PatientID = model.PatientID,
+                    filename = model.ReportFile.FileName,
+                    filepath = UploadFile(model.ReportFile)
+                };
+
+                _context.reports.Add(report);
+                _context.SaveChanges();
+
+                return RedirectToAction("ViewReport", "Doctor", new { id = model.PatientID });
+            }
+
+            return View(model);
+        }
+        public IActionResult ViewPrescription(int id)
+        {
+            System.Console.WriteLine("VIEW REPORT DEBUG ID:" + id);
+            var prescriptions = _context.prescriptions.Where(r => r.PatientID == id).ToList();
+
+            var DTO = new PrescriptionDTO
+            {
+                Prescriptions = prescriptions,
+                PatientID = id
+            };
+
+            return View(DTO);
+        }
+        [HttpPost]
+        public IActionResult AddPrescription(PrescriptionDTO model)
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            var doctor = _context.doctors
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+
+            System.Console.WriteLine("ADD PRES DEBUG PATIENT ID : " + model.PatientID);
+            System.Console.WriteLine("ADD PRES DEBUG DESC : " + model.PrescriptionDate);
+            System.Console.WriteLine("ADD PRES DEBUG FileName: " + model.PrescriptionFile.FileName);
+
+            if (ModelState.IsValid)
+            {
+                // Save the report to the database
+                var prescription = new Prescription
+                {
+                    PrescriptionDate = DateTime.Now,
+                    DoctorID = doctor.ApplicationUser.ApplicationUserID,
+                    PatientID = model.PatientID,
+                    filename = model.PrescriptionFile.FileName,
+                    filepath = UploadFile(model.PrescriptionFile)
+                };
+
+                _context.prescriptions.Add(prescription);
+                _context.SaveChanges();
+
+                return RedirectToAction("ViewPrescription", "Doctor", new { id = model.PatientID });
+            }
+
+            return View(model);
+        }
+
+        public IActionResult ViewRadiologicalReport(int id)
+        {
+            var RadiologicalReports = _context.radiologicalReports.Where(r => r.PatientID == id).ToList();
+            var DTO = new RadiologicalReportDTO
+            {
+                RadiologicalReports = RadiologicalReports,
+                PatientID = id
+            };
+            return View(DTO);
+        }
+        [HttpPost]
+        public IActionResult AddRadiologicalReport(RadiologicalReportDTO model)
+        {
+            System.Console.WriteLine("ADD RR DEBUG PATIENT ID : " + model.PatientID);
+            System.Console.WriteLine("ADD RR DEBUG DESC : " + model.RrDescription);
+            System.Console.WriteLine("ADD RR DEBUG FileName: " + model.RadiologicalReportFile.FileName);
+
+            if (ModelState.IsValid)
+            {
+                // Save the report to the database
+                var rr = new RadiologicalReport
+                {
+                    RrDescription=model.RrDescription,
+                    PatientID = model.PatientID,
+                    filename = model.RadiologicalReportFile.FileName,
+                    filepath = UploadFile(model.RadiologicalReportFile)
+                };
+
+                _context.radiologicalReports.Add(rr);
+                _context.SaveChanges();
+
+                return RedirectToAction("ViewRadiologicalReport", "Doctor", new { id = model.PatientID });
+            }
+
+            return View(model);
+        }
+        private string UploadFile(IFormFile file)
+        {
+            string uniqueFileName = null;
+            string filePath = null;
+
+            if (file != null)
+            {
+                string uploadsFolder = Path.Combine("wwwroot", "uploads");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                //directory oluştur
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+            }
+
+            return filePath;
+        }
 
 
     }

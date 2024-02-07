@@ -218,11 +218,11 @@ namespace Entities.Models // bura düzeltilcek
 
             // Ref: Report.diagnosisID - Diagnosis.diagnosisID          // ONE REPORT ONE DIAGNOSIS
 
-            modelBuilder.Entity<Report>()
-            .HasOne(dia => dia.Diagnosis)
-            .WithOne(rep => rep.Reports)
-            .HasForeignKey<Diagnosis>(rep => rep.DiagnosisID)
-            .OnDelete(DeleteBehavior.Restrict);
+            // modelBuilder.Entity<Report>() //kaldırıldı, duruma göre yeniden değerlendirilebilir mi 
+            // .HasOne(dia => dia.Diagnosis)
+            // .WithOne(rep => rep.Reports)
+            // .HasForeignKey<Diagnosis>(rep => rep.DiagnosisID)
+            // .OnDelete(DeleteBehavior.Restrict);
 
             // Ref: Patient.patientID < Report.patientID                // ONE PATIENT MANY REPORTS
 
