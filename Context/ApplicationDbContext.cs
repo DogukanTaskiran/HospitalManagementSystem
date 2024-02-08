@@ -190,6 +190,14 @@ namespace Entities.Models // bura düzeltilcek
             .HasForeignKey(doc => doc.DepartmentID)
             .OnDelete(DeleteBehavior.Restrict);
 
+            // ONE DEPARTMENT MANY RECEPTIONIST
+
+            modelBuilder.Entity<Department>()
+            .HasMany(d => d.Receptionists)
+            .WithOne(rec => rec.Department)
+            .HasForeignKey(doc => doc.DepartmentID)
+            .OnDelete(DeleteBehavior.Restrict);
+
             // Ref: Prescription.patientID > Patient.patientID          // ONE PATIENT MANY PRESCRIPTIONS
 
             modelBuilder.Entity<Patient>()

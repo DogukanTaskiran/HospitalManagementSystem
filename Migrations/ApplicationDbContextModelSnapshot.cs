@@ -96,7 +96,7 @@ namespace Hospital.Migrations
                             Address = "IYTE Müh F Binası",
                             Age = 22,
                             BloodType = "A",
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6269),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8445),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@hospitaladmin.com",
                             Gender = "Erkek",
@@ -193,7 +193,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 1,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6156),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8370),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Kardiyoloji",
                             HospitalID = 1,
@@ -203,7 +203,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 2,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6161),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8372),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Nöroloji",
                             HospitalID = 1,
@@ -213,7 +213,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 3,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6164),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8375),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Dahiliye",
                             HospitalID = 1,
@@ -223,7 +223,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 4,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6196),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8376),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Göz Hastalıkları",
                             HospitalID = 2,
@@ -233,7 +233,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 5,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6198),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8379),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Radyoloji",
                             HospitalID = 2,
@@ -243,7 +243,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 6,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6199),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8380),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Nöroloji",
                             HospitalID = 2,
@@ -253,7 +253,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 10,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6201),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8382),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Psikiyatri",
                             HospitalID = 4,
@@ -263,7 +263,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 11,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6203),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8384),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Dermatoloji",
                             HospitalID = 4,
@@ -273,7 +273,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 12,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6205),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8386),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Fizik Tedavi ve Rehabilitasyon",
                             HospitalID = 4,
@@ -283,7 +283,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 13,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6206),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8387),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Kulak Burun Boğaz",
                             HospitalID = 5,
@@ -293,7 +293,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 14,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6208),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8389),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Kadın Hastalıkları ve Doğum",
                             HospitalID = 5,
@@ -303,7 +303,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 15,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6209),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8390),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Çocuk Sağlığı ve Hastalıkları",
                             HospitalID = 5,
@@ -313,7 +313,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 16,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6211),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8391),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Gastroenteroloji",
                             HospitalID = 6,
@@ -323,7 +323,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 17,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6212),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8393),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Endokrinoloji",
                             HospitalID = 6,
@@ -333,7 +333,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 18,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6214),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8394),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Kardiyovasküler Cerrahi",
                             HospitalID = 6,
@@ -343,7 +343,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 19,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6215),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8396),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Plastik ve Rekonstrüktif Cerrahi",
                             HospitalID = 7,
@@ -353,7 +353,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 20,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6216),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8397),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Nefroloji",
                             HospitalID = 7,
@@ -363,7 +363,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 21,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6218),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8398),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Kardiyovasküler Anestezi ve Yoğun Bakım",
                             HospitalID = 7,
@@ -373,7 +373,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 22,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6220),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8401),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Plastik Cerrahi",
                             HospitalID = 8,
@@ -383,7 +383,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 23,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6222),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8402),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Göğüs Cerrahisi",
                             HospitalID = 8,
@@ -393,7 +393,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 24,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6224),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8404),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Kulak Burun Boğaz",
                             HospitalID = 8,
@@ -403,7 +403,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 25,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6225),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8405),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Kardiyoloji",
                             HospitalID = 9,
@@ -413,7 +413,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 26,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6226),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8406),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Ortopedi",
                             HospitalID = 9,
@@ -423,7 +423,7 @@ namespace Hospital.Migrations
                         new
                         {
                             DepartmentID = 27,
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6228),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8408),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentName = "Göz Hastalıkları",
                             HospitalID = 9,
@@ -503,7 +503,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 1,
                             Address = "Kemaliye Caddesi , Borno Mahallesi, No:188",
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6024),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8220),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "Medical Park",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -514,7 +514,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 2,
                             Address = "Mahmudiye Caddesi , Yılmaz Mahallesi, No:228",
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6027),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8224),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "Medicana",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -525,7 +525,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 3,
                             Address = "İzmiriye Caddesi , Emir Mahallesi, No:728",
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6029),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8226),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "Medical Point",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -536,7 +536,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 4,
                             Address = "Çakır Caddesi , Kültür Mahallesi, No:28",
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6031),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8227),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "MediX",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -547,7 +547,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 5,
                             Address = "Harbiye Caddesi , Osman Mahallesi, No:58",
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6033),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8229),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "Medic Power",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -558,7 +558,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 6,
                             Address = "Muradiye Caddesi , Papatya Mahallesi, No:48",
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6035),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8231),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "Chicago",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -569,7 +569,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 7,
                             Address = "Fatih Caddesi , Gül Mahallesi, No:558",
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6037),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8232),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "Yeditepe Hastanesi",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -580,7 +580,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 8,
                             Address = "Selimiye Caddesi , İhsaniye Mahallesi, No:218",
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6038),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8234),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "Hacettepe Özel",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -591,7 +591,7 @@ namespace Hospital.Migrations
                         {
                             HospitalID = 9,
                             Address = "Kitabiye Caddesi , Bilgin Mahallesi, No:98",
-                            CreatedDate = new DateTime(2024, 2, 8, 9, 52, 40, 332, DateTimeKind.Local).AddTicks(6040),
+                            CreatedDate = new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8235),
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HospitalName = "Izmir Şehir Hastanesi",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -815,11 +815,16 @@ namespace Hospital.Migrations
                 {
                     b.HasBaseType("Entities.Models.ApplicationUser");
 
+                    b.Property<int>("DepartmentID")
+                        .HasColumnType("int");
+
                     b.Property<int>("ReceptionistID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReceptionistID"));
+
+                    b.HasIndex("DepartmentID");
 
                     b.ToTable("Receptionist", (string)null);
                 });
@@ -991,7 +996,15 @@ namespace Hospital.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Entities.Models.Department", "Department")
+                        .WithMany("Receptionists")
+                        .HasForeignKey("DepartmentID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("ApplicationUser");
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Entities.Models.ApplicationUser", b =>
@@ -1012,6 +1025,8 @@ namespace Hospital.Migrations
                     b.Navigation("Doctors");
 
                     b.Navigation("Nurses");
+
+                    b.Navigation("Receptionists");
                 });
 
             modelBuilder.Entity("Entities.Models.Hospital", b =>

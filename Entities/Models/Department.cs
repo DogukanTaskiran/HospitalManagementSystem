@@ -15,7 +15,9 @@ namespace Entities.Models
        
        public Hospital Hospital { get; set; }   // Reference to hospital
        public List<Doctor> Doctors{ get; set; }   // Reference to doctor
-       public List<Nurse> Nurses { get; set; }
+       public List<Nurse> Nurses { get; set; } // Reference to nurse
+
+       public List<Receptionist> Receptionists {get;set;} // reference to receptionist
        
        
        // constructor with parameters
