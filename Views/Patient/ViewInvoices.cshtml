@@ -1,38 +1,72 @@
 ﻿@model List<Invoice>
-<h2>List of My Invoices</h2>
-<a class="btn btn-primary" asp-action="Profile" asp-controller="Patient">Back</a>
-<div class="form-group">
-    <div class="col-md-12">
-        &nbsp;
-    </div>
-</div>
-@if (Model != null && Model.Count > 0)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Invoice ID</th>
-                <th>Invoice Price</th>
-                <th>Invoice Date</th>
-                <th>Service Description</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var invoice in Model)
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="path/to/bootstrap.min.css">
+    <title>Invoices</title>
+    <style>
+        body {
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        .btn-back {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="mb-4">Invoices</h1>
+        <a class="btn btn-primary btn-back" asp-action="Profile" asp-controller="Patient">Back</a>
+        <hr>
+
+        <div class="table-responsive">
+            @if (Model != null && Model.Count > 0)
             {
-                <tr>
-                    <td>@invoice.InvoiceID</td>
-                    <td>@invoice.InvoicePrice</td>
-                    <td>@invoice.InvoiceDate.ToShortDateString</td>
-                    <td>@invoice.ServiceDescription</td>
-                    <td>@invoice.Status</td>
-                </tr>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Invoice ID</th>
+                            <th>Invoice Price</th>
+                            <th>Invoice Date</th>
+                            <th>Service Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var invoice in Model)
+                        {
+                            <tr>
+                                <td>@invoice.InvoiceID</td>
+                                <td>@invoice.InvoicePrice</td>
+                                <td>@invoice.InvoiceDate.ToShortDateString()</td>
+                                <td>@invoice.ServiceDescription</td>
+                                <td>@invoice.Status</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No invoices found.</p>
-}
+            else
+            {
+                <p>No invoices found.</p>
+            }
+        </div>
+    </div>
+
+    <script src="path/to/jquery.slim.min.js"></script>
+    <script src="path/to/popper.min.js"></script>
+    <script src="path/to/bootstrap.min.js"></script>
+
+</body>
+
+</html>

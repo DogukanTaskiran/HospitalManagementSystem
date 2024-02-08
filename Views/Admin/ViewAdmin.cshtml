@@ -20,7 +20,7 @@
                                 </div>
                                 <form asp-controller="Admin" asp-action="UpdateAdmin" method="get">
                                     <input type="hidden" name="id" value="@admin.ApplicationUser.ApplicationUserID" />
-                                    
+
                                     <button class="btn btn-outline-primary btn-sm" type="submit">Update</button>
                                 </form>
 
@@ -30,21 +30,14 @@
                                 </form>
                                 <br>
                             </div>
-
                         </div>
-
                     }
-
                 </div>
 
-
-
-                <a class="btn-primary" asp-controller="Admin" asp-action="AddAdmin">
-                    <button class="btn btn-primary" type="button">Add Admin</button>
+                <a class="btn btn-primary" asp-controller="Admin" asp-action="AddAdmin">
+                    Add Admin
                 </a>
-
             </div>
-
         </div>
     </div>
 </div>

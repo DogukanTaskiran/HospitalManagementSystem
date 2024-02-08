@@ -26,97 +26,144 @@
     }
 }
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-<div class="text-center"><h2>Register</h2></div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
 
-<form asp-action="Register" method="post" >
-    <div asp-validation-summary="All" class="text-danger"></div>
-    
-    <div class="form-group">
-        
-        <label asp-for="Name"></label>
-        <span asp-validation-for="Name" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="Name" class="form-control" />
-        
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="Surname"></label>
-        <span asp-validation-for="Surname" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="Surname" class="form-control" />
-        
-    </div>
+        .container {
+            margin-top: 50px;
+        }
 
-    <div class="form-group">
-        <label asp-for="Gender"></label>
-        <span asp-validation-for="Gender" class="text-danger" style="font-size: xx-small;"></span>
-        <select asp-for="Gender" asp-items="@GetGenderOptions()" class="form-control"></select>
-    </div>
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    <div class="form-group">
-        <label asp-for="Age"></label>
-        <span asp-validation-for="Age" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="Age" class="form-control"></input>
-    </div>
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+        }
 
-    <div class="form-group">
-        <label asp-for="Weight"></label>
-        <span asp-validation-for="Weight" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="Weight" class="form-control"></input>
-    </div>
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-    <div class="form-group">
-        <label asp-for="Height"></label>
-        <span asp-validation-for="Height" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="Height" class="form-control"></input>
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="PhoneNumber"></label>
-        <span asp-validation-for="PhoneNumber" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="PhoneNumber" class="form-control" />
-        
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="Address"></label>
-        <span asp-validation-for="Address" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="Address" class="form-control" />
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="BloodType"> </label>
-        <span asp-validation-for="BloodType" class="text-danger" style="font-size: xx-small;"></span>
-        <select asp-for="BloodType" asp-items="@GetBloodTypeOptions()" class="form-control"></select>
-    </div>
+        label {
+            font-weight: bold;
+        }
 
-    <!-- Email, Password, and ConfirmPassword fields remain unchanged -->
+        .btn-primary {
+            width: 100%;
+        }
 
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <span asp-validation-for="Email" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="Email" class="form-control" />
-        
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <span asp-validation-for="Password" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="Password" type="password" class="form-control" />
-        
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="ConfirmPassword"></label>
-        <span asp-validation-for="ConfirmPassword" class="text-danger" style="font-size: xx-small;"></span>
-        <input asp-for="ConfirmPassword" type="password" class="form-control" />
-        
-    </div>
-    <div class="text-center"><button type="submit" class="btn btn-primary">Register</button></div>
-        
-</form>
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Register</h2>
+                    </div>
+
+                    <form asp-action="Register" method="post" class="p-4">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Name">Name</label>
+                            <span asp-validation-for="Name" class="text-danger" style="font-size: xx-small;"></span>
+                            <input asp-for="Name" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Surname">Surname</label>
+                            <span asp-validation-for="Surname" class="text-danger" style="font-size: xx-small;"></span>
+                            <input asp-for="Surname" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Gender">Gender</label>
+                            <span asp-validation-for="Gender" class="text-danger" style="font-size: xx-small;"></span>
+                            <select asp-for="Gender" asp-items="@GetGenderOptions()" class="form-control"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Age"></label>
+                            <span asp-validation-for="Age" class="text-danger" style="font-size: xx-small;"></span>
+                            <input asp-for="Age" class="form-control"></input>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Weight"></label>
+                            <span asp-validation-for="Weight" class="text-danger" style="font-size: xx-small;"></span>
+                            <input asp-for="Weight" class="form-control"></input>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Height"></label>
+                            <span asp-validation-for="Height" class="text-danger" style="font-size: xx-small;"></span>
+                            <input asp-for="Height" class="form-control"></input>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber"></label>
+                            <span asp-validation-for="PhoneNumber" class="text-danger" style="font-size: xx-small;"></span>
+                            <input asp-for="PhoneNumber" class="form-control" />
+
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Address"></label>
+                            <span asp-validation-for="Address" class="text-danger" style="font-size: xx-small;"></span>
+                            <input asp-for="Address" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="BloodType"> </label>
+                            <span asp-validation-for="BloodType" class="text-danger" style="font-size: xx-small;"></span>
+                            <select asp-for="BloodType" asp-items="@GetBloodTypeOptions()" class="form-control"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Email">Email</label>
+                            <span asp-validation-for="Email" class="text-danger" style="font-size: xx-small;"></span>
+                            <input asp-for="Email" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password">Password</label>
+                            <span asp-validation-for="Password" class="text-danger" style="font-size: xx-small;"></span>
+                            <input asp-for="Password" type="password" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword">Confirm Password</label>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger" style="font-size: xx-small;"></span>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
+</body>
+</html>
