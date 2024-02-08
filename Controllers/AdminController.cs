@@ -360,7 +360,7 @@ namespace Hospital.Controllers
         [HttpGet]
         public IActionResult AddReceptionist(int id)
         {
-            var recep= new ReceptionistDTO
+            var recep = new ReceptionistDTO
             {
                 DepartmentID = id
             };
@@ -402,12 +402,145 @@ namespace Hospital.Controllers
 
         [HttpPost]
 
-        public IActionResult DeleteReceptionist(string email){
-            var recep = _context.receptionists.FirstOrDefault(r=>r.Email==email);
+        public IActionResult DeleteReceptionist(string email)
+        {
+            var recep = _context.receptionists.FirstOrDefault(r => r.Email == email);
             recep.DeletedDate = DateTime.Now;
             recep.Status = Entities.Enums.DataStatus.Deleted;
             _context.SaveChanges();
             return RedirectToAction("ViewPersonnel", new { id = recep.DepartmentID });
+        }
+
+        [HttpGet]
+        public IActionResult UpdateReceptionist(int id, int departmentId)
+        {
+            //bu ve diğer roller için önceden var olan modeli placeholder olarak viewe koymak iyi olabilir
+            var dto = new ReceptionistDTO
+            {
+                ApplicationUserID = id,
+                DepartmentID = departmentId
+            };
+
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateReceptionist(ReceptionistDTO model)
+        {
+            System.Console.WriteLine("DEBUG: Update Recep POST:" + model.ApplicationUserID);
+            var recep = _context.receptionists.FirstOrDefault(r => r.ApplicationUserID == model.ApplicationUserID);
+
+            recep.Name = model.Name;
+            recep.Surname = model.Name;
+            recep.PhoneNumber = model.PhoneNumber;
+            recep.Address = model.Address;
+            recep.Gender = model.Gender;
+            recep.BloodType = model.BloodType;
+            recep.Email = model.Email;
+            recep.Password = model.Password;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ViewPersonnel", new { id = model.DepartmentID }); ;
+        }
+
+
+        [HttpGet]
+        public IActionResult UpdateDoctor(int id, int departmentId)
+        {
+            //bu ve diğer roller için önceden var olan modeli placeholder olarak viewe koymak iyi olabilir
+            var dto = new DoctorDTO
+            {
+                ApplicationUserID = id,
+                DepartmentID = departmentId
+            };
+
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateDoctor(DoctorDTO model)
+        {
+            System.Console.WriteLine("DEBUG: Update DOCTOR POST:" + model.ApplicationUserID);
+            var doctor = _context.doctors.FirstOrDefault(r => r.ApplicationUserID == model.ApplicationUserID);
+
+            doctor.RoomNumber = model.RoomNumber;
+            doctor.Name = model.Name;
+            doctor.Surname = model.Name;
+            doctor.PhoneNumber = model.PhoneNumber;
+            doctor.Address = model.Address;
+            doctor.Gender = model.Gender;
+            doctor.BloodType = model.BloodType;
+            doctor.Email = model.Email;
+            doctor.Password = model.Password;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ViewPersonnel", new { id = model.DepartmentID }); ;
+        }
+        [HttpGet]
+        public IActionResult UpdateNurse(int id, int departmentId)
+        {
+            //bu ve diğer roller için önceden var olan modeli placeholder olarak viewe koymak iyi olabilir
+            var dto = new NurseDTO
+            {
+                ApplicationUserID = id,
+                DepartmentID = departmentId
+            };
+
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateNurse(DoctorDTO model)
+        {
+            System.Console.WriteLine("DEBUG: Update NURSE POST:" + model.ApplicationUserID);
+            var nurse = _context.nurses.FirstOrDefault(r => r.ApplicationUserID == model.ApplicationUserID);
+
+
+            nurse.Name = model.Name;
+            nurse.Surname = model.Name;
+            nurse.PhoneNumber = model.PhoneNumber;
+            nurse.Address = model.Address;
+            nurse.Gender = model.Gender;
+            nurse.BloodType = model.BloodType;
+            nurse.Email = model.Email;
+            nurse.Password = model.Password;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ViewPersonnel", new { id = model.DepartmentID }); ;
+        }
+        public IActionResult UpdateAdmin(int id, int departmentId)
+        {
+            //bu ve diğer roller için önceden var olan modeli placeholder olarak viewe koymak iyi olabilir
+            var dto = new AdminDTO
+            {
+                ApplicationUserID = id,
+            };
+
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAdmin(DoctorDTO model)
+        {
+            System.Console.WriteLine("DEBUG: Update ADMIN POST:" + model.ApplicationUserID);
+            var admin = _context.admins.FirstOrDefault(r => r.ApplicationUserID == model.ApplicationUserID);
+
+
+            admin.Name = model.Name;
+            admin.Surname = model.Name;
+            admin.PhoneNumber = model.PhoneNumber;
+            admin.Address = model.Address;
+            admin.Gender = model.Gender;
+            admin.BloodType = model.BloodType;
+            admin.Email = model.Email;
+            admin.Password = model.Password;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ViewAdmin", "Admin"); ;
         }
 
 
