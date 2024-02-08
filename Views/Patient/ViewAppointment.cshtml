@@ -1,33 +1,80 @@
 @model List<Appointment>
-<a class="btn btn-primary"asp-action="Index" asp-controller="Patient">Back</a>
-<a asp-action="SearchAppointment" asp-controller="Patient" class="btn btn-primary">Search Appointment</a>
-<h2>Upcoming Appointments</h2>
-@foreach(var appoint in Model){ // geçici olarak bu şekilde kalabilir bu sayfa iki foreach mantıklı olmayabilirden ötürü
-    @if(appoint.AppointmentDate >= DateTime.Now){
-        <div class="card border-info mb-3" style="max-width: 55rem;">
-        <div class="card-header">Header @appoint.AppointmentID</div>
-        <div class="card-body text-info">
-            <h5 class="card-title">@appoint.AppointmentTime</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <form asp-action="DeleteAppointment" asp-controller="Patient" method="post">
-                <input type="hidden" name="id" value="@appoint.AppointmentID">
-                <button class="btn btn-danger" type="submit">Cancel</button>
-            </form>
-            
-        </div>
-    </div>
-    }
-}
-<h3>Past Appointments</h3>
-@foreach(var appoint in Model){
-    @if(appoint.AppointmentDate < DateTime.Now){
-        <div class="card border-danger mb-3" style="max-width: 55rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body text-danger">
-            <h5 class="card-title">@appoint.AppointmentTime</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-    </div>
-    }
-}
 
+<h2>List of My Appointments</h2>
+
+
+<a asp-action="SearchAppointment" asp-controller="Patient" class="btn btn-primary">Search New Appointment</a>
+
+<a class="btn btn-primary" asp-action="Profile" asp-controller="Patient">Back</a>
+
+
+<div class="form-group">
+    <div class="col-md-12">
+        &nbsp;
+    </div>
+</div>
+
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" onclick="showAppointment()">Upcoming Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#" onclick="showPastAppointment()">Past Appointments</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div id="appointmentContent">
+            @foreach (var appoint in Model)
+            { 
+                @if (appoint.AppointmentDate >= DateTime.Now)
+                {
+                    <div class="card border-info mb-3" style="max-width: 55rem;">
+                        <div class="card-header">Appointment ID @appoint.AppointmentID</div>
+                        <div class="card-body text-info">
+                            <h5 class="card-title">@appoint.AppointmentTime</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <form asp-action="DeleteAppointment" asp-controller="Patient" method="post">
+                                <input type="hidden" name="id" value="@appoint.AppointmentID">
+                                <button class="btn btn-danger" type="submit">Cancel</button>
+                            </form>
+
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div id="pastAppointmentContent" style="display: none;">
+            @foreach (var appoint in Model)
+            {
+                @if (appoint.AppointmentDate < DateTime.Now)
+                {
+                    <div class="card border-danger mb-3" style="max-width: 55rem;">
+                        <div class="card-header">Appointment</div>
+                        <div class="card-body text-danger">
+                            <h5 class="card-title">@appoint.AppointmentTime</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function showAppointment() {
+        document.getElementById('appointmentContent').style.display = 'block';
+        document.getElementById('pastAppointmentContent').style.display = 'none';
+    }
+
+    function showPastAppointment() {
+        document.getElementById('appointmentContent').style.display = 'none';
+        document.getElementById('pastAppointmentContent').style.display = 'block';
+    }
+</script>

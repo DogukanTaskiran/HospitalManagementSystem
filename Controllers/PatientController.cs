@@ -21,10 +21,7 @@ namespace Hospital.Controllers
         {
             _context = applicationDbContext;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+
         public IActionResult ViewAppointment()
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Name);
@@ -41,6 +38,12 @@ namespace Hospital.Controllers
 
             return View(appointments);
         }
+
+    
+
+
+
+
         [HttpPost]
         public IActionResult DeleteAppointment(int id)
         {
@@ -167,7 +170,6 @@ namespace Hospital.Controllers
 
         }
 
-        // update patient details part
         [Authorize(Roles = "Patient")]
         [HttpGet]
         public ActionResult UpdateDetails()
@@ -196,7 +198,6 @@ namespace Hospital.Controllers
             var userEmail = User.FindFirstValue(ClaimTypes.Name);
             var Patient = _context.patients.ToList();
             ApplicationUser patient = _context.patients
-            .Include(x => x.Appointments)
             .SingleOrDefault(p => p.ApplicationUser.Email == userEmail);
 
             if (patient == null)
@@ -316,28 +317,6 @@ namespace Hospital.Controllers
             }
             return View(prescriptions);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

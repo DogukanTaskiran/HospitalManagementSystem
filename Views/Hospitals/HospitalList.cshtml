@@ -1,0 +1,28 @@
+﻿@model List<Entities.Models.Hospital>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital List</title>
+</head>
+<body>
+    <h2>Hospital List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Hospital Name</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var hospital in Model)
+            {
+                <tr>
+                    <td>@hospital.HospitalName</td>
+                    <td>@hospital.Address</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
