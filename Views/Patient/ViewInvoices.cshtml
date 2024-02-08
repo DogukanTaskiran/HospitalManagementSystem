@@ -1,6 +1,11 @@
 ﻿@model List<Invoice>
 <h2>List of My Invoices</h2>
-
+<a class="btn btn-primary" asp-action="Profile" asp-controller="Patient">Back</a>
+<div class="form-group">
+    <div class="col-md-12">
+        &nbsp;
+    </div>
+</div>
 @if (Model != null && Model.Count > 0)
 {
     <table class="table">
@@ -21,7 +26,7 @@
                     <td>@invoice.InvoicePrice</td>
                     <td>@invoice.InvoiceDate.ToShortDateString</td>
                     <td>@invoice.ServiceDescription</td>
-                    <td>@invoice.Status.</td>
+                    <td>@invoice.Status</td>
                 </tr>
             }
         </tbody>

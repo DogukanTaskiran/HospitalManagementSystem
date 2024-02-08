@@ -1,6 +1,11 @@
 @model List<Prescription>
 <h1>Prescriptions</h1>
-<a class="btn btn-primary"asp-action="Index" asp-controller="Patient">Back</a>
+<a class="btn btn-primary"asp-action="Profile" asp-controller="Patient">Back</a>
+<div class="form-group">
+    <div class="col-md-12">
+        &nbsp;
+    </div>
+</div>
 
 <table class="table table-striped">
     <thead>
@@ -19,6 +24,8 @@
                 <td>@pres.filename</td>
                 <td>@pres.filepath</td>
                 <td>@pres.PrescriptionDate</td>
+                <td><a class="btn btn-success"href="~/uploads/@pres.filepath" download>Download</a></td>
+                
             </tr>
         }
     </tbody>

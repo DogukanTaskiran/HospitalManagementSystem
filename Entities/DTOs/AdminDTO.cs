@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Entities.DTOs{
 	public class AdminDTO
 	{
+
+        public int ApplicationUserID {get;set;}
+        
         [Required(ErrorMessage = "Name is required")]
         [MaxLength(100, ErrorMessage = "Name cannot be longer than 100 characters")]
         public string Name { get; set; }
@@ -34,7 +37,7 @@ namespace Entities.DTOs{
 
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
-        //[RegularExpression(@"^(?=.*[a-zðüþýöç])(?=.*[A-ZÐÜÞÝÖÇ])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$", 
+        //[RegularExpression(@"^(?=.*[a-zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½])(?=.*[A-Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$", 
         //ErrorMessage = "Password must have at least 1 lowercase letter, 1 uppercase letter, 1 digit, 1 special character and 8 characters in total.")]
         public string Password { get; set; }
 

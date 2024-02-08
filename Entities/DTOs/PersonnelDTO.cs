@@ -8,6 +8,7 @@ namespace Entities.DTOs{
         public int DepartmentID {get;set;}
         public List<Doctor>? Doctors {get;set;}
         public List<Nurse>? Nurses {get;set;}
+        public List<Receptionist>? Receptionists {get;set;}
     }
 
 }

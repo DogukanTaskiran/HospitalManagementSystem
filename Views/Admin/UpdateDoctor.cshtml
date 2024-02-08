@@ -1,0 +1,112 @@
+@model DoctorDTO
+
+@functions {
+    // burayı controller içinde viewBag ile yapmak da olabilir
+    public List<SelectListItem> GetBloodTypeOptions()
+    {
+        return new List<SelectListItem>
+{
+new SelectListItem { Value = "A+", Text = "A+" },
+new SelectListItem { Value = "A-", Text = "A-" },
+new SelectListItem { Value = "B+", Text = "B+" },
+new SelectListItem { Value = "B-", Text = "B-" },
+new SelectListItem { Value = "AB+", Text = "AB+" },
+new SelectListItem { Value = "AB-", Text = "AB-" },
+new SelectListItem { Value = "O+", Text = "O+" },
+new SelectListItem { Value = "O-", Text = "O-" }
+};
+    }
+
+    public List<SelectListItem> GetGenderOptions()
+    {
+        return new List<SelectListItem>
+{
+new SelectListItem { Value = "Male", Text = "Male" },
+new SelectListItem { Value = "Female", Text = "Female" , Selected = true},
+};
+    }
+}
+
+<partial name="_AdminLayout" />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-center">
+                <h2>Update Doctor</h2>
+                <form asp-controller="Admin" asp-action="UpdateDoctor" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="DepartmentID" />
+                    <input type="hidden" asp-for="ApplicationUserID" />
+
+                    <div class="form-group">
+
+                        <label asp-for="RoomNumber"></label>
+                        <span asp-validation-for="RoomNumber" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="RoomNumber" type="number" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+
+                        <label asp-for="Name"></label>
+                        <span asp-validation-for="Name" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="Name" class="form-control" />
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Surname"></label>
+                        <span asp-validation-for="Surname" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="Surname" class="form-control" />
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber"></label>
+                        <span asp-validation-for="PhoneNumber" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="PhoneNumber" class="form-control" />
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Address"></label>
+                        <span asp-validation-for="Address" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="Address" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Gender"></label>
+                        <span asp-validation-for="Gender" class="text-danger" style="font-size: xx-small;"></span>
+                        <select asp-for="Gender" asp-items="@GetGenderOptions()" class="form-control"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="BloodType"> </label>
+                        <span asp-validation-for="BloodType" class="text-danger" style="font-size: xx-small;"></span>
+                        <select asp-for="BloodType" asp-items="@GetBloodTypeOptions()" class="form-control"></select>
+                    </div>
+
+                    <!-- Email, Password, and ConfirmPassword fields remain unchanged -->
+
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <span asp-validation-for="Email" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="Email" class="form-control" />
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <span asp-validation-for="Password" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="Password" type="password" class="form-control" />
+
+                    </div>
+
+
+                    <div class="text-center"><button type="submit" class="btn btn-primary">Update</button></div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

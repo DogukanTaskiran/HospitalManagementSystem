@@ -5,7 +5,8 @@ namespace Entities.DTOs{
     {
         public int DepartmentID { get; set; }
 
-
+        public int ApplicationUserID {get;set;}
+        
         [Required(ErrorMessage = "Name is required")]
         [MaxLength(100, ErrorMessage = "Name cannot be longer than 100 characters")]
         public string Name { get; set; }
@@ -34,7 +35,7 @@ namespace Entities.DTOs{
         public string Email { get; set; }
 
 		[Required(ErrorMessage = "Password is required")]
-        //[RegularExpression(@"^(?=.*[a-zðüþýöç])(?=.*[A-ZÐÜÞÝÖÇ])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$", 
+        //[RegularExpression(@"^(?=.*[a-zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½])(?=.*[A-Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$", 
         //ErrorMessage = "Password must have at least 1 lowercase letter, 1 uppercase letter, 1 digit, 1 special character and 8 characters in total.")]
         [DataType(DataType.Password)]
 		public string Password { get; set; }

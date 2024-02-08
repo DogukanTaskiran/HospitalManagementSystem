@@ -16,6 +16,9 @@ namespace Entities.Models
         public int ApplicationUserID { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
+        public int DepartmentID { get; set; }
+        public Department Department { get; set; }
+
         public Receptionist()
         {
 

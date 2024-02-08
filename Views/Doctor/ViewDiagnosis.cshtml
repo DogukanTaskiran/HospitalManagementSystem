@@ -1,9 +1,17 @@
 @model DiagnosisDTO
 <h1 class="text-center">Diagnoses</h1>
+
+
+
+
 <form asp-controller="Doctor" asp-action="AddDiagnosis" method="get">
     <input type="hidden" name="id" value="@Model.PatientID">
-    <button class="btn btn-primary"  type="submit">Add Diagnosis</button>
+    <button class="btn btn-primary" type="submit">Add Diagnosis</button>
 </form>
+<a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
+
+
+
 
 
 <table class="table table-striped">
@@ -15,7 +23,8 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var diag in @Model.Diagnoses){
+        @foreach (var diag in @Model.Diagnoses)
+        {
             <tr>
                 <td>@diag.DiagnosisID</td>
                 <td>@diag.DiagnosisDescription</td>

@@ -1,21 +1,28 @@
 @model List<Admin>
-<partial name="_AdminLayout"/>
+<partial name="_AdminLayout" />
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="text-center"><h2>Admins</h2>
+            <div class="text-center">
+                <h2>Admins</h2>
 
                 <div class="row">
-                    @foreach (var admin in Model){
+                    @foreach (var admin in Model)
+                    {
                         <div class="col-md-3 my-3">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">@admin.Name @admin.ApplicationUserID</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">@admin.Email</h6>
                                     <p class="card-text">@admin.Address</p>
-                                    
+
                                 </div>
+                                <form asp-controller="Admin" asp-action="UpdateAdmin" method="get">
+                                    <input type="hidden" name="id" value="@admin.ApplicationUser.ApplicationUserID" />
+                                    
+                                    <button class="btn btn-outline-primary btn-sm" type="submit">Update</button>
+                                </form>
 
                                 <form asp-controller="Admin" asp-action="DeleteAdmin" method="post">
                                     <input name="email" value="@admin.Email" type="hidden" />
@@ -29,13 +36,13 @@
                     }
 
                 </div>
-            
-                
 
-                <a class="btn-primary" asp-controller="Admin"asp-action="AddAdmin">
+
+
+                <a class="btn-primary" asp-controller="Admin" asp-action="AddAdmin">
                     <button class="btn btn-primary" type="button">Add Admin</button>
                 </a>
-                
+
             </div>
 
         </div>
