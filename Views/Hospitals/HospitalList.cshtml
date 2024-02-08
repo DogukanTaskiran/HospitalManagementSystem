@@ -1,28 +1,51 @@
 ﻿@model List<Entities.Models.Hospital>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hospital List</title>
-</head>
-<body>
-    <h2>Hospital List</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Hospital Name</th>
-                <th>Address</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var hospital in Model)
-            {
-                <tr>
-                    <td>@hospital.HospitalName</td>
-                    <td>@hospital.Address</td>
-                </tr>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Hospital List</title>
+        <style>
+            .card {
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                margin-bottom: 20px;
             }
-        </tbody>
-    </table>
-</body>
+
+                .card img {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 8px 8px 0 0;
+                }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .hospital-name {
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            .address, .phone {
+                font-size: 16px;
+                color: #666;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Hospital List</h2>
+        @foreach (var hospital in Model)
+    {
+        <div class="card">
+            <!-- <img src="hospital-image.jpg" alt="Hospital Image"> -->
+            <div class="card-body">
+                <div class="hospital-name">@hospital.HospitalName</div>
+                <div class="address">@hospital.Address</div>
+                <div class="phone">@hospital.PhoneNum</div>
+            </div>
+        </div>
+    }
+    </body>
 </html>

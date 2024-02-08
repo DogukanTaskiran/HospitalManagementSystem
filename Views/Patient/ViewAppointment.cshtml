@@ -2,20 +2,11 @@
 
 <h2>List of My Appointments</h2>
 
-
 <a asp-action="SearchAppointment" asp-controller="Patient" class="btn btn-primary">Search New Appointment</a>
 
 <a class="btn btn-primary" asp-action="Profile" asp-controller="Patient">Back</a>
 
-
-<div class="form-group">
-    <div class="col-md-12">
-        &nbsp;
-    </div>
-</div>
-
-
-<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<br>
 
 <div class="card text-center">
     <div class="card-header">
@@ -31,10 +22,10 @@
     <div class="card-body">
         <div id="appointmentContent">
             @foreach (var appoint in Model)
-            { 
+            {
                 @if (appoint.AppointmentDate >= DateTime.Now)
                 {
-                    <div class="card border-info mb-3" style="max-width: 55rem;">
+                    <div class="card border-info mb-3">
                         <div class="card-header">Appointment ID @appoint.AppointmentID</div>
                         <div class="card-body text-info">
                             <h5 class="card-title">@appoint.AppointmentTime</h5>
@@ -43,7 +34,6 @@
                                 <input type="hidden" name="id" value="@appoint.AppointmentID">
                                 <button class="btn btn-danger" type="submit">Cancel</button>
                             </form>
-
                         </div>
                     </div>
                 }
@@ -54,7 +44,7 @@
             {
                 @if (appoint.AppointmentDate < DateTime.Now)
                 {
-                    <div class="card border-danger mb-3" style="max-width: 55rem;">
+                    <div class="card border-danger mb-3">
                         <div class="card-header">Appointment</div>
                         <div class="card-body text-danger">
                             <h5 class="card-title">@appoint.AppointmentTime</h5>
@@ -66,6 +56,21 @@
         </div>
     </div>
 </div>
+
+<style>
+    .card {
+        margin-top: 20px;
+    }
+
+    .card-header {
+        background-color: #005;
+        color: #fff;
+    }
+
+    .btn-primary {
+        margin-right: 10px;
+    }
+</style>
 
 <script>
     function showAppointment() {

@@ -248,6 +248,12 @@ namespace Hospital.Controllers
             //return filePath; unique file name döndürmesi şimdilik kolay
             return uniqueFileName;
         }
+        public IActionResult DoctorList()
+        {
+            var doctors = _context.doctors.ToList();
+            return View(doctors);
+        }
+
 
 
     }
