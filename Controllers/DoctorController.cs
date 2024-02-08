@@ -213,7 +213,7 @@ namespace Hospital.Controllers
                     RrDescription=model.RrDescription,
                     PatientID = model.PatientID,
                     filename = model.RadiologicalReportFile.FileName,
-                    filepath = UploadFile(model.RadiologicalReportFile)
+                    filepath = UploadFile(model.RadiologicalReportFile) // guid eklenmiş versiyonu
                 };
 
                 _context.radiologicalReports.Add(rr);
@@ -227,7 +227,7 @@ namespace Hospital.Controllers
         private string UploadFile(IFormFile file)
         {
             string uniqueFileName = null;
-            string filePath = null;
+            string filePath = null; 
 
             if (file != null)
             {
@@ -245,7 +245,8 @@ namespace Hospital.Controllers
                 }
             }
 
-            return filePath;
+            //return filePath; unique file name döndürmesi şimdilik kolay
+            return uniqueFileName;
         }
 
 

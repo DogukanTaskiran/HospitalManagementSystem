@@ -1,5 +1,6 @@
 @model RadiologicalReportDTO
 <h1 class="text-center">Radiological Reports</h1>
+<a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
 <div style="width: 400px;">
     <form asp-action="AddRadiologicalReport" asp-controller="Doctor" method="post" enctype="multipart/form-data">
         <input type="hidden" name="PatientID" value="@Model.PatientID" />
