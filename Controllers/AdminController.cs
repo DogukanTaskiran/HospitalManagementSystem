@@ -254,6 +254,19 @@ namespace Hospital.Controllers{
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult DeleteNurse(string email){
+
+            System.Console.WriteLine("DEBUG : DELETE NURSE EMAIL :" + email);
+            var nurse = _context.nurses.FirstOrDefault(n=>n.Email ==email);
+
+            nurse.DeletedDate = DateTime.Now;
+            nurse.Status = Entities.Enums.DataStatus.Deleted;
+            _context.SaveChanges();
+
+            return RedirectToAction("ViewPersonnel", new { id = nurse.DepartmentID});
+        }
+
         //receptionist crud
 
         public IActionResult ViewAdmin(){
