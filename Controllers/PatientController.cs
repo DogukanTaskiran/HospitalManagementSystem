@@ -39,7 +39,7 @@ namespace Hospital.Controllers
             return View(appointments);
         }
 
-    
+
 
 
 
@@ -196,16 +196,27 @@ namespace Hospital.Controllers
         public IActionResult Profile()
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Name);
-            var Patient = _context.patients.ToList();
-            ApplicationUser patient = _context.patients
-            .SingleOrDefault(p => p.ApplicationUser.Email == userEmail);
+
+            var patient = _context.patients
+            .Include(p => p.ApplicationUser)
+            .FirstOrDefault(p => p.Email == userEmail);
+
+            var invoices = _context.invoices
+            .Where(i=>i.PatientID == patient.ApplicationUser.ApplicationUserID)
+            .ToList();
+
 
             if (patient == null)
             {
                 return NotFound();
             }
 
-            return View(patient);
+            var dto = new ProfileDTO{
+                Invoices = invoices,
+                Patient = patient
+            };
+
+            return View(dto);
         }
 
         [HttpPost]

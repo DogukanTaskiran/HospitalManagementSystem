@@ -1,5 +1,6 @@
-﻿@model Entities.Models.Patient
-<!DOCTYPE html> 
+﻿@model ProfileDTO
+<!DOCTYPE html>
+
 <head>
     <h1 style="margin-top: 30px;">My Profile</h1>
     <style>
@@ -24,7 +25,8 @@
             margin-bottom: 20px;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
@@ -42,8 +44,8 @@
         .nav-link.active {
             background-color: #007bff;
             color: #fff;
-        }   
-       
+        }
+
         .container {
             margin-top: 20px;
         }
@@ -55,9 +57,9 @@
         .btn {
             margin-right: 10px;
         }
-
     </style>
 </head>
+
 <body>
     <div class="card text-center">
         <div class="card-header">
@@ -78,40 +80,40 @@
                 <table class="container p-2 my-4 border">
                     <tr>
                         <th>Name</th>
-                        <td>@Model.Name</td>
+                        <td>@Model.Patient.Name</td>
                     </tr>
                     <tr>
                         <th>Surname</th>
-                        <td>@Model.Surname</td>
+                        <td>@Model.Patient.Surname</td>
                     </tr>
-                    @if (Model.Age != null)
+                    @if (Model.Patient.Age != null)
                     {
                         <tr>
                             <th>Age</th>
-                            <td>@Model.Age </td>
+                            <td>@Model.Patient.Age </td>
                         </tr>
                     }
-                    @if (Model.Weight != null)
+                    @if (Model.Patient.Weight != null)
                     {
                         <tr>
                             <th>Weight</th>
-                            <td>@Model.Weight </td>
+                            <td>@Model.Patient.Weight </td>
                         </tr>
                     }
-                    @if (Model.Height != null)
+                    @if (Model.Patient.Height != null)
                     {
                         <tr>
                             <th>Height</th>
-                            <td>@Model.Height </td>
+                            <td>@Model.Patient.Height </td>
                         </tr>
                     }
                     <tr>
                         <th>Gender</th>
-                        <td>@Model.Gender</td>
+                        <td>@Model.Patient.Gender</td>
                     </tr>
                     <tr>
                         <th>Blood Type</th>
-                        <td>@Model.BloodType</td>
+                        <td>@Model.Patient.BloodType</td>
                     </tr>
 
                 </table>
@@ -121,36 +123,52 @@
                     <thead>
                         <tr>
                             <th>Phone Number</th>
-                            <td>@Model.PhoneNumber</td>
+                            <td>@Model.Patient.PhoneNumber</td>
                         </tr>
                         <tr>
                             <th>Address</th>
-                            <td>@Model.Address</td>
+                            <td>@Model.Patient.Address</td>
                         </tr>
                         <tr>
                             <th>E-mail</th>
-                            <td>@Model.Email</td>
+                            <td>@Model.Patient.Email</td>
                         </tr>
                     </thead>
                 </table>
             </div>
             <div id="InvoicesContent" style="display: none;">
-                <table class="container p-2 my-4 border">
-                    <!--
-                          <thead>
-                          <tr>
-                              <th>Capacity</th>
-                              <td>Model.Invoices.Capacity</td>
-                          </tr>
-                          <tr>
-                              <th>Count</th>
-                              <td>Model.Invoices.Count</td>
-                          </tr>
 
-                      </thead>
-                    -->
-
-                </table>
+                @if (Model != null && Model.Invoices.Count > 0)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                
+                                <th>Invoice Price</th>
+                                <th>Invoice Date</th>
+                                <th>Service Description</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var invoice in Model.Invoices)
+                            {
+                                <tr>
+                                    
+                                    <td>@invoice.InvoicePrice</td>
+                                    <td>@invoice.InvoiceDate.ToShortDateString()</td>
+                                    <td>@invoice.ServiceDescription</td>
+                                    <td>@invoice.filename</td>
+                                    <td><a class="btn btn-success" href="~/uploads/@invoice.filepath" download>Download</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No invoices found.</p>
+                }
 
             </div>
             <a asp-controller="Patient" asp-action="UpdateDetails" class="btn btn-primary">Update my details</a>
@@ -219,4 +237,5 @@
         </div>
     </div>
 </body>
+
 </html>
