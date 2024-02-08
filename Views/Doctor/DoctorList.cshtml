@@ -1,0 +1,26 @@
+@model List<Doctor>
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Doctor List</title>
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        <h2>Doctor List</h2>
+        @foreach (var doctor in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="doctor-name">@doctor.Name</div>
+                <div class="doctor-details">
+                    <p><strong>Email:</strong> @doctor.Email</p>
+                    <!-- buraya diðer bilgilelere bak ve ekle -->
+                </div>
+            </div>
+        </div>
+    }
+    </body>
+</html>

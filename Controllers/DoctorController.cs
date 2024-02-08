@@ -247,6 +247,12 @@ namespace Hospital.Controllers
 
             return filePath;
         }
+        public IActionResult DoctorList()
+        {
+            var doctors = _context.doctors.ToList();
+            return View(doctors);
+        }
+
 
 
     }
