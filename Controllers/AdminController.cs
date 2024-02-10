@@ -485,6 +485,7 @@ namespace Hospital.Controllers
             recep.BloodType = model.BloodType;
             recep.Email = model.Email;
             recep.Password = model.Password;
+            recep.ModifiedDate = DateTime.Now;
 
             _context.SaveChanges();
 
@@ -520,6 +521,7 @@ namespace Hospital.Controllers
             doctor.BloodType = model.BloodType;
             doctor.Email = model.Email;
             doctor.Password = model.Password;
+            doctor.ModifiedDate = DateTime.Now;
 
             _context.SaveChanges();
 
@@ -553,6 +555,7 @@ namespace Hospital.Controllers
             nurse.BloodType = model.BloodType;
             nurse.Email = model.Email;
             nurse.Password = model.Password;
+            nurse.ModifiedDate = DateTime.Now;
 
             _context.SaveChanges();
 
@@ -584,6 +587,7 @@ namespace Hospital.Controllers
             admin.BloodType = model.BloodType;
             admin.Email = model.Email;
             admin.Password = model.Password;
+            admin.ModifiedDate = DateTime.Now;
 
             _context.SaveChanges();
 
