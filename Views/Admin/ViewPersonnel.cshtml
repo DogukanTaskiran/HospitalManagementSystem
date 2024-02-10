@@ -14,10 +14,15 @@
                                 <div class="card-body">
                                     <h5 class="card-title">@doctor.Name</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">@doctor.Email</h6>
-                                    <p class="card-text">Örnek text</p>
+                                    <p class="card-text">OffDutyEnd: @doctor.offDutyEndDate </p>
                                 </div>
 
                                 <div class="card-footer">
+                                    <form asp-controller="Admin" asp-action="SetOffDuty" method="get">
+                                        <input type="hidden" name="id" value="@doctor.ApplicationUser.ApplicationUserID" />
+                                        <input type="hidden" name="departmentId" value="@doctor.DepartmentID" />
+                                        <button class="btn btn-danger btn-sm" type="submit">Set Off duty</button>
+                                    </form>
                                     <form asp-controller="Admin" asp-action="UpdateDoctor" method="get">
                                         <input type="hidden" name="id" value="@doctor.ApplicationUser.ApplicationUserID" />
                                         <input type="hidden" name="departmentId" value="@doctor.DepartmentID" />
@@ -34,7 +39,8 @@
                     }
 
                     <div class="col-md-12 mt-3">
-                        <a asp-controller="Admin" asp-action="AddDoctor" asp-route-id="@Model.DepartmentID" class="btn btn-primary">Add Doctor</a>
+                        <a asp-controller="Admin" asp-action="AddDoctor" asp-route-id="@Model.DepartmentID"
+                            class="btn btn-primary">Add Doctor</a>
                     </div>
                 </div>
 
@@ -68,7 +74,8 @@
                     }
 
                     <div class="col-md-12 mt-3">
-                        <a asp-controller="Admin" asp-action="AddNurse" asp-route-id="@Model.DepartmentID" class="btn btn-primary">Add Nurse</a>
+                        <a asp-controller="Admin" asp-action="AddNurse" asp-route-id="@Model.DepartmentID"
+                            class="btn btn-primary">Add Nurse</a>
                     </div>
                 </div>
 
@@ -102,7 +109,8 @@
                     }
 
                     <div class="col-md-12 mt-3">
-                        <a asp-controller="Admin" asp-action="AddReceptionist" asp-route-id="@Model.DepartmentID" class="btn btn-primary">Add Receptionist</a>
+                        <a asp-controller="Admin" asp-action="AddReceptionist" asp-route-id="@Model.DepartmentID"
+                            class="btn btn-primary">Add Receptionist</a>
                     </div>
                 </div>
             </div>

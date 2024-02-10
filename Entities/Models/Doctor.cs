@@ -18,6 +18,12 @@ namespace Entities.Models
         public int DepartmentID { get; set; }
         public int RoomNumber { get; set; }
 
+        public bool? offDuty {get;set;}
+
+        public DateTime? offDutyStartDate {get;set;}
+
+        public DateTime? offDutyEndDate {get;set;}
+
         public Department Departments { get; set; }  // reference to Department
         public List<Appointment> Appointments { get; set; }
 

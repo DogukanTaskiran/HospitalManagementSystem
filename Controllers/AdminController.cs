@@ -21,6 +21,28 @@ namespace Hospital.Controllers
         {
             return View();
         }
+        public IActionResult SetOffDuty(int id, int departmentId)
+        {
+
+            var dto = new OffDutyDTO
+            {
+                DoctorID = id,
+                DepartmentID = departmentId
+            };
+            return View(dto);
+        }
+        [HttpPost]
+        public IActionResult SetOffDuty(OffDutyDTO model)
+        {
+            var doctor = _context.doctors.FirstOrDefault(d=>d.ApplicationUserID == model.DoctorID);
+
+            doctor.offDuty = model.OffDuty;
+            doctor.offDutyStartDate = model.OffDutyStartDate;
+            doctor.offDutyEndDate = model.OffDutyEndDate;
+
+            _context.SaveChanges();
+            return RedirectToAction("ViewPersonnel" , "Admin", new { id = model.DepartmentID });
+        }
         public IActionResult ViewPatient(string searchString, int? page)
         {
             int pageSize = 1; // şimdilik 1 kalsın daha fazla patient ekleyene kadar
