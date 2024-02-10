@@ -21,7 +21,32 @@ namespace Hospital.Controllers
         {
             return View();
         }
+        public IActionResult ViewPatient(string searchString, int? page)
+        {
+            int pageSize = 1; // şimdilik 1 kalsın daha fazla patient ekleyene kadar
+            int pageNumber = page ?? 1; // If no page is specified, default to page 1
 
+            var patients = _context.patients.Where(d => d.Role == "Patient").ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                patients = patients.Where(p =>
+                    p.Email.Contains(searchString)
+                ).ToList();
+            }
+
+            int totalPatients = patients.Count();
+            int totalPages = (int)Math.Ceiling((double)totalPatients / pageSize);
+
+            patients = patients.Skip((pageNumber - 1) * pageSize)
+                               .Take(pageSize)
+                               .ToList();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = pageNumber;
+
+            return View(patients);
+        }
 
         [HttpGet]
         public IActionResult GetDepartments(int hospitalID)

@@ -16,8 +16,24 @@ namespace Hospital.Controllers
         {
             _context = applicationDbContext;
         }
-        public IActionResult ViewPatient(string searchString) // search belki geliştirilip ayırılınabilir
+        // public IActionResult ViewPatient(string searchString) // search belki geliştirilip ayırılınabilir
+        // {
+        //     var patients = _context.patients.Where(d => d.Role == "Patient").ToList();
+
+        //     if (!string.IsNullOrEmpty(searchString))
+        //     {
+        //         patients = patients.Where(p =>
+        //             p.Email.Contains(searchString)
+        //         ).ToList();
+        //     }
+
+        //     return View(patients);
+        // }
+        public IActionResult ViewPatient(string searchString, int? page)
         {
+            int pageSize = 1; // 
+            int pageNumber = page ?? 1; // If no page is specified, default to page 1
+
             var patients = _context.patients.Where(d => d.Role == "Patient").ToList();
 
             if (!string.IsNullOrEmpty(searchString))
@@ -27,8 +43,19 @@ namespace Hospital.Controllers
                 ).ToList();
             }
 
+            int totalPatients = patients.Count();
+            int totalPages = (int)Math.Ceiling((double)totalPatients / pageSize);
+
+            patients = patients.Skip((pageNumber - 1) * pageSize)
+                               .Take(pageSize)
+                               .ToList();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = pageNumber;
+
             return View(patients);
         }
+
 
         public IActionResult ViewInvoice(int id)
         {
