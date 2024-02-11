@@ -21,7 +21,54 @@ namespace Hospital.Controllers
         {
             return View();
         }
+        public IActionResult SetOffDuty(int id, int departmentId)
+        {
 
+            var dto = new OffDutyDTO
+            {
+                DoctorID = id,
+                DepartmentID = departmentId
+            };
+            return View(dto);
+        }
+        [HttpPost]
+        public IActionResult SetOffDuty(OffDutyDTO model)
+        {
+            var doctor = _context.doctors.FirstOrDefault(d=>d.ApplicationUserID == model.DoctorID);
+
+            doctor.offDuty = model.OffDuty;
+            doctor.offDutyStartDate = model.OffDutyStartDate;
+            doctor.offDutyEndDate = model.OffDutyEndDate;
+
+            _context.SaveChanges();
+            return RedirectToAction("ViewPersonnel" , "Admin", new { id = model.DepartmentID });
+        }
+        public IActionResult ViewPatient(string searchString, int? page)
+        {
+            int pageSize = 1; // şimdilik 1 kalsın daha fazla patient ekleyene kadar
+            int pageNumber = page ?? 1; // If no page is specified, default to page 1
+
+            var patients = _context.patients.Where(d => d.Role == "Patient").ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                patients = patients.Where(p =>
+                    p.Email.Contains(searchString)
+                ).ToList();
+            }
+
+            int totalPatients = patients.Count();
+            int totalPages = (int)Math.Ceiling((double)totalPatients / pageSize);
+
+            patients = patients.Skip((pageNumber - 1) * pageSize)
+                               .Take(pageSize)
+                               .ToList();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = pageNumber;
+
+            return View(patients);
+        }
 
         [HttpGet]
         public IActionResult GetDepartments(int hospitalID)
@@ -438,6 +485,7 @@ namespace Hospital.Controllers
             recep.BloodType = model.BloodType;
             recep.Email = model.Email;
             recep.Password = model.Password;
+            recep.ModifiedDate = DateTime.Now;
 
             _context.SaveChanges();
 
@@ -473,6 +521,7 @@ namespace Hospital.Controllers
             doctor.BloodType = model.BloodType;
             doctor.Email = model.Email;
             doctor.Password = model.Password;
+            doctor.ModifiedDate = DateTime.Now;
 
             _context.SaveChanges();
 
@@ -506,6 +555,7 @@ namespace Hospital.Controllers
             nurse.BloodType = model.BloodType;
             nurse.Email = model.Email;
             nurse.Password = model.Password;
+            nurse.ModifiedDate = DateTime.Now;
 
             _context.SaveChanges();
 
@@ -537,6 +587,7 @@ namespace Hospital.Controllers
             admin.BloodType = model.BloodType;
             admin.Email = model.Email;
             admin.Password = model.Password;
+            admin.ModifiedDate = DateTime.Now;
 
             _context.SaveChanges();
 

@@ -1,9 +1,13 @@
 @model IEnumerable<Patient>
+<partial name="_AdminLayout"/>
 
-<h2>List of Patients</h2>
-
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="text-center">
+<br>
 <div style="width: 300px;">
-    <form class="form-control" method="get" asp-action="ViewPatient" asp-controller="Receptionist">
+    <form class="form-control" method="get" asp-action="ViewPatient" asp-controller="Admin">
         <input type="text" id="searchInput " name="searchString" placeholder="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
@@ -45,6 +49,30 @@
                         <button class="btn btn-primary btn-sm" type="submit">Invoices</button>
                     </form>
                 </td>
+                <td>
+                    <form asp-action="ViewReport" asp-controller="Doctor" method="get">
+                        <input type="hidden" name="id" value="@patient.ApplicationUser.ApplicationUserID">
+                        <button class="btn btn-primary btn-sm" type="submit">Reports</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="ViewPrescription" asp-controller="Doctor" method="get">
+                        <input type="hidden" name="id" value="@patient.ApplicationUser.ApplicationUserID">
+                        <button class="btn btn-primary btn-sm" type="submit">Prescriptions</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="ViewRadiologicalReport" asp-controller="Doctor" method="get">
+                        <input type="hidden" name="id" value="@patient.ApplicationUser.ApplicationUserID">
+                        <button class="btn btn-primary btn-sm" type="submit">Radiologicals</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="ViewDiagnosis" asp-controller="Doctor" method="get">
+                        <input type="hidden" name="id" value="@patient.ApplicationUser.ApplicationUserID">
+                        <button class="btn btn-primary btn-sm" type="submit">Diagnoses</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
@@ -60,3 +88,8 @@
         }
     </ul>
 </nav>
+            </div>
+            
+            </div>
+    </div>
+</div>

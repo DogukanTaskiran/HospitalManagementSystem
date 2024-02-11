@@ -66,7 +66,7 @@ namespace Hospital.Controllers
         {
             Console.WriteLine("Received departmentId: " + departmentId);
             var doctors = _context.doctors
-                .Where(d => d.DepartmentID == departmentId)
+                .Where(d => d.DepartmentID == departmentId && d.offDuty==true)
                 .Select(d => new
                 {
                     DoctorID = d.DoctorID,
