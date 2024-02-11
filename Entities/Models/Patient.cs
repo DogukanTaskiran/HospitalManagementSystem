@@ -18,7 +18,6 @@ namespace Entities.Models
         public ApplicationUser ApplicationUser { get; set; }
 
         // References to related classes
-
         // public Doctor Doctor { get;set;}
         // public int DoctorID { get;set;}
 
@@ -28,8 +27,6 @@ namespace Entities.Models
         public List<Diagnosis> Diagnoses { get; set; }
         public List<Report> Reports { get; set; }
         public List<RadiologicalReport> RadiologicalReports { get; set; }
-
-        
 
     }
 }

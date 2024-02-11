@@ -97,33 +97,38 @@ public class AccountController : Controller
         return View();
     }
 
-
-    [Authorize(Roles = "Patient")]
     [HttpGet]
     public ActionResult ChangePassword()
     {
         return View();
     }
 
-    [Authorize(Roles = "Patient")]
     [HttpPost]
     public IActionResult ChangePassword(ChangePasswordDTO model)
     {
         if (ModelState.IsValid)
         {
             var email = User.FindFirstValue(ClaimTypes.Name);
-            var patient = _context.patients.FirstOrDefault(x => x.Email == email);
+            var applicationUsers = _context.applicationUsers.FirstOrDefault(x => x.Email == email);
 
-            if (patient != null && (patient.Password == model.Password))
+            if (applicationUsers != null && (applicationUsers.Password == model.Password))
             {
-                patient.Password = model.NewPassword;
+                applicationUsers.Password = model.NewPassword;
                 _context.SaveChanges();
-                return RedirectToAction("Profile", "Patient");
+
+                if (User.IsInRole("Patient"))
+                {
+                    return RedirectToAction("Profile", "Patient");
+                }
+                if (User.IsInRole("Doctor"))
+                {
+                    return RedirectToAction("Profile", "Doctor");
+                }
+
             }
 
             ModelState.AddModelError("CurrentPassword", "Current password is incorrect");
         }
-
         return View(model);
     }
 

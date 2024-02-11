@@ -1,0 +1,173 @@
+﻿@model ProfileDTO
+<!DOCTYPE html>
+
+<head>
+    <h1 style="margin-top: 30px;">My Profile</h1>
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .nav-tabs {
+            background-color: #f8f9fa;
+        }
+
+        .nav-link {
+            color: #007bff;
+            cursor: pointer;
+        }
+
+            .nav-link.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .card-container {
+            margin-top: 30px;
+        }
+
+        .btn {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="showDetails()">My Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="showContactInfo()">My Contact Information</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div id="detailsContent">
+                <table class="container p-2 my-4 border">
+                    <tr>
+                        <th>Name</th>
+                        <td>@Model.Doctor.Name</td>
+                    </tr>
+                    <tr>
+                        <th>Surname</th>
+                        <td>@Model.Doctor.Surname</td>
+                    </tr>
+                    @if (Model.Doctor.Age != null)
+                    {
+                        <tr>
+                            <th>Age</th>
+                            <td>@Model.Doctor.Age </td>
+                        </tr>
+                    }
+                    @if (Model.Doctor.Weight != null)
+                    {
+                        <tr>
+                            <th>Weight</th>
+                            <td>@Model.Doctor.Weight </td>
+                        </tr>
+                    }
+                    @if (Model.Doctor.Height != null)
+                    {
+                        <tr>
+                            <th>Height</th>
+                            <td>@Model.Doctor.Height </td>
+                        </tr>
+                    }
+                    <tr>
+                        <th>Gender</th>
+                        <td>@Model.Doctor.Gender</td>
+                    </tr>
+                    <tr>
+                        <th>Blood Type</th>
+                        <td>@Model.Doctor.BloodType</td>
+                    </tr>
+
+                </table>
+            </div>
+            <div id="contactInfoContent" style="display: none;">
+                <table class="container p-2 my-4 border">
+                    <thead>
+                        <tr>
+                            <th>Phone Number</th>
+                            <td>@Model.Doctor.PhoneNumber</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>@Model.Doctor.Address</td>
+                        </tr>
+                        <tr>
+                            <th>E-mail</th>
+                            <td>@Model.Doctor.Email</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <a asp-controller="Doctor" asp-action="UpdateDetails" class="btn btn-primary">Update my details</a>
+            <a asp-controller="Account" asp-action="ChangePassword" class="btn btn-primary">Change my password</a>
+
+        </div>
+    </div>
+    <script>
+        function showDetails() {
+            document.getElementById('detailsContent').style.display = 'block';
+            document.getElementById('contactInfoContent').style.display = 'none';
+        }
+
+        function showContactInfo() {
+            document.getElementById('detailsContent').style.display = 'none';
+            document.getElementById('contactInfoContent').style.display = 'block';
+        }
+    </script>
+    <br>
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Doctor Panel</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a asp-action="ViewPatient" asp-controller="Doctor" class="btn btn-primary">Patients</a>
+            <a asp-action="ViewPatient" asp-controller="Doctor" class="btn btn-primary">Patients</a>
+            <a asp-action="ViewPatient" asp-controller="Doctor" class="btn btn-primary">Patients</a>
+        </div>
+    </div>
+</body>
+
+</html>

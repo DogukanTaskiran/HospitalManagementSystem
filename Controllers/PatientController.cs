@@ -39,11 +39,6 @@ namespace Hospital.Controllers
             return View(appointments);
         }
 
-
-
-
-
-
         [HttpPost]
         public IActionResult DeleteAppointment(int id)
         {

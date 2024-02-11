@@ -1,12 +1,81 @@
 @model PersonnelDTO
-<partial name="_AdminLayout" />
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="text-center">
+<!DOCTYPE html>
+    <head>
+    <partial name="_AdminLayout" />
+    <h2>View Personels</h2>
+    <style>
+        #doctorContent,
+        #nurseContent,
+        #receptionistContent {
+            display: none;
+        }
+
+        #doctorContent,
+        #nurseContent,
+        #receptionistContent {
+            margin-top: 20px;
+        }
+
+        .card {
+            width: 100%;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+        }
+
+        .btn-sm {
+            font-size: 0.8rem;
+        }
+
+        .mt-3 {
+            margin-top: 1rem;
+        }
+
+        .ml-2 {
+            margin-left: 0.5rem;
+        }
+    </style>
+
+    </head>
+    <body>
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="showDoctors()">Doctors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="showNurses()">Nurses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="showReceptionists()">Receptionists</a>
+                </li>
+            </ul>
+        </div>
+    <div class="card-body">
+        <div id="doctorContent">
                 <h2>Doctors</h2>
 
                 <div class="row">
+                    <table class="container p-2 my-4 border">
                     @foreach (var doctor in Model.Doctors)
                     {
                         <div class="col-md-4 my-3">
@@ -36,8 +105,10 @@
                     <div class="col-md-12 mt-3">
                         <a asp-controller="Admin" asp-action="AddDoctor" asp-route-id="@Model.DepartmentID" class="btn btn-primary">Add Doctor</a>
                     </div>
+                    </table>
                 </div>
-
+        </div>
+        <div id="nurseContent">
                 <h2 class="mt-4">Nurses</h2>
 
                 <div class="row">
@@ -71,7 +142,8 @@
                         <a asp-controller="Admin" asp-action="AddNurse" asp-route-id="@Model.DepartmentID" class="btn btn-primary">Add Nurse</a>
                     </div>
                 </div>
-
+        </div>
+        <div id="receptionistContent">
                 <h2 class="mt-4">Receptionists</h2>
 
                 <div class="row">
@@ -105,7 +177,29 @@
                         <a asp-controller="Admin" asp-action="AddReceptionist" asp-route-id="@Model.DepartmentID" class="btn btn-primary">Add Receptionist</a>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
-</div>
+    </div>
+     <script>
+        function showDoctors() {
+            document.getElementById('doctorContent').style.display = 'block';
+            document.getElementById('nurseContent').style.display = 'none';
+            document.getElementById('receptionistContent').style.display = 'none';
+
+        }
+
+        function showNurses() {
+                document.getElementById('doctorContent').style.display = 'none';
+                document.getElementById('nurseContent').style.display = 'block';
+                document.getElementById('receptionistContent').style.display = 'none';
+
+        }
+
+        function showReceptionists() {
+                document.getElementById('doctorContent').style.display = 'none';
+                document.getElementById('nurseContent').style.display = 'none';
+                document.getElementById('receptionistContent').style.display = 'block';
+        }
+    </script>
+    </body>
+</html>
