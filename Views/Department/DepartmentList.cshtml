@@ -1,0 +1,33 @@
+﻿@model List<Entities.Models.Department>
+
+    @{
+    ViewData["Title"] = "Departments";
+    }
+
+    <h1>Departments</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Department ID</th>
+                    <th class="text-center">Department Name</th>
+                    <th class="text-center">Hospital ID</th>
+                    <th class="text-center">Doctors Count</th>
+                    <th class="text-center">Nurses Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var department in Model)
+            {
+                <tr>
+                    <td class="text-center">@department.DepartmentID</td>
+                    <td>@department.DepartmentName</td>
+                    <td class="text-center">@department.HospitalID</td>
+                    <td class="text-center">@((department.Doctors != null && department.Doctors.Any()) ? department.Doctors.Count : 0)</td>
+                    <td class="text-center">@((department.Nurses != null && department.Nurses.Any()) ? department.Nurses.Count : 0)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
