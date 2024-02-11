@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     <label for="dateInput">Date</label>
-                    <input type="date" id="dateInput" name="appointmentDate" class="form-control">
+                    <input type="date" id="dateInput" name="appointmentDate" class="form-control" min="2024-01-01" max="2024-12-31">
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Search</button>
@@ -151,5 +151,17 @@
             border-radius: 10px;
             overflow: hidden;
         }
+
+        .container {
+            background-color: #fff;
+            padding: 10px;
+            max-width: 1400px; /* Adjust the maximum width as needed */
+            border-radius: 10px;
+        }
+
+        .mt-4 {
+            margin-top: 20px; /* Adjust the margin as needed */
+        }
+
     </style>
 }
