@@ -1,0 +1,62 @@
+@model IEnumerable<Patient>
+
+<h2>List of Patients</h2>
+
+<div style="width: 300px;">
+    <form class="form-control" method="get" asp-action="ViewPatient" asp-controller="Receptionist">
+        <input type="text" id="searchInput " name="searchString" placeholder="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Gender</th>
+            <th>Blood Type</th>
+            <th>Age</th>
+            <th>Height</th>
+            <th>Weight</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.Name</td>
+                <td>@patient.Surname</td>
+                <td>@patient.Email</td>
+                <td>@(patient.PhoneNumber ?? "N/A")</td>
+                <td>@(patient.Address ?? "N/A")</td>
+                <td>@(patient.Gender ?? "N/A")</td>
+                <td>@(patient.BloodType ?? "N/A")</td>
+                <td>@patient.Age</td>
+                <td>@patient.Height</td>
+                <td>@patient.Weight</td>
+                <td>
+                    <form asp-action="ViewInvoice" asp-controller="Receptionist" method="get">
+                        <input type="hidden" name="id" value="@patient.ApplicationUser.ApplicationUserID">
+                        <button class="btn btn-primary btn-sm" type="submit">Invoices</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Pagination -->
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.TotalPages; i++) // search stringi model kullanmadan almak için httpcontext gerek.
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link" href="?page=@i&searchString=@ViewContext.HttpContext.Request.Query["searchString"]">@i</a> 
+            </li>
+        }
+    </ul>
+</nav>

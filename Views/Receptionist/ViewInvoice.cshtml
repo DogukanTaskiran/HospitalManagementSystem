@@ -1,0 +1,60 @@
+@model InvoiceDTO
+<h1 class="text-center">Invoices</h1>
+<a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Receptionist">Back</a>
+<div style="width: 400px;">
+    <form asp-action="AddInvoice" asp-controller="Receptionist" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="PatientID" value="@Model.PatientID" />
+        <div class="form-group">
+            <label asp-for="InvoicePrice">Price</label>
+            <span asp-validation-for="InvoicePrice" class="text-danger" style="font-size: xx-small;"></span>
+            <input asp-for="InvoicePrice" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="InvoiceDate">Diagnosis Date</label>
+            <span asp-validation-for="InvoiceDate" class="text-danger" style="font-size: xx-small;"></span>
+            <input asp-for="InvoiceDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ServiceDescription">Service Description</label>
+            <span asp-validation-for="ServiceDescription" class="text-danger" style="font-size: xx-small;"></span>
+            <input asp-for="ServiceDescription" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="InvoiceFile">Upload Image:</label>
+            <input asp-for="InvoiceFile" type="file" class="form-control-file" />
+            <span asp-validation-for="InvoiceFile" class="text-danger"></span>
+        </div><br>
+        <button type="submit" class="btn btn-primary">Add Invoice</button>
+    </form>
+</div>
+
+
+<br>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>InvoiceID</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Name</th>
+            <th>Path</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var inv in @Model.Invoices)
+        {
+            <tr>
+                <td>@inv.InvoiceID</td>
+                <td>@inv.InvoicePrice</td>
+                <td>@inv.InvoiceDate</td>
+                <td>@inv.ServiceDescription</td>
+                <td>@inv.filename</td>
+                <td>@inv.filepath</td>
+
+            </tr>
+        }
+    </tbody>
+</table>

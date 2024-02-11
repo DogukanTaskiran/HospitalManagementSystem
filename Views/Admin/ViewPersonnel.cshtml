@@ -2,97 +2,116 @@
 <partial name="_AdminLayout" />
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="text-center">
                 <h2>Doctors</h2>
+
                 <div class="row">
                     @foreach (var doctor in Model.Doctors)
                     {
-                        <div class="col-md-3 my-3">
-                            <div class="card" style="width: 9rem;">
+                        <div class="col-md-4 my-3">
+                            <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">@doctor.Name</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">@doctor.Email</h6>
-                                    <p class="card-text">Örnek text</p>
-
+                                    <p class="card-text">OffDutyEnd: @doctor.offDutyEndDate </p>
                                 </div>
-                                <form asp-controller="Admin" asp-action="UpdateDoctor" method="get">
-                                    <input type="hidden"name="id" value="@doctor.ApplicationUser.ApplicationUserID" />
-                                    <input type="hidden"name="departmentId" value="@doctor.DepartmentID"/>
-                                    <button class="btn btn-outline-primary btn-sm" type="submit">Update</button>
-                                </form>
-                                <form asp-controller="Admin" asp-action="DeleteDoctor" method="post">
-                                    <input name="email" value="@doctor.Email" type="hidden" />
-                                    <button class="btn btn-danger btn-sm" type="submit">Delete Doctor</button>
-                                </form><br>
+
+                                <div class="card-footer">
+                                    <form asp-controller="Admin" asp-action="SetOffDuty" method="get">
+                                        <input type="hidden" name="id" value="@doctor.ApplicationUser.ApplicationUserID" />
+                                        <input type="hidden" name="departmentId" value="@doctor.DepartmentID" />
+                                        <button class="btn btn-danger btn-sm" type="submit">Set Off duty</button>
+                                    </form>
+                                    <form asp-controller="Admin" asp-action="UpdateDoctor" method="get">
+                                        <input type="hidden" name="id" value="@doctor.ApplicationUser.ApplicationUserID" />
+                                        <input type="hidden" name="departmentId" value="@doctor.DepartmentID" />
+                                        <button class="btn btn-outline-primary btn-sm" type="submit">Update</button>
+                                    </form>
+
+                                    <form asp-controller="Admin" asp-action="DeleteDoctor" method="post" class="ml-2">
+                                        <input name="email" value="@doctor.Email" type="hidden" />
+                                        <button class="btn btn-danger btn-sm" type="submit">Delete Doctor</button>
+                                    </form>
+                                </div>
                             </div>
-
                         </div>
-
                     }
-                    <a asp-controller="Admin" asp-action="AddDoctor" asp-route-id="@Model.DepartmentID">
-                        <button class="btn btn-primary" type="button">Add Doctor</button>
-                    </a>
+
+                    <div class="col-md-12 mt-3">
+                        <a asp-controller="Admin" asp-action="AddDoctor" asp-route-id="@Model.DepartmentID"
+                            class="btn btn-primary">Add Doctor</a>
+                    </div>
                 </div>
-                <h1>Nurses</h1>
+
+                <h2 class="mt-4">Nurses</h2>
+
                 <div class="row">
                     @foreach (var nurse in Model.Nurses)
                     {
-                        <div class="col-md-3 my-3">
-                            <div class="card" style="width: 9rem;">
+                        <div class="col-md-4 my-3">
+                            <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">@nurse.Name</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">@nurse.Email</h6>
                                     <p class="card-text">Örnek text</p>
                                 </div>
-                                <form asp-controller="Admin" asp-action="UpdateNurse" method="get">
-                                    <input type="hidden"name="id" value="@nurse.ApplicationUser.ApplicationUserID" />
-                                    <input type="hidden"name="departmentId" value="@nurse.DepartmentID"/>
-                                    <button class="btn btn-outline-primary btn-sm" type="submit">Update</button>
-                                </form>
-                                <form asp-controller="Admin" asp-action="DeleteNurse" method="post">
-                                    <input name="email" value="@nurse.Email" type="hidden" />
-                                    <button class="btn btn-danger btn-sm" type="submit">Delete Nurse</button>
-                                </form><br>
+
+                                <div class="card-footer">
+                                    <form asp-controller="Admin" asp-action="UpdateNurse" method="get">
+                                        <input type="hidden" name="id" value="@nurse.ApplicationUser.ApplicationUserID" />
+                                        <input type="hidden" name="departmentId" value="@nurse.DepartmentID" />
+                                        <button class="btn btn-outline-primary btn-sm" type="submit">Update</button>
+                                    </form>
+
+                                    <form asp-controller="Admin" asp-action="DeleteNurse" method="post" class="ml-2">
+                                        <input name="email" value="@nurse.Email" type="hidden" />
+                                        <button class="btn btn-danger btn-sm" type="submit">Delete Nurse</button>
+                                    </form>
+                                </div>
                             </div>
-
                         </div>
-
                     }
-                    <a asp-controller="Admin" asp-action="AddNurse" asp-route-id="@Model.DepartmentID">
-                        <button class="btn btn-primary" type="button">Add Nurse</button>
-                    </a>
+
+                    <div class="col-md-12 mt-3">
+                        <a asp-controller="Admin" asp-action="AddNurse" asp-route-id="@Model.DepartmentID"
+                            class="btn btn-primary">Add Nurse</a>
+                    </div>
                 </div>
-                <h1>Receptionists</h1>
+
+                <h2 class="mt-4">Receptionists</h2>
+
                 <div class="row">
                     @foreach (var recep in Model.Receptionists)
                     {
-                        <div class="col-md-3 my-3">
-                            <div class="card" style="width: 9rem;">
+                        <div class="col-md-4 my-3">
+                            <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">@recep.Name</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">@recep.Email</h6>
                                     <p class="card-text">Örnek text</p>
                                 </div>
-                                <form asp-controller="Admin" asp-action="UpdateReceptionist" method="get">
-                                    <input type="hidden"name="id" value="@recep.ApplicationUser.ApplicationUserID" />
-                                    <input type="hidden"name="departmentId" value="@recep.DepartmentID"/>
-                                    <button class="btn btn-outline-primary btn-sm" type="submit">Update</button>
-                                </form>
-                                    
-                                
-                                <form asp-controller="Admin" asp-action="DeleteReceptionist" method="post">
-                                    <input name="email" value="@recep.Email" type="hidden" />
-                                    <button class="btn btn-danger btn-sm" type="submit">Delete Receptionist</button>
-                                </form><br>
+
+                                <div class="card-footer">
+                                    <form asp-controller="Admin" asp-action="UpdateReceptionist" method="get">
+                                        <input type="hidden" name="id" value="@recep.ApplicationUser.ApplicationUserID" />
+                                        <input type="hidden" name="departmentId" value="@recep.DepartmentID" />
+                                        <button class="btn btn-outline-primary btn-sm" type="submit">Update</button>
+                                    </form>
+
+                                    <form asp-controller="Admin" asp-action="DeleteReceptionist" method="post" class="ml-2">
+                                        <input name="email" value="@recep.Email" type="hidden" />
+                                        <button class="btn btn-danger btn-sm" type="submit">Delete Receptionist</button>
+                                    </form>
+                                </div>
                             </div>
-
                         </div>
-
                     }
-                    <a asp-controller="Admin" asp-action="AddReceptionist" asp-route-id="@Model.DepartmentID">
-                        <button class="btn btn-primary" type="button">Add Receptionist</button>
-                    </a>
+
+                    <div class="col-md-12 mt-3">
+                        <a asp-controller="Admin" asp-action="AddReceptionist" asp-route-id="@Model.DepartmentID"
+                            class="btn btn-primary">Add Receptionist</a>
+                    </div>
                 </div>
             </div>
         </div>

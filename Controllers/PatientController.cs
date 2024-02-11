@@ -39,7 +39,7 @@ namespace Hospital.Controllers
             return View(appointments);
         }
 
-    
+
 
 
 
@@ -71,7 +71,7 @@ namespace Hospital.Controllers
         {
             Console.WriteLine("Received departmentId: " + departmentId);
             var doctors = _context.doctors
-                .Where(d => d.DepartmentID == departmentId)
+                .Where(d => d.DepartmentID == departmentId && d.offDuty==true)
                 .Select(d => new
                 {
                     DoctorID = d.DoctorID,
@@ -196,16 +196,27 @@ namespace Hospital.Controllers
         public IActionResult Profile()
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Name);
-            var Patient = _context.patients.ToList();
-            ApplicationUser patient = _context.patients
-            .SingleOrDefault(p => p.ApplicationUser.Email == userEmail);
+
+            var patient = _context.patients
+            .Include(p => p.ApplicationUser)
+            .FirstOrDefault(p => p.Email == userEmail);
+
+            var invoices = _context.invoices
+            .Where(i=>i.PatientID == patient.ApplicationUser.ApplicationUserID)
+            .ToList();
+
 
             if (patient == null)
             {
                 return NotFound();
             }
 
-            return View(patient);
+            var dto = new ProfileDTO{
+                Invoices = invoices,
+                Patient = patient
+            };
+
+            return View(dto);
         }
 
         [HttpPost]
@@ -317,25 +328,27 @@ namespace Hospital.Controllers
             }
             return View(prescriptions);
         }
+        public IActionResult ViewInvoice()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            System.Console.WriteLine("DEBUG: ViewInvoice Patient" + userEmail);
+            var patient = _context.patients
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(p => p.Email == userEmail);
+            System.Console.WriteLine("DEBUG ViewInvoice Patient" + patient.ApplicationUserID);
+
+            var invoices = _context.invoices.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID).ToList();
+            foreach (var inv in invoices)
+            {
+                System.Console.WriteLine("DEBUG: Invoice List LOg : " + inv.filename);
+            }
+            return View(invoices);
+        }
 
 
 
-        // public IActionResult AddAppointment()
-        // {
-        //     var hospitals = _context.hospitals.ToList();
-        //     var hospitalSelectList = new SelectList(hospitals, "HospitalID", "HospitalName");
-        //     ViewBag.HospitalList = hospitalSelectList;
 
-        //     var departments = _context.departments.ToList();
-        //     var departmentSelectList = new SelectList(departments, "DepartmentID", "DepartmentName");
-        //     ViewBag.DepartmentList = departmentSelectList;
 
-        //     var doctors = _context.doctors.ToList();
-        //     var doctorSelectList = new SelectList(doctors, "DoctorID", "DoctorName");
-        //     ViewBag.DoctorList = doctorSelectList;
-
-        //     return View();
-        // }
 
 
     }

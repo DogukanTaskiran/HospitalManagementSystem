@@ -130,7 +130,10 @@ namespace Hospital.Migrations
                     DoctorID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DepartmentID = table.Column<int>(type: "int", nullable: false),
-                    RoomNumber = table.Column<int>(type: "int", nullable: false)
+                    RoomNumber = table.Column<int>(type: "int", nullable: false),
+                    offDuty = table.Column<bool>(type: "bit", nullable: true),
+                    offDutyStartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    offDutyEndDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -211,6 +214,8 @@ namespace Hospital.Migrations
                     ServiceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InvoicePrice = table.Column<int>(type: "int", nullable: false),
                     InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    filename = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    filepath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -368,22 +373,22 @@ namespace Hospital.Migrations
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "ApplicationUserID", "Address", "Age", "BloodType", "CreatedDate", "DeletedDate", "Email", "Gender", "Height", "ModifiedDate", "Name", "Password", "PhoneNumber", "Role", "Status", "Surname", "Weight" },
-                values: new object[] { -1, "IYTE Müh F Binası", 22, "A", new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8445), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@hospitaladmin.com", "Erkek", 170, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kerem", "123", "5554446677", "Admin", 1, "mereK", 70 });
+                values: new object[] { -1, "IYTE Müh F Binası", 22, "A", new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7665), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@hospitaladmin.com", "Erkek", 170, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kerem", "123", "5554446677", "Admin", 1, "mereK", 70 });
 
             migrationBuilder.InsertData(
                 table: "hospitals",
                 columns: new[] { "HospitalID", "Address", "CreatedDate", "DeletedDate", "HospitalName", "ModifiedDate", "PhoneNum", "Status" },
                 values: new object[,]
                 {
-                    { 1, "Kemaliye Caddesi , Borno Mahallesi, No:188", new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8220), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medical Park", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "123456789", 1 },
-                    { 2, "Mahmudiye Caddesi , Yılmaz Mahallesi, No:228", new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8224), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medicana", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "323456789", 1 },
-                    { 3, "İzmiriye Caddesi , Emir Mahallesi, No:728", new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8226), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medical Point", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "252417788", 1 },
-                    { 4, "Çakır Caddesi , Kültür Mahallesi, No:28", new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8227), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MediX", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "272417788", 1 },
-                    { 5, "Harbiye Caddesi , Osman Mahallesi, No:58", new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8229), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medic Power", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "172417788", 1 },
-                    { 6, "Muradiye Caddesi , Papatya Mahallesi, No:48", new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8231), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Chicago", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "202417788", 1 },
-                    { 7, "Fatih Caddesi , Gül Mahallesi, No:558", new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8232), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Yeditepe Hastanesi", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "222417788", 1 },
-                    { 8, "Selimiye Caddesi , İhsaniye Mahallesi, No:218", new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8234), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hacettepe Özel", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "212417788", 1 },
-                    { 9, "Kitabiye Caddesi , Bilgin Mahallesi, No:98", new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8235), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Izmir Şehir Hastanesi", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "252416788", 1 }
+                    { 1, "Kemaliye Caddesi , Borno Mahallesi, No:188", new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7412), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medical Park", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "123456789", 1 },
+                    { 2, "Mahmudiye Caddesi , Yılmaz Mahallesi, No:228", new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7415), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medicana", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "323456789", 1 },
+                    { 3, "İzmiriye Caddesi , Emir Mahallesi, No:728", new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7418), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medical Point", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "252417788", 1 },
+                    { 4, "Çakır Caddesi , Kültür Mahallesi, No:28", new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7419), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MediX", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "272417788", 1 },
+                    { 5, "Harbiye Caddesi , Osman Mahallesi, No:58", new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7422), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medic Power", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "172417788", 1 },
+                    { 6, "Muradiye Caddesi , Papatya Mahallesi, No:48", new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7423), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Chicago", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "202417788", 1 },
+                    { 7, "Fatih Caddesi , Gül Mahallesi, No:558", new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7425), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Yeditepe Hastanesi", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "222417788", 1 },
+                    { 8, "Selimiye Caddesi , İhsaniye Mahallesi, No:218", new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7427), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hacettepe Özel", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "212417788", 1 },
+                    { 9, "Kitabiye Caddesi , Bilgin Mahallesi, No:98", new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7428), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Izmir Şehir Hastanesi", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "252416788", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -391,30 +396,30 @@ namespace Hospital.Migrations
                 columns: new[] { "DepartmentID", "CreatedDate", "DeletedDate", "DepartmentName", "HospitalID", "ModifiedDate", "Status" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8370), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kardiyoloji", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 2, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8372), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nöroloji", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 3, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8375), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dahiliye", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 4, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8376), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Göz Hastalıkları", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 5, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8379), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Radyoloji", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 6, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8380), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nöroloji", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 10, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8382), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psikiyatri", 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 11, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8384), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dermatoloji", 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 12, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8386), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Fizik Tedavi ve Rehabilitasyon", 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 13, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8387), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kulak Burun Boğaz", 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 14, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8389), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kadın Hastalıkları ve Doğum", 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 15, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8390), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Çocuk Sağlığı ve Hastalıkları", 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 16, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8391), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gastroenteroloji", 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 17, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8393), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Endokrinoloji", 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 18, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8394), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kardiyovasküler Cerrahi", 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 19, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8396), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Plastik ve Rekonstrüktif Cerrahi", 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 20, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8397), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nefroloji", 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 21, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8398), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kardiyovasküler Anestezi ve Yoğun Bakım", 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 22, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8401), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Plastik Cerrahi", 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 23, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8402), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Göğüs Cerrahisi", 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 24, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8404), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kulak Burun Boğaz", 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 25, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8405), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kardiyoloji", 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 26, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8406), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ortopedi", 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 27, new DateTime(2024, 2, 8, 15, 25, 33, 917, DateTimeKind.Local).AddTicks(8408), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Göz Hastalıkları", 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 }
+                    { 1, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7559), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kardiyoloji", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 2, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7561), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nöroloji", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 3, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7563), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dahiliye", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 4, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7565), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Göz Hastalıkları", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 5, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7567), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Radyoloji", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 6, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7569), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nöroloji", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 10, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7570), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psikiyatri", 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 11, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7572), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dermatoloji", 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 12, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7573), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Fizik Tedavi ve Rehabilitasyon", 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 13, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7575), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kulak Burun Boğaz", 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 14, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7576), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kadın Hastalıkları ve Doğum", 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 15, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7579), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Çocuk Sağlığı ve Hastalıkları", 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 16, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7581), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gastroenteroloji", 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 17, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7582), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Endokrinoloji", 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 18, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7584), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kardiyovasküler Cerrahi", 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 19, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7614), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Plastik ve Rekonstrüktif Cerrahi", 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 20, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7615), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nefroloji", 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 21, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7617), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kardiyovasküler Anestezi ve Yoğun Bakım", 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 22, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7618), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Plastik Cerrahi", 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 23, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7620), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Göğüs Cerrahisi", 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 24, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7622), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kulak Burun Boğaz", 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 25, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7624), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kardiyoloji", 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 26, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7625), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ortopedi", 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 27, new DateTime(2024, 2, 10, 19, 59, 49, 687, DateTimeKind.Local).AddTicks(7627), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Göz Hastalıkları", 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 }
                 });
 
             migrationBuilder.CreateIndex(
