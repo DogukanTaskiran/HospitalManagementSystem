@@ -250,7 +250,7 @@ namespace Hospital.Controllers
         }
         public IActionResult DoctorList()
         {
-            var doctors = _context.doctors.ToList();
+            var doctors = _context.doctors.Include(d => d.Departments.Hospital).ToList();
             return View(doctors);
         }
 
@@ -310,6 +310,4 @@ namespace Hospital.Controllers
         }
 
     }
-
-
 }

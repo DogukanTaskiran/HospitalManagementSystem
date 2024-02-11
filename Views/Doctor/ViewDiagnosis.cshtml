@@ -1,35 +1,94 @@
 @model DiagnosisDTO
-<h1 class="text-center">Diagnoses</h1>
 
 
 
 
-<form asp-controller="Doctor" asp-action="AddDiagnosis" method="get">
-    <input type="hidden" name="id" value="@Model.PatientID">
-    <button class="btn btn-primary" type="submit">Add Diagnosis</button>
-</form>
-<a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
+<!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Diagnosis ID</th>
-            <th>Diagnosis Description</th>
-            <th>Diagnosis Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var diag in @Model.Diagnoses)
-        {
-            <tr>
-                <td>@diag.DiagnosisID</td>
-                <td>@diag.DiagnosisDescription</td>
-                <td>@diag.DiagnosisDate</td>
-            </tr>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewDiagnosis</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
         }
-    </tbody>
-</table>
+
+        h1 {
+            color: black;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .table th,tr
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+     <h1 class="text-center">Diagnoses</h1>
+        <form asp-controller="Doctor" asp-action="AddDiagnosis" method="get">
+            <input type="hidden" name="id" value="@Model.PatientID">
+            <button class="btn btn-primary" type="submit">Add Diagnosis</button>
+        </form>
+        <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Diagnosis ID</th>
+                        <th>Diagnosis Description</th>
+                        <th>Diagnosis Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var diag in @Model.Diagnoses)
+                    {
+                        <tr>
+                            <td>@diag.DiagnosisID</td>
+                            <td>@diag.DiagnosisDescription</td>
+                            <td>@diag.DiagnosisDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+</body>
+</html>

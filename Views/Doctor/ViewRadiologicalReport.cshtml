@@ -1,47 +1,159 @@
 @model RadiologicalReportDTO
-<h1 class="text-center">Radiological Reports</h1>
-<a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
-<div style="width: 400px;">
-    <form asp-action="AddRadiologicalReport" asp-controller="Doctor" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="PatientID" value="@Model.PatientID" />
-        <div class="form-group">
 
-            <label asp-for="RrDescription">Radiologic Description</label>
-            <span asp-validation-for="RrDescription" class="text-danger" style="font-size: xx-small;"></span>
-            <input asp-for="RrDescription" class="form-control" />
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <h1 class="text-center">Radiological Reports</h1>
+    <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
+    <div class="card" style="width: 400px;">
+        <form asp-action="AddRadiologicalReport" asp-controller="Doctor" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="PatientID" value="@Model.PatientID" />
+            <div class="form-group">
 
-        </div>
-        <div class="form-group">
-            <label asp-for="RadiologicalReportFile">Upload Image:</label>
-            <input asp-for="RadiologicalReportFile" type="file" class="form-control-file" />
-            <span asp-validation-for="RadiologicalReportFile" class="text-danger"></span>
-        </div><br>
-        <button type="submit" class="btn btn-primary">Add Radiological Report</button>
-    </form>
-</div>
+                <label asp-for="RrDescription">Radiologic Description</label>
+                <span asp-validation-for="RrDescription" class="text-danger" style="font-size: xx-small;"></span>
+                <input asp-for="RrDescription" class="form-control" />
 
-
-<br>
-<br>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>RadiologicalReportID</th>
-            <th>Description</th>
-            <th>Name</th>
-            <th>Path</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var rr in @Model.RadiologicalReports)
-        {
-            <tr>
-                <td>@rr.RadiologicalReportID</td>
-                <td>@rr.RrDescription</td>
-                <td>@rr.filename</td>
-                <td>@rr.filepath</td>
-                
-            </tr>
+            </div>
+            <div class="form-group">
+                <label asp-for="RadiologicalReportFile">Upload Image:</label>
+                <input asp-for="RadiologicalReportFile" type="file" class="form-control-file" />
+                <span asp-validation-for="RadiologicalReportFile" class="text-danger"></span>
+            </div><br>
+            <button type="submit" class="btn btn-primary">Add Radiological Report</button>
+        </form>
+    </div>
+        <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
         }
-    </tbody>
-</table>
+
+        h1 {
+            color: black;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            background-color: #f2f2f2;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-control-file {
+            margin-top: 8px;
+        }
+
+        .card {
+            width: 400px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .card-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-textarea,
+        .card-file {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+
+        .card-file {
+            margin-top: 8px;
+        }
+
+        .card-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .card-button:hover {
+            background-color: #0056b3;
+        }
+        </style>
+    </head>
+    <body>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>RadiologicalReportID</th>
+                <th>Description</th>
+                <th>Name</th>
+                <th>Path</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rr in @Model.RadiologicalReports)
+            {
+                <tr>
+                    <td>@rr.RadiologicalReportID</td>
+                    <td>@rr.RrDescription</td>
+                    <td>@rr.filename</td>
+                    <td>@rr.filepath</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    </body>
+</html>

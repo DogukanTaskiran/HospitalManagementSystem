@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     <label for="dateInput">Date</label>
-                    <input type="date" id="dateInput" name="appointmentDate" class="form-control" min="2024-01-01" max="2024-12-31">
+                    <input type="date" id="dateInput" name="appointmentDate" class="form-control" min="" max="2024-12-31">
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Search</button>
@@ -143,6 +143,11 @@
                 }
             });
         }
+
+        // randevu alma minimum tarih dinamik olarak bugün
+        var today = new Date();
+        var formattedToday = today.toISOString().split('T')[0];
+        document.getElementById("dateInput").min = formattedToday;
 
     </script>
 
