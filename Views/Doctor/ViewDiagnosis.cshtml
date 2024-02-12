@@ -1,3 +1,7 @@
+@if (User.IsInRole("Admin"))
+{ // sor
+    <partial name="_AdminLayout" />
+}
 @model DiagnosisDTO
 
 
@@ -47,8 +51,8 @@
             background-color: #f2f2f2;
         }
 
-        .table th,tr
-        .table td {
+        .table th,
+        tr .table td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
@@ -65,30 +69,39 @@
 </head>
 
 <body>
-     <h1 class="text-center">Diagnoses</h1>
+    <h1 class="text-center">Diagnoses</h1>
+    @if (User.IsInRole("Doctor"))
+    {
         <form asp-controller="Doctor" asp-action="AddDiagnosis" method="get">
             <input type="hidden" name="id" value="@Model.PatientID">
             <button class="btn btn-primary" type="submit">Add Diagnosis</button>
         </form>
         <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Diagnosis ID</th>
-                        <th>Diagnosis Description</th>
-                        <th>Diagnosis Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var diag in @Model.Diagnoses)
-                    {
-                        <tr>
-                            <td>@diag.DiagnosisID</td>
-                            <td>@diag.DiagnosisDescription</td>
-                            <td>@diag.DiagnosisDate</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+    }
+
+    @if(User.IsInRole("Admin")){
+        <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Admin">Back</a>
+    }
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Diagnosis ID</th>
+                <th>Diagnosis Description</th>
+                <th>Diagnosis Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var diag in @Model.Diagnoses)
+            {
+                <tr>
+                    <td>@diag.DiagnosisID</td>
+                    <td>@diag.DiagnosisDescription</td>
+                    <td>@diag.DiagnosisDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </body>
+
 </html>

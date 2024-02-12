@@ -90,7 +90,7 @@
                                     <form asp-controller="Admin" asp-action="SetOffDuty" method="get">
                                         <input type="hidden" name="id" value="@doctor.ApplicationUser.ApplicationUserID" />
                                         <input type="hidden" name="departmentId" value="@doctor.DepartmentID" />
-                                        <button class="btn btn-danger btn-sm" type="submit">Set Off duty</button>
+                                        <button class="btn btn-warning btn-sm" type="submit">Set Off duty</button>
                                     </form>
                                     <form asp-controller="Admin" asp-action="UpdateDoctor" method="get">
                                         <input type="hidden" name="id" value="@doctor.ApplicationUser.ApplicationUserID" />

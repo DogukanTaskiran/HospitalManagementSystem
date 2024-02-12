@@ -3,42 +3,48 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="text-center">
+        <div class="col-md-8 ">
+            <div class="text-center ">
                 <h2>Hospitals</h2>
             </div>
 
-            <div class="row">
-                @foreach (var hospital in Model)
-                {
-                    <div class="col-md-4 my-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">@hospital.HospitalName</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">@hospital.PhoneNum</h6>
-                                <p class="card-text">@hospital.Address</p>
-                            </div>
+            <div class="text-center bg-light border border-primary rounded">
 
-                            <div class="card-footer">
-                                <a class="btn btn-outline-primary btn-sm" asp-controller="Admin" asp-action="ViewDepartment" asp-route-id="@hospital.HospitalID">
-                                    Departments
-                                </a>
+                <div class="row">
+                    @foreach (var hospital in Model)
+                    {
+                        <div class="col-md-4 my-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">@hospital.HospitalName</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">@hospital.PhoneNum</h6>
+                                    <p class="card-text">@hospital.Address</p>
+                                </div>
 
-                                <form asp-controller="Admin" asp-action="DeleteHospital" method="post" class="float-right">
-                                    <input name="id" value="@hospital.HospitalID" type="hidden" />
-                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                                </form>
+                                <div class="card-footer">
+                                    <a class="btn btn-outline-primary btn-sm" asp-controller="Admin"
+                                        asp-action="ViewDepartment" asp-route-id="@hospital.HospitalID">
+                                        Departments
+                                    </a>
+
+                                    <form asp-controller="Admin" asp-action="DeleteHospital" method="post"
+                                        class="float-right">
+                                        <input name="id" value="@hospital.HospitalID" type="hidden" />
+                                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
+
+                <div class="text-center mt-3">
+                    <a class="btn btn-primary" asp-controller="Admin" asp-action="AddHospital">
+                        Add Hospital
+                    </a>
+                </div>
             </div>
 
-            <div class="text-center mt-3">
-                <a class="btn btn-primary" asp-controller="Admin" asp-action="AddHospital">
-                    Add Hospital
-                </a>
-            </div>
         </div>
     </div>
 </div>

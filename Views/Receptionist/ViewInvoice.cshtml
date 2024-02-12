@@ -1,7 +1,18 @@
+@if (User.IsInRole("Admin"))
+{ // sor
+    <partial name="_AdminLayout" />
+}
 @model InvoiceDTO
 <h1 class="text-center">Invoices</h1>
-<a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Receptionist">Back</a>
-<div style="width: 400px;">
+@if (User.IsInRole("Receptionist"))
+{
+    <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Receptionist">Back</a>
+}
+@if (User.IsInRole("Admin"))
+{
+    <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Admin">Back</a>
+}
+<div class="card" style="width: 400px;">
     <form asp-action="AddInvoice" asp-controller="Receptionist" method="post" enctype="multipart/form-data">
         <input type="hidden" name="PatientID" value="@Model.PatientID" />
         <div class="form-group">

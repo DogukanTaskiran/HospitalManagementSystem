@@ -1,6 +1,7 @@
- @if (User.IsInRole("Admin")){ // sor
-    <partial name="_AdminLayout"/>
- }
+@if (User.IsInRole("Admin"))
+{ // sor
+    <partial name="_AdminLayout" />
+}
 @model PrescriptionDTO
 
 <!DOCTYPE html>
@@ -12,12 +13,16 @@
     {
         <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
     }
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Admin">Back</a>
+    }
     <div class="card">
         <form asp-action="AddPrescription" asp-controller="Doctor" method="post" enctype="multipart/form-data">
             <input type="hidden" name="PatientID" value="@Model.PatientID" />
             <div class="form-group">
 
-                <label asp-for="PrescriptionDate">Diagnosis Date</label>
+                <label asp-for="PrescriptionDate">Prescription Date</label>
                 <span asp-validation-for="PrescriptionDate" class="text-danger" style="font-size: xx-small;"></span>
                 <input asp-for="PrescriptionDate" class="form-control" />
 
@@ -31,7 +36,7 @@
         </form>
     </div>
     <br />
-   
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -134,11 +139,12 @@
             display: inline-block;
         }
 
-            .card-button:hover {
-                background-color: #0056b3;
-            }
+        .card-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
+
 <body>
     <table class="table table-striped">
         <thead>
@@ -162,4 +168,5 @@
         </tbody>
     </table>
 </body>
+
 </html>

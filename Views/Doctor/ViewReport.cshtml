@@ -1,3 +1,8 @@
+@if (User.IsInRole("Admin"))
+{ // sor
+    <partial name="_AdminLayout" />
+}
+
 @model ReportDTO
 
 <!DOCTYPE html>
@@ -48,8 +53,8 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
-                background-color: #f2f2f2;
-            }
+            background-color: #f2f2f2;
+        }
 
         .table th {
             background-color: #f2f2f2;
@@ -117,7 +122,14 @@
 
 <body>
     <h1 class="text-center">Reports</h1>
-    <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
+    @if (User.IsInRole("Doctor"))
+    {
+        <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Admin">Back</a>
+    }
     <div class="card" style="width: 400px;">
         <form asp-action="AddReport" asp-controller="Doctor" method="post" enctype="multipart/form-data">
             <input type="hidden" name="PatientID" value="@Model.PatientID" />

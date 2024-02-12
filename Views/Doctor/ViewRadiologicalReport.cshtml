@@ -1,10 +1,22 @@
+@if (User.IsInRole("Admin"))
+{ // sor
+    <partial name="_AdminLayout" />
+}
 @model RadiologicalReportDTO
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+
+<head>
     <h1 class="text-center">Radiological Reports</h1>
-    <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
+    @if (User.IsInRole("Doctor"))
+    {
+        <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Doctor">Back</a>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Admin">Back</a>
+    }
     <div class="card" style="width: 400px;">
         <form asp-action="AddRadiologicalReport" asp-controller="Doctor" method="post" enctype="multipart/form-data">
             <input type="hidden" name="PatientID" value="@Model.PatientID" />
@@ -23,7 +35,7 @@
             <button type="submit" class="btn btn-primary">Add Radiological Report</button>
         </form>
     </div>
-        <style>
+    <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f8f9fa;
@@ -128,9 +140,10 @@
         .card-button:hover {
             background-color: #0056b3;
         }
-        </style>
-    </head>
-    <body>
+    </style>
+</head>
+
+<body>
     <br>
     <table class="table table-striped">
         <thead>
@@ -155,5 +168,6 @@
         </tbody>
     </table>
 
-    </body>
+</body>
+
 </html>
