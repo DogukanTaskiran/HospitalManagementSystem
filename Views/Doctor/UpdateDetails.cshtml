@@ -1,4 +1,4 @@
-﻿@model Entities.Models.Patient
+﻿@model Entities.Models.Doctor
 
 @{
     ViewData["Title"] = "Update Details";
@@ -8,29 +8,28 @@
 <head>
     <div class="title-container">
         <h2>Update Details</h2>
-        <a class="btn btn-primary" asp-action="Profile" asp-controller="Patient">Back</a>
+        <a class="btn btn-primary" asp-action="Profile" asp-controller="Doctor">Back</a>
     </div>
 </head>
 
 <style>
     body {
         font-family: 'Arial', sans-serif;
-        background-color: #f8f9fa; 
-        margin: 0; 
+        background-color: #f8f9fa;
+        margin: 0;
     }
 
     .title-container {
-        background-color: #fff; 
-        padding: 10px; 
+        background-color: #fff;
+        padding: 10px;
         text-align: center;
         max-width: 600px;
         margin: auto;
         border-radius: 10px;
     }
-
     h2 {
         color: #333;
-        margin: 0;
+        text-align: center;
     }
 
     .form-horizontal {
@@ -67,9 +66,9 @@
         cursor: pointer;
     }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
 
     .form-horizontal {
         background-color: #f8f9fa;
@@ -80,7 +79,7 @@
 </style>
 
 <body>
-    @using (Html.BeginForm("UpdateDetails", "Patient", FormMethod.Post))
+    @using (Html.BeginForm("UpdateDetails", "Doctor", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 

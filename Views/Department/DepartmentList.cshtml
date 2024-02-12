@@ -1,0 +1,76 @@
+﻿@model List<Entities.Models.Department>
+
+    @{
+    ViewData["Title"] = "Departments";
+    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title class="title">Departments</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 40px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+            background-color: #f8f9fa;
+            color: black;
+        }
+
+        .text-center mb-4 {
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: black; 
+        }
+        
+        .table-responsive {
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center mb-4">Departments</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Department Name</th>
+                        <th>Hospital Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var departmentGroup in Model.GroupBy(d => d.DepartmentName))
+                    {
+                        var firstDepartment = departmentGroup.First();
+
+                        <tr>
+                            <td>@firstDepartment.DepartmentName</td>
+                            <td>
+                                @foreach (var hospital in departmentGroup.Select(d => d.Hospital))
+                                {
+                                    <div>@hospital.HospitalName</div>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</body>
+</html>
+

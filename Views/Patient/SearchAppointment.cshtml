@@ -59,8 +59,7 @@
 
                 <div class="form-group">
                     <label for="dateInput">Date</label>
-                    <input min="" type="date" id="dateInput"
-                        name="appointmentDate" class="form-control" value="@Model.SelectedDate.ToString("yyyy-MM-dd")">
+                    <input type="date" id="dateInput" name="appointmentDate" class="form-control" min="" max="2024-12-31">
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Search</button>
@@ -87,12 +86,7 @@
                                     <td>@appointment.AppointmentTime</td>
                                     <td>@(appointment.Status)</td>
                                     <td>
-                                        <form asp-action="AddAppointment" asp-controller="Patient" method="post">
-                                            <input type="hidden" name="doctorId" value="@appointment.DoctorID">
-                                            <input type="hidden" name="appointmentDate" value="@appointment.AppointmentDate">
-                                            <input type="hidden" name="appointmentTime" value="@appointment.AppointmentTime">
-                                            <button type="submit" class="btn btn-success">Take Appointment</button>
-                                        </form>
+                                        <button onclick="takeAppointment('@appointment.DoctorID', '@appointment.AppointmentDate', '@appointment.AppointmentTime')" class="btn btn-success">Take Appointment</button>
                                     </td>
                                 </tr>
                             }
@@ -172,6 +166,29 @@
             });
         }
 
+        // randevu alma minimum tarih dinamik olarak bug�n
+        var today = new Date();
+        var formattedToday = today.toISOString().split('T')[0];
+        document.getElementById("dateInput").min = formattedToday;
 
     </script>
+
+    <style>
+        .rounded-container {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 10px;
+            max-width: 1400px; /* Adjust the maximum width as needed */
+            border-radius: 10px;
+        }
+
+        .mt-4 {
+            margin-top: 20px; /* Adjust the margin as needed */
+        }
+
+    </style>
 }

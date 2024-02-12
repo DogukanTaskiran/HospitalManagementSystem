@@ -1,33 +1,59 @@
 @model DiagnosisDTO
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="text-center"><h2>Add Diagnosis</h2></div>
+<!DOCTYPE html>
+<html lang="en">
 
-                    <form asp-controller="Doctor" asp-action="AddDiagnosis" method="post" >
-                        <div asp-validation-summary="All" class="text-danger"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AddDiagnosis</title>
 
-                            <input type="hidden"asp-for="PatientID" />
+    <style>
+    
+    </style>
+</head>
 
-                            <div class="form-group">
-        
-                                <label asp-for="DiagnosisDescription">Diagnosis Description</label>
-                                <span asp-validation-for="DiagnosisDescription" class="text-danger" style="font-size: xx-small;"></span>
-                                <input asp-for="DiagnosisDescription" class="form-control" />
-                                
-                            </div>
-                            <div class="form-group">
-        
-                                <label asp-for="DiagnosisDate">Diagnosis Date</label>
-                                <span asp-validation-for="DiagnosisDate" class="text-danger" style="font-size: xx-small;"></span>
-                                <input asp-for="DiagnosisDate" class="form-control" />
-                                
-                            </div>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="text-center"><h2>Add Diagnosis</h2></div>
 
-                            <div class="text-center"><button type="submit" class="btn btn-primary">Add Diagnosis</button></div>                            
-                    </form>
-            
+                <form asp-controller="Doctor" asp-action="AddDiagnosis" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="PatientID" />
+
+                    <div class="form-group">
+
+                        <label asp-for="DiagnosisDescription">Diagnosis Description</label>
+                        <span asp-validation-for="DiagnosisDescription" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="DiagnosisDescription" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+
+                        <label asp-for="DiagnosisDate" id="diagnosisDate">Diagnosis Date</label>
+                        <span asp-validation-for="DiagnosisDate" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="DiagnosisDate" id="diagnosisDate123" class="form-control" min="" max="2024-12-31" />
+
+                    </div>
+                    <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                            var today = new Date();
+                            var formattedToday = today.toISOString().split('T')[0];
+                            document.getElementById("diagnosisDate123").min = formattedToday;
+                        });
+                    </script>
+                    <div class="text-center"><button type="submit" class="btn btn-primary">Add Diagnosis</button></div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</body>
+
+
+</html>
+
+
+

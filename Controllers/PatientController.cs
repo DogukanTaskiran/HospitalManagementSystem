@@ -27,8 +27,8 @@ namespace Hospital.Controllers
             var userEmail = User.FindFirstValue(ClaimTypes.Name);
             System.Console.WriteLine("USEREMAİLEMAİLEMAİLEMAİİL" + userEmail);
             var patient = _context.patients
-                .Include(p => p.ApplicationUser)
-                .FirstOrDefault(p => p.Email == userEmail);
+            .Include(p => p.ApplicationUser)
+            .FirstOrDefault(p => p.Email == userEmail);
             System.Console.WriteLine("USEREMAİLEMAİLEMAİLEMAİİL" + patient.PatientID);
             var appointments = _context.appointments.Where(p => p.PatientID == patient.ApplicationUser.ApplicationUserID && p.Status != Entities.Enums.DataStatus.Deleted).ToList();//patientin application user id'si appointmenttaki patient
             foreach (var app in appointments)
@@ -38,11 +38,6 @@ namespace Hospital.Controllers
 
             return View(appointments);
         }
-
-
-
-
-
 
         [HttpPost]
         public IActionResult DeleteAppointment(int id)

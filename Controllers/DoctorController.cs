@@ -250,13 +250,64 @@ namespace Hospital.Controllers
         }
         public IActionResult DoctorList()
         {
-            var doctors = _context.doctors.ToList();
+            var doctors = _context.doctors.Include(d => d.Departments.Hospital).ToList();
             return View(doctors);
         }
 
 
+        [Authorize(Roles = "Doctor")]
+        [HttpGet]
+        public ActionResult UpdateDetails()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Doctor")]
+        [HttpPost]
+        public ActionResult UpdateDetails(Doctor model)
+        {
+            var email = User.FindFirstValue(ClaimTypes.Name);
+            Console.WriteLine(email + "            <<<<<<<<<<<<<<<<<<<<<<<--------------------------------------------- FOR DEBUG");
+            var doctor = _context.doctors.FirstOrDefault(c => c.Email == email);
+            if (doctor != null)
+            {
+            doctor.Age = model.Age;
+            doctor.Height = model.Height;
+            doctor.Weight = model.Weight;
+            doctor.Address = model.Address;
+            doctor.PhoneNumber = model.PhoneNumber;
+            _context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("DOCTOR NULL DÖNÜYORSA <----------------------------------------------------------------------");
+            }
+
+            return RedirectToAction("Profile", "Doctor");
+        }
+        public IActionResult Profile()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+
+            var doctor = _context.doctors
+            .Include(p => p.ApplicationUser)
+            .FirstOrDefault(p => p.Email == userEmail);
+
+           
+
+            if (doctor == null)
+            {
+                return NotFound();
+            }
+
+            var profileDTO = new ProfileDTO
+            {
+                Doctor = doctor
+            };
+
+            return View(profileDTO);
+
+        }
 
     }
-
-
 }

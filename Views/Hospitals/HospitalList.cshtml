@@ -12,11 +12,11 @@
                 margin-bottom: 20px;
             }
 
-                .card img {
-                    width: 100%;
-                    height: auto;
-                    border-radius: 8px 8px 0 0;
-                }
+            .card img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px 8px 0 0;
+            }
 
             .card-body {
                 padding: 20px;
@@ -35,15 +35,19 @@
         </style>
     </head>
     <body>
-        <h2>Hospital List</h2>
+    <div class="card">
+        <h1 class="text-center">Hospitals</h1>
+    </div>
         @foreach (var hospital in Model)
     {
         <div class="card">
             <!-- <img src="hospital-image.jpg" alt="Hospital Image"> -->
             <div class="card-body">
                 <div class="hospital-name">@hospital.HospitalName</div>
-                <div class="address">@hospital.Address</div>
-                <div class="phone">@hospital.PhoneNum</div>
+                <div class="hospital-details">
+                    <p><strong>Address:</strong> @hospital.Address</p>
+                    <p><strong>Phone Number:</strong> @hospital.PhoneNum</p>
+                </div>
             </div>
         </div>
     }
