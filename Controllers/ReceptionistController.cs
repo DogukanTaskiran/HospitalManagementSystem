@@ -31,7 +31,7 @@ namespace Hospital.Controllers
         // }
         public IActionResult ViewPatient(string searchString, int? page)
         {
-            int pageSize = 1; // 
+            int pageSize = 3; // 
             int pageNumber = page ?? 1; // If no page is specified, default to page 1
 
             var patients = _context.patients.Where(d => d.Role == "Patient").ToList();

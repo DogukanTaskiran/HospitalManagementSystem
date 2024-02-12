@@ -71,7 +71,7 @@ namespace Hospital.Controllers
         {
             Console.WriteLine("Received departmentId: " + departmentId);
             var doctors = _context.doctors
-                .Where(d => d.DepartmentID == departmentId && d.offDuty==true)
+                .Where(d => d.DepartmentID == departmentId && (d.offDuty==null || d.offDuty ==false))
                 .Select(d => new
                 {
                     DoctorID = d.DoctorID,
@@ -160,9 +160,15 @@ namespace Hospital.Controllers
             {
                 Hospitals = _context.hospitals.ToList(),
                 Departments = _context.departments.ToList(),
-                Doctors = _context.doctors.ToList(),
-                availableAppointments = availableAppointments
+                Doctors = _context.doctors.Where(d=>d.offDuty ==false || d.offDuty == null).ToList(),
+                availableAppointments = availableAppointments,
+                SelectedHospitalId = hospitalId,
+                SelectedDepartmentId = departmentId,
+                SelectedDoctorId = doctorId,
+                SelectedDate = appointmentDate
             };
+            System.Console.WriteLine("DTO DEPARTMENT ID"+dto.SelectedDepartmentId);
+            System.Console.WriteLine("DTO HOSPITAL ID"+dto.SelectedHospitalId);
 
             return View(dto);
 

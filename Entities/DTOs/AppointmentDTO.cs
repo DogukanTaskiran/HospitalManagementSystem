@@ -10,6 +10,13 @@ namespace Entities.DTOs{
 
     public List<Appointment> availableAppointments {get;set;}
 
+    public int SelectedHospitalId {get;set;}
+    public int SelectedDepartmentId {get;set;}
+
+    public int SelectedDoctorId {get;set;}
+
+    public DateTime SelectedDate {get;set;}
+
     public int AppointmentID {get;set;}
     public int PatientID{get;set;}
         

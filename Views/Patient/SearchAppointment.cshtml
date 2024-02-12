@@ -16,7 +16,9 @@
                         <option value="">Select Hospital</option>
                         @foreach (var hospital in Model.Hospitals)
                         {
-                            <option value="@hospital.HospitalID">@hospital.HospitalName</option>
+                            <option value="@hospital.HospitalID"
+                                selected="@(Model.SelectedHospitalId == hospital.HospitalID)">@hospital.HospitalName
+                            </option>
                         }
                     </select>
                 </div>
@@ -25,6 +27,16 @@
                     <label for="departmentDropdown">Department</label>
                     <select id="departmentDropdown" name="departmentId" class="form-control">
                         <option value="">Select Department</option>
+                        @foreach (var dep in Model.Departments)
+                        {
+                            @if (dep.HospitalID == @Model.SelectedHospitalId)
+                            {
+                                <option value="@dep.DepartmentID" selected="@(Model.SelectedDepartmentId == dep.DepartmentID)">
+                                    @dep.DepartmentName
+                                </option>
+                            }
+
+                        }
                     </select>
                 </div>
 
@@ -32,12 +44,23 @@
                     <label for="doctorDropdown">Doctor</label>
                     <select id="doctorDropdown" name="doctorId" class="form-control">
                         <option value="">Select Doctor</option>
+                        @foreach (var doc in Model.Doctors)
+                        {
+                            @if (doc.DepartmentID == @Model.SelectedDepartmentId)
+                            {
+                                <option value="@doc.DoctorID" selected="@(Model.SelectedDoctorId == doc.DoctorID)">
+                                    @doc.Name @doc.Surname
+                                </option>
+                            }
+
+                        }
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="dateInput">Date</label>
-                    <input type="date" id="dateInput" name="appointmentDate" class="form-control">
+                    <input min="" type="date" id="dateInput"
+                        name="appointmentDate" class="form-control" value="@Model.SelectedDate.ToString("yyyy-MM-dd")">
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Search</button>
