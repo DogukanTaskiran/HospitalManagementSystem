@@ -8,7 +8,20 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
 </div>
+<br>
+<br>
 
+<a asp-action="AddAnonymousPatient" asp-controller="Receptionist">
+    <button class="btn btn-primary" type="submit">Add Patient</button>
+</a>
+<a asp-action="Profile" asp-controller="Receptionist">
+    <button class="btn btn-primary" type="submit">Back</button>
+</a>
+
+
+
+
+<div class="card">
 <table class="table">
     <thead>
         <tr>
@@ -55,8 +68,10 @@
         @for (int i = 1; i <= ViewBag.TotalPages; i++) // search stringi model kullanmadan almak için httpcontext gerek.
         {
             <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                <a class="page-link" href="?page=@i&searchString=@ViewContext.HttpContext.Request.Query["searchString"]">@i</a> 
+                <a class="page-link"
+                    href="?page=@i&searchString=@ViewContext.HttpContext.Request.Query["searchString"]">@i</a>
             </li>
         }
     </ul>
 </nav>
+</div>

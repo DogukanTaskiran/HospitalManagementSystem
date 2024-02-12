@@ -1,0 +1,38 @@
+@model AnonymousRegisterDTO
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Anonymous Patient Register</h2>
+                    <a asp-action="ViewPatient" asp-controller="Receptionist"><button class="btn btn-primary" type="button">Back</button></a>
+                </div>
+
+                <form asp-action="AddAnonymousPatient"  asp-controller="Receptionist" method="post" class="p-4">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Name">Name</label>
+                        <span asp-validation-for="Name" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Surname">Surname</label>
+                        <span asp-validation-for="Surname" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="Surname" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber">Phone Number</label>
+                        <span asp-validation-for="PhoneNumber" class="text-danger" style="font-size: xx-small;"></span>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                    </div><br>
+                    <div class="text-center"><button type="submit"class="btn btn-primary"> Register </button></div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

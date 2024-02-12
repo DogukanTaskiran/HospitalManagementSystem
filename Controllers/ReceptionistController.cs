@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Entities.Models;
 using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital.Controllers
@@ -95,6 +96,95 @@ namespace Hospital.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult AddAnonymousPatient()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddAnonymousPatient(AnonymousRegisterDTO model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var patient = new Patient
+                {
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    PhoneNumber = model.PhoneNumber,
+                    Age = 0,
+                    Height = 0,
+                    Weight = 0,
+                    Address = "anonymous_not_provided",
+                    Gender = "anonymous_not_provided",
+                    BloodType = "anonymous_not_provided",
+                    Email = "anonymous_not_provided",
+                    Password = "anonymous_not_provided",
+                    Role = "Patient"
+                };
+                _context.patients.Add(patient);
+                _context.SaveChanges();
+                return RedirectToAction("ViewPatient", "Receptionist");
+            }
+
+            return View(model);
+        }
+        public IActionResult Profile()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+
+            var receptionist = _context.receptionists
+            .Include(p => p.ApplicationUser)
+            .FirstOrDefault(p => p.Email == userEmail);
+
+
+
+            if (receptionist == null)
+            {
+                return NotFound();
+            }
+
+            var profileDTO = new ProfileDTO
+            {
+                Receptionist = receptionist
+            };
+
+            return View(profileDTO);
+
+        }
+        [Authorize(Roles = "Receptionist")]
+        [HttpGet]
+        public ActionResult UpdateDetails()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Receptionist")]
+        [HttpPost]
+        public ActionResult UpdateDetails(Receptionist model)
+        {
+            var email = User.FindFirstValue(ClaimTypes.Name);
+            Console.WriteLine(email + "            <<<<<<<<<<<<<<<<<<<<<<<--------------------------------------------- FOR DEBUG");
+            var receptionist = _context.receptionists.FirstOrDefault(c => c.Email == email);
+
+            if (receptionist != null)
+            {
+                receptionist.Age = model.Age;
+                receptionist.Height = model.Height;
+                receptionist.Weight = model.Weight;
+                receptionist.Address = model.Address;
+                receptionist.PhoneNumber = model.PhoneNumber;
+                _context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("receptionist NULL DÖNÜYORSA <----------------------------------------------------------------------");
+            }
+
+            return RedirectToAction("Profile", "Receptionist");
         }
 
 

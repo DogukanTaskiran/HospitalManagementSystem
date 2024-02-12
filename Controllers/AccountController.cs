@@ -124,6 +124,10 @@ public class AccountController : Controller
                 {
                     return RedirectToAction("Profile", "Doctor");
                 }
+                if (User.IsInRole("Receptionist"))
+                {
+                    return RedirectToAction("Profile", "Receptionist");
+                }
 
             }
 

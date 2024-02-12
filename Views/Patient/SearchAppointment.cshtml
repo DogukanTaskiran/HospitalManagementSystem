@@ -85,8 +85,13 @@
                                     <td>@appointment.AppointmentDate.ToShortDateString()</td>
                                     <td>@appointment.AppointmentTime</td>
                                     <td>@(appointment.Status)</td>
-                                    <td>
-                                        <button onclick="takeAppointment('@appointment.DoctorID', '@appointment.AppointmentDate', '@appointment.AppointmentTime')" class="btn btn-success">Take Appointment</button>
+                                        <td>
+                                        <form asp-action="AddAppointment" asp-controller="Patient" method="post">
+                                            <input type="hidden" name="doctorId" value="@appointment.DoctorID">
+                                            <input type="hidden" name="appointmentDate" value="@appointment.AppointmentDate">
+                                            <input type="hidden" name="appointmentTime" value="@appointment.AppointmentTime">
+                                            <button type="submit" class="btn btn-success">Take Appointment</button>
+                                        </form>
                                     </td>
                                 </tr>
                             }
