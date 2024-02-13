@@ -321,7 +321,6 @@ namespace Hospital.Controllers
             var appointments = _context.appointments
                 .Where(a => a.DoctorID == doctor.ApplicationUser.ApplicationUserID)
                 .Include(a => a.Patient)
-                .Select(a => a.Patient)
                 .Distinct()
                 .ToList();
 
@@ -331,28 +330,32 @@ namespace Hospital.Controllers
             {
                 var worksheet = workbook.Worksheets.Add("Patients");
 
-
                 // Headers
                 worksheet.Cell(1, 1).Value = "ID";
                 worksheet.Cell(1, 2).Value = "Name";
                 worksheet.Cell(1, 3).Value = "Surname";
-                worksheet.Cell(1, 4).Value = "Age";
-                worksheet.Cell(1, 5).Value = "Height";
-                worksheet.Cell(1, 6).Value = "Weight";
+                worksheet.Cell(1, 4).Value = "Date";
+                worksheet.Cell(1, 5).Value = "Hour";
+
+              
 
                 // Data
                 int row = 2;
-                foreach (var patient in appointments)
+
+                foreach (var appointment in appointments)
                 {
-                    worksheet.Cell(row, 1).Value = patient.ApplicationUser.ApplicationUserID;
-                    worksheet.Cell(row, 2).Value = patient.Name;
-                    worksheet.Cell(row, 3).Value = patient.Surname;
-                    worksheet.Cell(row, 4).Value = patient.Age;
-                    worksheet.Cell(row, 5).Value = patient.Height;
-                    worksheet.Cell(row, 6).Value = patient.Weight;
+                    worksheet.Cell(row, 1).Value = appointment.Patient.PatientID;
+                    worksheet.Cell(row, 2).Value = appointment.Patient.Name;
+                    worksheet.Cell(row, 3).Value = appointment.Patient.Surname;
+                    worksheet.Cell(row, 4).Value = appointment.AppointmentDate.ToShortDateString();
+                    worksheet.Cell(row, 5).Value = appointment.AppointmentTime.ToShortTimeString();
+                    
 
                     row++;
                 }
+
+                worksheet.Range($"A{1}:E{1}").Style.Font.SetBold();
+                worksheet.Range($"A{1}:E{1}").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
 
                 workbook.SaveAs(stream);
                 stream.Position = 0;
