@@ -1,0 +1,201 @@
+@model AppointmentDTO
+
+<a class="btn btn-primary" asp-action="ViewPatient" asp-controller="Receptionist">Back</a>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-center">
+                <h2>Search for Appointments</h2>
+            </div>
+
+            <form asp-action="SearchAppointment" asp-controller="Receptionist" method="post">
+                <input type="hidden" name="patientId" value="@Model.PatientID">
+                <div class="form-group">
+                    <label for="hospitalDropdown">Hospital</label>
+                    <select id="hospitalDropdown" name="hospitalId" class="form-control">
+                        <option value="">Select Hospital</option>
+                        @foreach (var hospital in Model.Hospitals)
+                        {
+                            <option value="@hospital.HospitalID"
+                                selected="@(Model.SelectedHospitalId == hospital.HospitalID)">@hospital.HospitalName
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="departmentDropdown">Department</label>
+                    <select id="departmentDropdown" name="departmentId" class="form-control">
+                        <option value="">Select Department</option>
+                        @foreach (var dep in Model.Departments)
+                        {
+                            @if (dep.HospitalID == @Model.SelectedHospitalId)
+                            {
+                                <option value="@dep.DepartmentID" selected="@(Model.SelectedDepartmentId == dep.DepartmentID)">
+                                    @dep.DepartmentName
+                                </option>
+                            }
+
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="doctorDropdown">Doctor</label>
+                    <select id="doctorDropdown" name="doctorId" class="form-control">
+                        <option value="">Select Doctor</option>
+                        @foreach (var doc in Model.Doctors)
+                        {
+                            @if (doc.DepartmentID == @Model.SelectedDepartmentId)
+                            {
+                                <option value="@doc.DoctorID" selected="@(Model.SelectedDoctorId == doc.DoctorID)">
+                                    @doc.Name @doc.Surname
+                                </option>
+                            }
+
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateInput">Date</label>
+                    <input type="date" id="dateInput" name="appointmentDate" class="form-control" min="" max="2024-12-31">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+
+            @if (Model.availableAppointments != null && Model.availableAppointments.Any())
+            {
+                <div class="mt-4">
+                    <h2>Available Appointments</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var appointment in Model.availableAppointments)
+                            {
+                                <tr>
+                                    <td>@appointment.AppointmentDate.ToShortDateString()</td>
+                                    <td>@appointment.AppointmentTime</td>
+                                    <td>@(appointment.Status)</td>
+                                        <td>
+                                        <form asp-action="AddAppointment" asp-controller="Receptionist" method="post">
+                                            <input type="hidden" name="doctorId" value="@appointment.DoctorID">
+                                            <input type="hidden" name="appointmentDate" value="@appointment.AppointmentDate">
+                                            <input type="hidden" name="appointmentTime" value="@appointment.AppointmentTime">
+                                            <input type="hidden" name="patientId" value="@Model.PatientID">
+                                            <button type="submit" class="btn btn-success">Take Appointment</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p class="mt-4">No appointments available.</p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Function to load departments based on selected hospital
+            $('#hospitalDropdown').change(function () {
+                var hospitalId = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetDepartments", "Receptionist")',
+                    type: 'GET',
+                    data: { hospitalId: hospitalId },
+                    success: function (data) {
+                        console.log(data)
+                        var options = '<option value="">Select Department</option>';
+                        $.each(data, function (index, department) {
+                            options += '<option value="' + department.departmentID + '">' + department.departmentName + '</option>';
+                        });
+                        $('#departmentDropdown').html(options);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+
+            // Function to load doctors based on selected department
+            $('#departmentDropdown').change(function () {
+                var departmentId = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetDoctors", "Receptionist")',
+                    type: 'GET',
+                    data: { departmentId: departmentId },
+                    success: function (data) {
+                        console.log(data)
+                        var options = '<option value="">Select Doctor</option>';
+                        $.each(data, function (index, doctor) {
+                            options += '<option value="' + doctor.doctorID + '">' + doctor.name + ' ' + doctor.surname + '</option>';
+                        });
+                        $('#doctorDropdown').html(options);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+        function takeAppointment(doctorId, appointmentDate, appointmentTime) {
+            // Send an AJAX request to take the appointment
+            $.ajax({
+                url: '@Url.Action("AddAppointment", "Patient")',
+                type: 'POST',
+                data: { doctorId: doctorId, appointmentDate: appointmentDate, appointmentTime: appointmentTime },
+                success: function (data) {
+                    // Handle success if needed
+                    alert('Appointment taken successfully!');
+                    // Optionally, you can do something with the data returned from the server
+                    console.log('Data from server:', data);
+                },
+                error: function (xhr, status, error) {
+                    // Handle error if needed
+                    console.error(error);
+                }
+            });
+        }
+
+        // randevu alma minimum tarih dinamik olarak bug�n
+        var today = new Date();
+        var formattedToday = today.toISOString().split('T')[0];
+        document.getElementById("dateInput").min = formattedToday;
+
+    </script>
+
+    <style>
+        .rounded-container {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 10px;
+            max-width: 1400px; /* Adjust the maximum width as needed */
+            border-radius: 10px;
+        }
+
+        .mt-4 {
+            margin-top: 20px; /* Adjust the margin as needed */
+        }
+
+    </style>
+}

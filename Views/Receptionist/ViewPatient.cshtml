@@ -22,7 +22,7 @@
 
 
 <div class="card">
-<table class="table">
+<table class="table table-responsive">
     <thead>
         <tr>
             <th>Name</th>
@@ -41,7 +41,7 @@
     <tbody>
         @foreach (var patient in Model)
         {
-            <tr>
+            <tr style="@(patient.Email == "anonymous_not_provided" ? "background-color: yellow;" : "")">
                 <td>@patient.Name</td>
                 <td>@patient.Surname</td>
                 <td>@patient.Email</td>
@@ -58,6 +58,14 @@
                         <button class="btn btn-primary btn-sm" type="submit">Invoices</button>
                     </form>
                 </td>
+                @if(@patient.Email=="anonymous_not_provided"){
+                    <td>
+                    <form asp-action="SearchAppointment" asp-controller="Receptionist" method="get">
+                        <input type="hidden" name="id" value="@patient.ApplicationUser.ApplicationUserID">
+                        <button class="btn btn-primary btn-sm" type="submit">Appointment</button>
+                    </form>
+                    </td>
+                }
             </tr>
         }
     </tbody>
