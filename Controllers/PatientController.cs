@@ -124,11 +124,7 @@ namespace Hospital.Controllers
             .ToList();
             Console.WriteLine($"After querying appointments. Found {bookedAppointments.Count} appointments.");
 
-            //modification here
-            //var availableTimeSlots = allTimeSlots.ToList();
 
-
-            // // Exclude the booked appointments from the list of all time slots to get available time slots
             // Extract the time slots of the booked appointments
             var bookedTimeSlots = bookedAppointments.Select(a => a.AppointmentTime).ToList();
 

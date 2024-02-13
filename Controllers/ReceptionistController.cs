@@ -17,6 +17,33 @@ namespace Hospital.Controllers
         {
             _context = applicationDbContext;
         }
+        [HttpGet]
+        public IActionResult GetDepartments(int hospitalId)
+        {
+            var departments = _context.departments
+                .Where(d => d.HospitalID == hospitalId)
+                .ToList();
+
+            return Json(departments);
+        }
+
+        [HttpGet]
+        public IActionResult GetDoctors(int departmentId)
+        {
+            Console.WriteLine("Received departmentId: " + departmentId);
+            var doctors = _context.doctors
+                .Where(d => d.DepartmentID == departmentId && (d.offDuty == null || d.offDuty == false))
+                .Select(d => new
+                {
+                    DoctorID = d.DoctorID,
+                    Name = d.Name,
+                    Surname = d.Surname
+                })
+                .ToList(); ;
+
+            Console.WriteLine("Number of doctors retrieved: " + doctors.Count);
+            return Json(doctors);
+        }
         // public IActionResult ViewPatient(string searchString) // search belki geliştirilip ayırılınabilir
         // {
         //     var patients = _context.patients.Where(d => d.Role == "Patient").ToList();
@@ -185,6 +212,148 @@ namespace Hospital.Controllers
             }
 
             return RedirectToAction("Profile", "Receptionist");
+        }
+        [HttpGet]
+        public IActionResult SearchAppointment(int id)
+        {
+            var hospitals = _context.hospitals.ToList();
+            var departments = _context.departments.ToList();
+            var doctors = _context.doctors.ToList();
+
+            System.Console.WriteLine("DEBUG: RECEPTIONIST SEARCH APPOINTMENT GET :  " + id);
+
+
+
+            var dto = new AppointmentDTO
+            {
+                Hospitals = hospitals,
+                Departments = departments,
+                Doctors = doctors,
+                PatientID = id,
+            };
+
+            return View(dto);
+        }
+        [HttpPost]
+        public IActionResult SearchAppointment(int hospitalId, int departmentId, int doctorId, DateTime appointmentDate, int patientId)
+        {
+
+            System.Console.WriteLine("DATEEEEEEEEEEEEEEEEEEEEE:" + appointmentDate);
+            System.Console.WriteLine("DOCTORIDDDDD:" + doctorId);
+            var startTime = appointmentDate.Date.AddHours(9);
+            var endTime = appointmentDate.Date.AddHours(17);
+            var allTimeSlots = new List<DateTime>();
+            var currentTime = startTime;
+            while (currentTime < endTime)
+            {
+                allTimeSlots.Add(currentTime);
+                currentTime = currentTime.AddMinutes(30); // 30-minute intervals
+            }
+
+            var appid = _context.appointments
+               .Include(p => p.Doctor).ThenInclude(a => a.ApplicationUser)
+               .Where(a => a.Doctor.DoctorID == doctorId)
+               .Select(a => a.Doctor.ApplicationUserID)
+               .FirstOrDefault();
+
+            Console.WriteLine("Booked Appointments:");
+            Console.WriteLine($"ApplicationUserID: {appid}");
+
+            var bookedAppointments = _context.appointments.Where(a => a.DoctorID == appid && a.AppointmentDate == appointmentDate)
+            .ToList();
+            Console.WriteLine($"After querying appointments. Found {bookedAppointments.Count} appointments.");
+
+
+            // Extract the time slots of the booked appointments
+            var bookedTimeSlots = bookedAppointments.Select(a => a.AppointmentTime).ToList();
+
+            // Exclude the booked time slots from the list of all time slots to get available time slots
+            var availableTimeSlots = allTimeSlots.Except(bookedTimeSlots).ToList();
+
+            Console.WriteLine("\nAvailable Time Slots:");
+            foreach (var timeSlot in availableTimeSlots)
+            {
+                Console.WriteLine($"Hour: {timeSlot.Hour}, Minute: {timeSlot.Minute}");
+            }
+
+            var availableAppointments = availableTimeSlots.Select(timeSlot => new Appointment
+            {
+                AppointmentDate = appointmentDate,
+                AppointmentTime = timeSlot,
+                DoctorID = doctorId,
+                AppStatus = false
+            }).ToList();
+
+
+
+            var dto = new AppointmentDTO
+            {
+                Hospitals = _context.hospitals.ToList(),
+                Departments = _context.departments.ToList(),
+                Doctors = _context.doctors.Where(d => d.offDuty == false || d.offDuty == null).ToList(),
+                availableAppointments = availableAppointments,
+                SelectedHospitalId = hospitalId,
+                SelectedDepartmentId = departmentId,
+                SelectedDoctorId = doctorId,
+                SelectedDate = appointmentDate,
+                PatientID = patientId
+            };
+            System.Console.WriteLine("DTO DEPARTMENT ID" + dto.SelectedDepartmentId);
+            System.Console.WriteLine("DTO HOSPITAL ID" + dto.SelectedHospitalId);
+
+            return View(dto);
+
+
+
+        }
+        [HttpPost]
+        public IActionResult AddAppointment(int doctorId, DateTime appointmentDate, DateTime appointmentTime , int patientId)
+        {
+            try
+            {
+                System.Console.WriteLine("DOOOOOCTR" + doctorId);
+                System.Console.WriteLine("AAAPDTAE" + appointmentDate.Month);
+                System.Console.WriteLine("timeeee" + appointmentTime);
+                System.Console.WriteLine("DEBUG : AddAppointment Receptionist patientId :" + patientId);
+
+
+                // var userEmail = User.FindFirstValue(ClaimTypes.Name);
+                // var patient = _context.patients
+                // .Include(p => p.ApplicationUser)
+                // .FirstOrDefault(p => p.Email == userEmail);
+                // System.Console.WriteLine("PatientAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ID" + patient.PatientID);
+                // System.Console.WriteLine("apppppp iddd" + patient.ApplicationUser.ApplicationUserID);
+                // if (patient == null)
+                // {
+
+                //     return NotFound("Patient not found.");
+                // }
+
+                var eagerdoctor = _context.doctors.Include(d => d.ApplicationUser).FirstOrDefault(d => d.DoctorID == doctorId);
+                System.Console.WriteLine("DEBUG: AddAppointment Receptionist eagerdoctor - DoctorID:" + eagerdoctor.DoctorID);
+                System.Console.WriteLine("DEBUG: AddAppointment Receptionist eagerdoctor- AppID: " + eagerdoctor.ApplicationUser.ApplicationUserID);
+
+                var appointment = new Appointment
+                {
+                    AppointmentDate = appointmentDate,
+                    AppointmentTime = appointmentTime,
+                    AppStatus = true,
+                    DoctorID = eagerdoctor.ApplicationUser.ApplicationUserID,
+                    PatientID = patientId
+                };
+
+
+                _context.appointments.Add(appointment);
+                _context.SaveChanges();
+
+                // Return success response
+                return RedirectToAction("SearchAppointment", "Receptionist");
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions and return error response
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
         }
 
 
