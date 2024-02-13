@@ -4,6 +4,8 @@ using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using ClosedXML.Excel;
+
 
 namespace Hospital.Controllers
 {
@@ -307,6 +309,56 @@ namespace Hospital.Controllers
 
             return View(profileDTO);
 
+        }
+
+        public IActionResult DownloadExcel()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            var doctor = _context.doctors
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(d => d.Email == userEmail);
+
+            var appointments = _context.appointments
+                .Where(a => a.DoctorID == doctor.ApplicationUser.ApplicationUserID)
+                .Include(a => a.Patient)
+                .Select(a => a.Patient)
+                .Distinct()
+                .ToList();
+
+            var stream = new MemoryStream();
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Patients");
+
+
+                // Headers
+                worksheet.Cell(1, 1).Value = "ID";
+                worksheet.Cell(1, 2).Value = "Name";
+                worksheet.Cell(1, 3).Value = "Surname";
+                worksheet.Cell(1, 4).Value = "Age";
+                worksheet.Cell(1, 5).Value = "Height";
+                worksheet.Cell(1, 6).Value = "Weight";
+
+                // Data
+                int row = 2;
+                foreach (var patient in appointments)
+                {
+                    worksheet.Cell(row, 1).Value = patient.ApplicationUser.ApplicationUserID;
+                    worksheet.Cell(row, 2).Value = patient.Name;
+                    worksheet.Cell(row, 3).Value = patient.Surname;
+                    worksheet.Cell(row, 4).Value = patient.Age;
+                    worksheet.Cell(row, 5).Value = patient.Height;
+                    worksheet.Cell(row, 6).Value = patient.Weight;
+
+                    row++;
+                }
+
+                workbook.SaveAs(stream);
+                stream.Position = 0;
+            }
+
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Patients.xlsx");
         }
 
     }
