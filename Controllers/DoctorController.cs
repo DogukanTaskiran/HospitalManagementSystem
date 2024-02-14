@@ -349,7 +349,6 @@ namespace Hospital.Controllers
                     worksheet.Cell(row, 3).Value = appointment.Patient.Surname;
                     worksheet.Cell(row, 4).Value = appointment.AppointmentDate.ToShortDateString();
                     worksheet.Cell(row, 5).Value = appointment.AppointmentTime.ToShortTimeString();
-                    
 
                     row++;
                 }
@@ -363,6 +362,60 @@ namespace Hospital.Controllers
 
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Patients.xlsx");
         }
+
+        public IActionResult DownloadExcelToday()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Name);
+            var doctor = _context.doctors
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefault(d => d.Email == userEmail);
+
+            var today = DateTime.Today;
+
+            var appointments = _context.appointments
+                .Where(a => a.DoctorID == doctor.ApplicationUser.ApplicationUserID &&
+                            a.AppointmentDate.Date == today)
+                .Include(a => a.Patient)
+                .Distinct()
+                .ToList();
+
+            var stream = new MemoryStream();
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Patients");
+
+                // Headers
+                worksheet.Cell(1, 1).Value = "ID";
+                worksheet.Cell(1, 2).Value = "Name";
+                worksheet.Cell(1, 3).Value = "Surname";
+                worksheet.Cell(1, 4).Value = "Date";
+                worksheet.Cell(1, 5).Value = "Hour";
+
+                // Data
+                int row = 2;
+
+                foreach (var appointment in appointments)
+                {
+                    worksheet.Cell(row, 1).Value = appointment.Patient.PatientID;
+                    worksheet.Cell(row, 2).Value = appointment.Patient.Name;
+                    worksheet.Cell(row, 3).Value = appointment.Patient.Surname;
+                    worksheet.Cell(row, 4).Value = appointment.AppointmentDate.ToShortDateString();
+                    worksheet.Cell(row, 5).Value = appointment.AppointmentTime.ToShortTimeString();
+
+                    row++;
+                }
+
+                worksheet.Range($"A{1}:E{1}").Style.Font.SetBold();
+                worksheet.Range($"A{1}:E{1}").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                workbook.SaveAs(stream);
+                stream.Position = 0;
+            }
+
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "TodaysPatients.xlsx");
+        }
+
 
     }
 }
