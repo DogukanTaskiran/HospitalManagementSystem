@@ -1,4 +1,4 @@
-﻿@model Entities.Models.Patient
+﻿@model Entities.Models.Nurse
 
 @{
     ViewData["Title"] = "Update Details";
@@ -8,20 +8,20 @@
 <head>
     <div class="title-container">
         <h2>Update Details</h2>
-        <a class="btn btn-primary" asp-action="Profile" asp-controller="Patient">Back</a>
+        <a class="btn btn-primary" asp-action="Profile" asp-controller="Nurse">Back</a>
     </div>
 </head>
 
 <style>
     body {
         font-family: 'Arial', sans-serif;
-        background-color: #f8f9fa; 
-        margin: 0; 
+        background-color: #f8f9fa;
+        margin: 0;
     }
 
     .title-container {
-        background-color: #fff; 
-        padding: 10px; 
+        background-color: #fff;
+        padding: 10px;
         text-align: center;
         max-width: 600px;
         margin: auto;
@@ -67,9 +67,9 @@
         cursor: pointer;
     }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
 
     .form-horizontal {
         background-color: #f8f9fa;
@@ -80,7 +80,7 @@
 </style>
 
 <body>
-    @using (Html.BeginForm("UpdateDetails", "Patient", FormMethod.Post))
+    @using (Html.BeginForm("UpdateDetails", "Nurse", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
@@ -111,7 +111,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
                 </div>
             </div>

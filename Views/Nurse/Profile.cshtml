@@ -79,40 +79,40 @@
                 <table class="container p-2 my-4 border">
                     <tr>
                         <th>Name</th>
-                        <td>@Model.Doctor.Name</td>
+                        <td>@Model.Nurse.Name</td>
                     </tr>
                     <tr>
                         <th>Surname</th>
-                        <td>@Model.Doctor.Surname</td>
+                        <td>@Model.Nurse.Surname</td>
                     </tr>
-                    @if (Model.Doctor.Age != null)
+                    @if (Model.Nurse.Age != null)
                     {
                         <tr>
                             <th>Age</th>
-                            <td>@Model.Doctor.Age </td>
+                            <td>@Model.Nurse.Age </td>
                         </tr>
                     }
-                    @if (Model.Doctor.Weight != null)
+                    @if (Model.Nurse.Weight != null)
                     {
                         <tr>
                             <th>Weight</th>
-                            <td>@Model.Doctor.Weight </td>
+                            <td>@Model.Nurse.Weight </td>
                         </tr>
                     }
-                    @if (Model.Doctor.Height != null)
+                    @if (Model.Nurse.Height != null)
                     {
                         <tr>
                             <th>Height</th>
-                            <td>@Model.Doctor.Height </td>
+                            <td>@Model.Nurse.Height </td>
                         </tr>
                     }
                     <tr>
                         <th>Gender</th>
-                        <td>@Model.Doctor.Gender</td>
+                        <td>@Model.Nurse.Gender</td>
                     </tr>
                     <tr>
                         <th>Blood Type</th>
-                        <td>@Model.Doctor.BloodType</td>
+                        <td>@Model.Nurse.BloodType</td>
                     </tr>
 
                 </table>
@@ -122,50 +122,40 @@
                     <thead>
                         <tr>
                             <th>Phone Number</th>
-                            <td>@Model.Doctor.PhoneNumber</td>
+                            <td>@Model.Nurse.PhoneNumber</td>
                         </tr>
                         <tr>
                             <th>Address</th>
-                            <td>@Model.Doctor.Address</td>
+                            <td>@Model.Nurse.Address</td>
                         </tr>
                         <tr>
                             <th>E-mail</th>
-                            <td>@Model.Doctor.Email</td>
+                            <td>@Model.Nurse.Email</td>
                         </tr>
                     </thead>
                 </table>
             </div>
-
-            <a asp-controller="Doctor" asp-action="UpdateDetails" class="btn btn-primary">Update my details</a>
+           
+            <a asp-controller="Nurse" asp-action="UpdateDetails" class="btn btn-primary">Update my details</a>
             <a asp-controller="Account" asp-action="ChangePassword" class="btn btn-primary">Change my password</a>
 
         </div>
     </div>
+
     <script>
         function showDetails() {
             document.getElementById('detailsContent').style.display = 'block';
             document.getElementById('contactInfoContent').style.display = 'none';
         }
-
         function showContactInfo() {
             document.getElementById('detailsContent').style.display = 'none';
             document.getElementById('contactInfoContent').style.display = 'block';
         }
     </script>
     <br>
-    <div class="card text-center">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Doctor Panel</a>
-                </li>
+    <div class="card-body">
+        <a asp-action="ViewPatient" asp-controller="Nurse" class="btn btn-primary">Patients</a>
 
-            </ul>
-        </div>
-        <div class="card-body">
-            <a asp-action="ViewPatient" asp-controller="Doctor" class="btn btn-primary">My Patients</a>
-           
-        </div>
     </div>
 </body>
 

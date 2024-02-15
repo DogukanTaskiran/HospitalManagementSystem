@@ -318,8 +318,11 @@ namespace Hospital.Controllers
                 .Include(p => p.ApplicationUser)
                 .FirstOrDefault(d => d.Email == userEmail);
 
+            var today = DateTime.Today;
+
             var appointments = _context.appointments
-                .Where(a => a.DoctorID == doctor.ApplicationUser.ApplicationUserID)
+                .Where(a => a.DoctorID == doctor.ApplicationUser.ApplicationUserID &&
+                            a.AppointmentDate.Date >= today)
                 .Include(a => a.Patient)
                 .Distinct()
                 .ToList();
@@ -337,8 +340,7 @@ namespace Hospital.Controllers
                 worksheet.Cell(1, 4).Value = "Date";
                 worksheet.Cell(1, 5).Value = "Hour";
 
-              
-
+           
                 // Data
                 int row = 2;
 

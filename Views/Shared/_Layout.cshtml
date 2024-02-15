@@ -60,6 +60,13 @@
                                        asp-action="Profile">Profile</a>
                                 </li>
                             }
+                            @if (User.IsInRole("Nurse"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Nurse"
+                                       asp-action="Profile">Profile</a>
+                                </li>
+                            }
                             @if (User.IsInRole("Receptionist"))
                             {
                                 <li class="nav-item">
